@@ -1,0 +1,27 @@
+<div class="px-8 py-10 font-body-md">
+    <h1 class="font-h2 text-h2 text-on-surface mb-2">Create a new listing</h1>
+    <p class="text-on-surface-variant mb-6">Choose the listing type you want to add.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+        <a asp-controller="AdminDestinations" asp-action="Create" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-5 hover:border-primary transition-colors">
+            <h2 class="font-h3 text-h3 text-on-surface">Create Destination</h2>
+            <p class="text-on-surface-variant text-sm mt-2">Add a new destination entry.</p>
+        </a>
+        <a asp-controller="AdminExperiences" asp-action="Create" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-5 hover:border-primary transition-colors">
+            <h2 class="font-h3 text-h3 text-on-surface">Create Experience</h2>
+            <p class="text-on-surface-variant text-sm mt-2">Add a new curated experience.</p>
+        </a>
+        <a asp-controller="AdminTours" asp-action="Create" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-5 hover:border-primary transition-colors">
+            <h2 class="font-h3 text-h3 text-on-surface">Create Tour</h2>
+            <p class="text-on-surface-variant text-sm mt-2">Add a new tour itinerary.</p>
+        </a>
+        <a asp-controller="AdminStays" asp-action="Create" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-5 hover:border-primary transition-colors">
+            <h2 class="font-h3 text-h3 text-on-surface">Create Stay</h2>
+            <p class="text-on-surface-variant text-sm mt-2">Add a new stay listing.</p>
+        </a>
+        <a asp-controller="AdminAttractions" asp-action="Create" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-5 hover:border-primary transition-colors">
+            <h2 class="font-h3 text-h3 text-on-surface">Create Attraction</h2>
+            <p class="text-on-surface-variant text-sm mt-2">Add a new attraction item.</p>
+        </a>
+    </div>
+</div>

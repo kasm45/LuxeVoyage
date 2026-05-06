@@ -1,0 +1,12 @@
+@model LuxeVoyage.Mvc.Models.Experience
+<div class="px-8 py-10 max-w-3xl font-body-md">
+<h1 class="font-h2 text-h2 text-slate-900 dark:text-white mb-6">@Model.Title</h1>
+<dl class="grid gap-4 text-sm">
+<dt class="text-slate-500">Slug</dt><dd>@Model.Slug</dd>
+<dt class="text-slate-500">Summary</dt><dd>@Model.Summary</dd>
+</dl>
+<div class="mt-8 flex gap-4">
+<a asp-action="Edit" asp-route-id="@Model.Id" class="rounded-lg bg-primary px-4 py-2 text-on-primary">Edit</a>
+<a asp-action="Index" class="rounded-lg border px-4 py-2">Back</a>
+</div>
+</div>

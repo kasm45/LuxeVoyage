@@ -1,0 +1,97 @@
+﻿<main class="flex-grow pt-[100px] pb-xl w-full">
+<div class="max-w-[1280px] mx-auto px-6">
+@if (TempData["ContactMessage"] is string contactMsg)
+{
+<div class="mb-md p-4 rounded-xl border border-primary/30 bg-primary-container/20 text-on-surface font-body-md text-body-md" role="status">
+        @contactMsg
+    </div>
+}
+<!-- Header Section -->
+<header class="mb-lg">
+<h1 class="font-h1 text-h1 text-primary mb-sm">Get in Touch</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                    Whether you're planning your next great adventure or need assistance with an existing booking, our team of travel experts is ready to help you discover the world.
+                </p>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Contact Form Card -->
+<div class="lg:col-span-7 bg-surface-container-lowest border border-outline-variant rounded-xl p-md">
+<h2 class="font-h3 text-h3 text-primary mb-md">Send us a Message</h2>
+<form asp-controller="Pages" asp-action="Contact" method="post" class="space-y-md">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-sm">
+<div class="flex flex-col gap-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant" for="first-name">First Name</label>
+<input class="h-12 px-sm border border-outline-variant rounded bg-transparent focus:outline-none focus:border-primary focus:border-2 font-body-md text-body-md transition-all" id="first-name" type="text"/>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant" for="last-name">Last Name</label>
+<input class="h-12 px-sm border border-outline-variant rounded bg-transparent focus:outline-none focus:border-primary focus:border-2 font-body-md text-body-md transition-all" id="last-name" type="text"/>
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant" for="email">Email Address</label>
+<input class="h-12 px-sm border border-outline-variant rounded bg-transparent focus:outline-none focus:border-primary focus:border-2 font-body-md text-body-md transition-all" id="email" type="email"/>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant" for="subject">Subject</label>
+<div class="relative">
+<select class="w-full h-12 px-sm border border-outline-variant rounded bg-transparent focus:outline-none focus:border-primary focus:border-2 font-body-md text-body-md appearance-none transition-all" id="subject">
+<option>General Inquiry</option>
+<option>Booking Support</option>
+<option>Partnerships</option>
+</select>
+<span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant" for="message">Message</label>
+<textarea class="p-sm border border-outline-variant rounded bg-transparent focus:outline-none focus:border-primary focus:border-2 font-body-md text-body-md resize-none transition-all" id="message" rows="5"></textarea>
+</div>
+<button class="w-full md:w-auto px-md h-12 bg-secondary-container text-on-secondary-container font-label-sm text-label-sm rounded hover:opacity-90 transition-opacity" type="submit">
+                            Send Message
+                        </button>
+</form>
+</div>
+<!-- Info Column -->
+<div class="lg:col-span-5 flex flex-col gap-gutter">
+<!-- Map Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden h-64 relative group">
+<img alt="Map location" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A highly stylized, minimalist digital map illustration focused on a premium urban location. The map features a clean, light-mode aesthetic using soft neutral tones like pale gray and muted beige to represent landmasses and city blocks. Crisp, thin lines define the streets, while a sophisticated, subtle pin drop rendered in sunset orange marks the destination. The overall design is uncluttered and elegant, conveying a sense of reliability and modern clarity suitable for a high-end brand interface." data-location="Istanbul, Turkey" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBV4nyzuDuo5nqZttUIhOfu0u1ej-7divSM_RX_6CcoiP2Y8disz65j00NjdLdaxfa4L5QLFXwC7vL-KpDwi3O1nQrQ8AJnHu90hXADHtJHQxk-BJxwzarbrm2i_6HyS2oQ1oBqyabflyMSicGDnomj5kjW05fgDXqSOn9TwGU0WIuPuFrDwr8aroylHaedh3FAyJnNRRQGLQuKnLgvQdcBXIr-dYugq8u8sxwdxPmWIMzeRN4ktG1H5wwbIxZxWhWj0hHoYo9bTCg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent flex items-end p-md">
+<div class="text-on-primary">
+<p class="font-label-sm text-label-sm mb-xs">Global Headquarters</p>
+<p class="font-body-md text-body-md">Istanbul, Turkey</p>
+</div>
+</div>
+</div>
+<!-- Contact Details -->
+<div class="bg-surface-container-low rounded-xl p-md flex flex-col gap-md">
+<div class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-secondary-container">location_on</span>
+<div>
+<h3 class="font-label-sm text-label-sm text-primary">Office</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">123 Explorer's Avenue<br/>Karakoy District<br/>34421 Istanbul</p>
+</div>
+</div>
+<div class="w-full h-px bg-outline-variant/30"></div>
+<div class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-secondary-container">mail</span>
+<div>
+<h3 class="font-label-sm text-label-sm text-primary">Email</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">hello@luxevoyage.com</p>
+</div>
+</div>
+<div class="w-full h-px bg-outline-variant/30"></div>
+<div class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-secondary-container">call</span>
+<div>
+<h3 class="font-label-sm text-label-sm text-primary">Phone</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">+90 (555) 123 4567</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>

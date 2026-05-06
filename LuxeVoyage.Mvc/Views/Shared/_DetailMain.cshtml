@@ -1,0 +1,217 @@
+﻿@model LuxeVoyage.Mvc.Models.ExperienceDetailViewModel
+<main class="pt-[104px] pb-xl max-w-container-max mx-auto px-gutter md:px-xl">
+<!-- Breadcrumbs -->
+<nav class="flex items-center gap-2 mb-md text-on-surface-variant font-label-caps text-label-caps uppercase">
+<a class="hover:text-primary transition-colors" asp-controller="Destinations" asp-action="Index">@Model.BreadcrumbRegion</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<a class="hover:text-primary transition-colors" asp-controller="Experiences" asp-action="Index">@Model.BreadcrumbCity</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-on-surface">@Model.BreadcrumbCurrent</span>
+</nav>
+<!-- Header Title Section -->
+<header class="mb-lg">
+<h1 class="font-h1 text-h1 text-on-surface mb-sm">@Model.Title</h1>
+<div class="flex flex-wrap items-center gap-md text-on-surface-variant font-body-md text-body-md">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-semibold text-on-surface">@(Model.Rating?.ToString("0.0") ?? "4.9")</span>
+<span>(guest favorites)</span>
+</div>
+<span>•</span>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[20px]">location_on</span>
+<span>@Model.Location</span>
+</div>
+<span>•</span>
+<div class="flex gap-2">
+<span class="bg-secondary-container/30 text-on-secondary-container px-3 py-1 rounded-full font-label-caps text-label-caps uppercase">Guided</span>
+<span class="bg-secondary-container/30 text-on-secondary-container px-3 py-1 rounded-full font-label-caps text-label-caps uppercase">Cultural</span>
+</div>
+</div>
+</header>
+<!-- Bento Gallery -->
+<section id="lv-gallery" class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-unit md:gap-sm rounded-[16px] overflow-hidden mb-xxl h-[400px] md:h-[600px] shadow-[0_4px_20px_rgba(15,23,42,0.05)] border-[0.5px] border-white/10">
+<div class="md:col-span-2 md:row-span-2 relative group overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A breathtaking, high-resolution wide shot of the iconic thousands of vermilion torii gates at Fushimi Inari Shrine in Kyoto, Japan. The gates create an endless, mesmerizing tunnel winding up the forested mountain. The lighting is soft, early morning dappled sunlight filtering through the lush green canopy, creating a refined, serene, and mystical travel atmosphere. High-end editorial photography style, vibrant oranges contrasting with deep natural greens." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCc4dfYie-oqEPanm7yfkDO5rCAnJN79GK_XC48gdA8QYwyWUiT4milx-US9sZ0QuIXA2BPL4KcgSwDkh_U7aS6jEgLIidIKDeEacLbXQvarAi1FlU4P7lsouNhlZm8ekFG68OVYRlAooPBmNiiHQxXloWv2kCJezJnnbGKbscy_5PD7boCOp4Nf0N0ubaCE9_J2Hw1xiYLBMBJQNtTehiVtPJLO7CojYhmdX3E9Afd2iBDVUpRKMXdVQHC2vQh2EfVTIuR0jRqwRo"/>
+<div class="absolute inset-0 border-[0.5px] border-white/10 pointer-events-none rounded-[16px]"></div>
+</div>
+<div class="hidden md:block col-span-2 row-span-1 relative group overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A detailed, premium close-up photograph of stone fox statues (kitsune) guarding a secondary shrine at Fushimi Inari in Kyoto. The stone is weathered and mossy, conveying deep history and cultural richness. A bright red bib is tied around the fox's neck, providing a striking pop of color against the neutral greys and greens. The image embodies a modern corporate luxury travel aesthetic, crisp focus, soft natural light, and elegant composition." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLhthQJWeoH6tGbk3QJEgGHrU0n6rawGbo9ZkLMqywMrAbe_9uEUa0bmHadf1vt5Zn5Dlwh41NHX9QA0GlraNipdlLK9lCHnCFZFM3drvwWMJYKuBLoZIqoa3P8qiv-PiNjkZ_uLXYK5b1QHyVS0na3B9VOmSk_LSk_kGHvp8zUuYYSA03nvv52jTa9xR-YaEnepXLui38RK8hB_Kxgq4P61aCAVPHrI1fJKixf0qZ_pd2DMQxWNefJSNjKZ-sle18vNga8jN9ATs"/>
+<div class="absolute inset-0 border-[0.5px] border-white/10 pointer-events-none rounded-[16px]"></div>
+</div>
+<div class="hidden md:block col-span-1 row-span-1 relative group overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A scenic, serene photograph of the dense bamboo and cedar forest trails surrounding the upper reaches of Mount Inari in Kyoto, Japan. The path is empty, suggesting an exclusive, peaceful exploration experience. The lush greenery is vibrant and textured, lit by gentle, diffuse light that enhances the sense of calm luxury. Shot in a high-end editorial style suitable for a refined travel platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6xZxpLy1jfj35Z8pORHRjNkaM_l7-cWWuaJ9k-oWMmAzBllLhxmhJOi_P_mhU7eW-alT_tiXeQD71BnF6IAzaiwRK0Wxtp7HnIQnLtn_wmN3H7pAqhfihBT9fBCvGHz_bWq5LJQTXwvXa6b6dnVqj5fYelPJcL-B5HZkLSyGq_I2UE63irqSHprUm0KGjGRmqiFylX57Ep2X1yKPjzOhC5cswT1_8GGXPWUDqPOK4S3I0ntghCVX46Ux92IFCnrDo_sN20NTYkZI"/>
+<div class="absolute inset-0 border-[0.5px] border-white/10 pointer-events-none rounded-[16px]"></div>
+</div>
+<div class="hidden md:block col-span-1 row-span-1 relative group overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A beautifully composed, high-end photograph of traditional Japanese ema (wooden wishing plaques) shaped like fox faces hanging at Fushimi Inari Shrine. The wood tones are warm and rich, contrasting with the vibrant red cords. The background is softly blurred (bokeh) to emphasize the intricate details of the plaques. The overall aesthetic is bright, elegant, and culturally immersive, fitting a luxury travel discovery theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXs0tQXUmc5nVKSCnFCOijKRRJKYOL5YcGzMVTr_PlPHM66MsI3IqkRAFov4pc1dzUK4edhnhfQmu1sNwzOWI-3bfjzesd7l6aR6e8aXQNFlY7i4m7Y-X7zQ5ipUSHVTG3D5syGUU3pdC_SoOjtf8CkBaNpacOz1J_9CAkYMEpKnBwuC3_xnAaSKEcYKqxO8zXqcOxTo1Qe_jH29gWioBZ01jjBW6btUfUQQ76NFB7QqB-4b-NsKWYMvDEwGK3vVI3SIveMDaI-yo"/>
+<div class="absolute inset-0 border-[0.5px] border-white/10 pointer-events-none rounded-[16px]"></div>
+<a href="#lv-gallery" class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer border-0 w-full h-full p-0 no-underline">
+<span class="text-white font-button text-button flex items-center gap-2 pointer-events-none">
+<span class="material-symbols-outlined">grid_view</span> Jump to gallery
+                    </span>
+</a>
+</div>
+</section>
+<!-- Main Content & Sidebar Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-xl">
+<!-- Left Column: Details -->
+<div class="lg:col-span-8 flex flex-col gap-xxl">
+<!-- Description -->
+<section>
+<h2 class="font-h2 text-h2 text-on-surface mb-lg">About this experience</h2>
+@if (!string.IsNullOrWhiteSpace(Model.Summary))
+{
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-md">
+                        @Model.Summary
+                    </p>
+}
+else
+{
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-md">
+                        Embark on a captivating journey through the legendary vermilion gates of Fushimi Inari Taisha, escaping the daytime crowds to experience the mountain's true mystique. This exclusive twilight tour offers a profound exploration of Japan's most important shrine dedicated to Inari, the Shinto god of rice and commerce.
+                    </p>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+                        As the sun dips below the horizon, the winding trails illuminate softly, casting ethereal shadows among the thousands of torii gates. Your expert local guide will share centuries of lore, uncovering the hidden meanings behind the fox statues and the deep-rooted spiritual practices that continue to thrive on this sacred mountain.
+                    </p>
+}
+<div class="mt-lg grid grid-cols-2 md:grid-cols-4 gap-md">
+<div class="flex flex-col gap-xs">
+<span class="material-symbols-outlined text-primary text-[28px]">schedule</span>
+<span class="font-button text-button text-on-surface">3 Hours</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Duration</span>
+</div>
+<div class="flex flex-col gap-xs">
+<span class="material-symbols-outlined text-primary text-[28px]">translate</span>
+<span class="font-button text-button text-on-surface">English, Japanese</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Languages</span>
+</div>
+<div class="flex flex-col gap-xs">
+<span class="material-symbols-outlined text-primary text-[28px]">directions_walk</span>
+<span class="font-button text-button text-on-surface">Moderate</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Activity Level</span>
+</div>
+<div class="flex flex-col gap-xs">
+<span class="material-symbols-outlined text-primary text-[28px]">group</span>
+<span class="font-button text-button text-on-surface">Max 8 People</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Group Size</span>
+</div>
+</div>
+</section>
+<hr class="border-surface-variant"/>
+<!-- Location Map -->
+<section>
+<h2 class="font-h2 text-h2 text-on-surface mb-lg">Where you'll be</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">Fushimi Ward, Kyoto, Japan. Detailed meeting instructions provided upon booking.</p>
+<div class="rounded-[16px] overflow-hidden shadow-[0_4px_20px_rgba(15,23,42,0.05)] h-[300px] border border-surface-variant">
+<img class="w-full h-full object-cover grayscale opacity-80 mix-blend-multiply" data-alt="A high-quality, stylized digital map rendering of Kyoto, Japan, focused on the southern Fushimi district. The map uses a minimalist, modern light-mode color palette with subtle greys, whites, and soft topographical lines. A distinct, elegant marker in Sunset Orange indicates the exact location of Fushimi Inari Shrine. The overall aesthetic is clean, corporate, and seamlessly integrates with a refined travel platform's design language." data-location="Kyoto, Japan" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCxwrs_EfuvXxI0wPM-2zCuKXB7G2lWZkpd-3IkT9kmd-EupRTNBRnuxic1RXIij5a3zII6ugOKCJkhk78jvHlKPXkzJIOBMcx2UDdK7q65FTGcqj43LugEhzVwZ225AOnYl3uwwmOwGNeCWXPyjDfeBikTNTGisrnIOdWv___gz4RCHieC-syw-a8q3mAmB7FjEoYqdV_IiD0HIeE2C4EhaPungwBL7WaTG1PQstpsPlQaee8qKSb818r-s_ytq8OQG-ZgvuDWRg"/>
+</div>
+</section>
+<hr class="border-surface-variant"/>
+<!-- Traveler Reviews -->
+<section id="lv-reviews">
+<div class="flex items-center justify-between mb-lg">
+<h2 class="font-h2 text-h2 text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-[36px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                            4.9 • 1,204 Reviews
+                        </h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-xl">
+<!-- Review 1 -->
+<div class="flex flex-col gap-sm">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-h3 text-h3">
+                                    SJ
+                                </div>
+<div>
+<h4 class="font-button text-button text-on-surface">Sarah Jenkins</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">October 2023</p>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-4">
+                                "Absolutely breathtaking. Avoiding the midday crowds made all the difference. Our guide, Kenji, was phenomenal and shared stories we would have never known just walking through alone. The atmosphere at dusk is purely magical."
+                            </p>
+</div>
+<!-- Review 2 -->
+<div class="flex flex-col gap-sm">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center text-on-surface-variant font-h3 text-h3">
+                                    MR
+                                </div>
+<div>
+<h4 class="font-button text-button text-on-surface">Michael Robertson</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">September 2023</p>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-4">
+                                "A perfectly curated experience. The pace was relaxed, allowing us to truly absorb the spirituality of the site. The photography opportunities were endless, and the organization was flawless from start to finish."
+                            </p>
+</div>
+</div>
+<a href="#lv-reviews" class="mt-lg inline-block border border-outline text-on-surface font-button text-button px-6 py-3 rounded-[16px] hover:bg-surface-variant transition-colors no-underline">
+                        View featured reviews
+                    </a>
+</section>
+</div>
+<!-- Right Column: Sticky Booking Card -->
+<div class="lg:col-span-4 relative">
+<div id="lv-booking-panel" class="sticky top-[120px] bg-surface-container-lowest rounded-[16px] shadow-[0_6px_24px_rgba(15,23,42,0.08)] border border-surface-variant/80 p-lg flex flex-col gap-md">
+<div class="flex items-baseline gap-xs">
+<span class="font-h2 text-h2 text-on-surface">@Model.PriceDisplay</span>
+@if (Model.DetailKind == "stay")
+{
+<span class="font-body-md text-body-md text-on-surface-variant">/ night</span>
+}
+else
+{
+<span class="font-body-md text-body-md text-on-surface-variant">/ person</span>
+}
+</div>
+<div class="bg-surface-container-low border border-outline-variant/70 rounded-[16px] flex flex-col px-4 py-3 font-body-md text-body-md text-on-surface-variant leading-relaxed">
+<span>Choose your travel dates and guest count to check availability.</span>
+</div>
+@if (Model.NumericId is int nid && Model.DetailKind == "experience")
+{
+<a asp-controller="Bookings" asp-action="Create" asp-route-experienceId="@nid" class="w-full bg-primary text-on-primary font-button text-button py-4 min-h-[52px] rounded-[16px] hover:opacity-95 hover:shadow-[0_10px_26px_rgba(15,23,42,0.12)] transition-all active:scale-[0.98] text-center block">
+                        Check Availability
+                    </a>
+}
+else if (Model.NumericId is int nid2 && Model.DetailKind == "destination")
+{
+<a asp-controller="Bookings" asp-action="Create" asp-route-destinationId="@nid2" class="w-full bg-primary text-on-primary font-button text-button py-4 min-h-[52px] rounded-[16px] hover:opacity-95 hover:shadow-[0_10px_26px_rgba(15,23,42,0.12)] transition-all active:scale-[0.98] text-center block">
+                        Check Availability
+                    </a>
+}
+else if (Model.NumericId is int nidStay && Model.DetailKind == "stay")
+{
+<a asp-controller="Bookings" asp-action="Create" asp-route-stayId="@nidStay" class="w-full bg-primary text-on-primary font-button text-button py-4 min-h-[52px] rounded-[16px] hover:opacity-95 hover:shadow-[0_10px_26px_rgba(15,23,42,0.12)] transition-all active:scale-[0.98] text-center block">
+                        Check Availability
+                    </a>
+}
+else
+{
+<a href="#lv-booking-panel" class="w-full bg-primary text-on-primary font-button text-button py-4 min-h-[52px] rounded-[16px] hover:opacity-95 hover:shadow-[0_10px_26px_rgba(15,23,42,0.12)] transition-all active:scale-[0.98] text-center block">
+                        Check Availability
+                    </a>
+}
+<div class="text-center font-body-md text-body-md text-on-surface-variant leading-relaxed pt-1">
+                        You won't be charged yet
+                    </div>
+<div class="flex flex-col gap-sm pt-md border-t border-surface-variant/80">
+<div class="flex justify-between font-body-md text-body-md text-on-surface">
+<span class="underline underline-offset-4">Tour fee x 2</span>
+<span>$250</span>
+</div>
+<div class="flex justify-between font-body-md text-body-md text-on-surface">
+<span class="underline underline-offset-4">Service fee</span>
+<span>$25</span>
+</div>
+</div>
+<div class="flex justify-between font-h3 text-h3 text-on-surface pt-md border-t border-surface-variant/80">
+<span>Total</span>
+<span>$275</span>
+</div>
+</div>
+</div>
+</div>
+</main>

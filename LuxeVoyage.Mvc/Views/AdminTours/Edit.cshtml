@@ -1,0 +1,18 @@
+@model LuxeVoyage.Mvc.Models.Tour
+<div class="px-8 py-10 font-body-md max-w-xl">
+<h1 class="font-h2 text-h2 mb-6">Edit tour</h1>
+<form asp-action="Edit" method="post" class="space-y-4">
+@Html.AntiForgeryToken()
+<input type="hidden" asp-for="Id" />
+<label class="block text-sm">Title<input asp-for="Title" class="mt-1 w-full rounded border px-3 py-2 dark:bg-slate-900" /></label>
+<label class="block text-sm">Slug<input asp-for="Slug" class="mt-1 w-full rounded border px-3 py-2 dark:bg-slate-900" /></label>
+<label class="block text-sm">Price<input asp-for="Price" type="number" step="1" class="mt-1 w-full rounded border px-3 py-2 dark:bg-slate-900" /></label>
+<label class="block text-sm">Duration (days)<input asp-for="DurationDays" type="number" class="mt-1 w-full rounded border px-3 py-2 dark:bg-slate-900" /></label>
+<label class="block text-sm">Category label<input asp-for="CategoryLabel" class="mt-1 w-full rounded border px-3 py-2 dark:bg-slate-900" /></label>
+<label class="block text-sm">Image URL<input asp-for="ImageUrl" class="mt-1 w-full rounded border px-3 py-2 dark:bg-slate-900" /></label>
+<label class="block text-sm">Summary<textarea asp-for="Summary" rows="3" class="mt-1 w-full rounded border px-3 py-2 dark:bg-slate-900"></textarea></label>
+<label class="block text-sm">Rating<input asp-for="Rating" step="0.1" class="mt-1 w-full rounded border px-3 py-2 dark:bg-slate-900" /></label>
+<label class="block text-sm">Review count<input asp-for="ReviewCount" type="number" class="mt-1 w-full rounded border px-3 py-2 dark:bg-slate-900" /></label>
+<div class="flex gap-4 pt-4"><button type="submit" class="rounded-lg bg-primary px-6 py-2 text-on-primary">Save</button><a asp-action="Index" class="rounded-lg border px-6 py-2">Cancel</a></div>
+</form>
+</div>

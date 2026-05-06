@@ -1,0 +1,38 @@
+@model LuxeVoyage.Mvc.Models.Booking
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var itemName = Model.Tour?.Title ?? Model.Stay?.Name ?? Model.Experience?.Title ?? Model.Destination?.Title ?? "Your selected listing";
+}
+<main class="pt-28 pb-16 px-gutter md:px-xl max-w-container-max mx-auto min-h-screen">
+    <section class="max-w-2xl mx-auto bg-surface-container-lowest border border-outline-variant rounded-2xl shadow-[0_18px_45px_rgba(15,23,42,0.08)] p-8 md:p-10">
+        <h1 class="font-h2 text-h2 text-on-surface mb-3">Reservation request received</h1>
+        <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-6">
+            Thank you for your reservation request. Our concierge team has received your details and will review them shortly. We will contact you soon to confirm availability, finalize your itinerary, and answer any questions you may have.
+        </p>
+
+        <dl class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            <div>
+                <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Item</dt>
+                <dd class="font-body-md text-on-surface">@itemName</dd>
+            </div>
+            <div>
+                <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Status</dt>
+                <dd><span class="admin-status-badge admin-status-pending">Pending</span></dd>
+            </div>
+            <div>
+                <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Dates</dt>
+                <dd class="font-body-md text-on-surface">@Model.StartDate.ToString("MMM d, yyyy") - @Model.EndDate.ToString("MMM d, yyyy")</dd>
+            </div>
+            <div>
+                <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Guests</dt>
+                <dd class="font-body-md text-on-surface">@Model.Guests</dd>
+            </div>
+        </dl>
+
+        <div class="flex flex-wrap gap-3">
+            <a asp-controller="Destinations" asp-action="Index" class="rounded-xl bg-primary text-on-primary px-5 py-3 font-label-sm text-label-sm">Back to Explore</a>
+            <a asp-controller="Hotels" asp-action="Index" class="rounded-xl border border-outline-variant text-on-surface px-5 py-3 font-label-sm text-label-sm">View Stays</a>
+            <a asp-controller="Home" asp-action="Index" class="rounded-xl border border-outline-variant text-on-surface-variant px-5 py-3 font-label-sm text-label-sm">Back to Home</a>
+        </div>
+    </section>
+</main>

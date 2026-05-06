@@ -1,0 +1,41 @@
+@model IEnumerable<LuxeVoyage.Mvc.Models.Booking>
+<div class="px-8 py-10 font-body-md">
+<h1 class="font-h2 text-h2 mb-8 text-slate-900 dark:text-white">Reservations</h1>
+<div class="admin-table-wrap">
+<table class="w-full text-sm border-collapse">
+<thead class="border-b text-slate-500"><tr><th class="py-3 text-left">Id</th><th class="py-3">Guest</th><th class="py-3">Item</th><th class="py-3">Dates</th><th class="py-3">Status</th><th class="py-3"></th></tr></thead>
+<tbody>
+@if (!Model.Any())
+{
+<tr><td colspan="6" class="py-6"><div class="admin-empty-state"><h3>No reservations yet</h3><p>Reservations will appear here once guests submit requests.</p></div></td></tr>
+}
+@foreach (var b in Model)
+{
+var item = b.Tour?.Title ?? b.Stay?.Name ?? b.Experience?.Title ?? b.Destination?.Title ?? "—";
+var statusClass = b.Status switch
+{
+    LuxeVoyage.Mvc.Models.BookingStatus.Pending => "admin-status-pending",
+    LuxeVoyage.Mvc.Models.BookingStatus.Confirmed => "admin-status-confirmed",
+    LuxeVoyage.Mvc.Models.BookingStatus.Cancelled => "admin-status-cancelled",
+    LuxeVoyage.Mvc.Models.BookingStatus.Completed => "admin-status-completed",
+    _ => "admin-status-pending"
+};
+<tr class="border-b border-slate-100 dark:border-slate-800">
+<td class="py-3">#@b.Id</td>
+<td class="py-3">@(b.User?.Email ?? b.UserId)</td>
+<td class="py-3 max-w-[200px] truncate" title="@item">@item</td>
+<td class="py-3 whitespace-nowrap">@b.StartDate.ToString("MMM d") – @b.EndDate.ToString("MMM d")</td>
+<td class="py-3"><span class="admin-status-badge @statusClass">@b.Status</span></td>
+<td class="py-3 whitespace-nowrap">
+<div class="admin-row-actions">
+<a asp-action="Details" asp-route-id="@b.Id" class="admin-action-link">Details</a>
+<a asp-action="Edit" asp-route-id="@b.Id" class="admin-action-link">Edit</a>
+<a asp-action="Delete" asp-route-id="@b.Id" class="admin-action-link admin-action-danger">Delete</a>
+</div>
+</td>
+</tr>
+}
+</tbody>
+</table>
+</div>
+</div>

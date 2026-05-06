@@ -1,0 +1,129 @@
+﻿@model LuxeVoyage.Mvc.Models.ViewModels.ToursIndexViewModel
+@{
+    var returnUrl = $"{Context.Request.Path}{Context.Request.QueryString}";
+}
+<main class="flex-grow pt-[100px] pb-xl max-w-[1280px] w-full mx-auto px-margin-mobile md:px-margin-desktop">
+<section class="lv-catalog-hero mb-lg flex flex-col md:flex-row md:items-end justify-between gap-md">
+<div class="max-w-3xl">
+<h1 class="font-h1 text-h1 text-primary">Curated Experiences</h1>
+<p class="lv-catalog-subtitle font-body-lg text-body-lg text-on-surface-variant">Explore curated journeys, scenic escapes, and signature travel experiences crafted with care.</p>
+</div>
+<form method="get" asp-controller="Tours" asp-action="Index" class="lv-catalog-filters flex items-center gap-sm self-start md:self-end shrink-0">
+<input type="hidden" name="page" value="1" />
+<div class="lv-filter-select-wrap relative">
+<select name="sort" onchange="this.form.submit()" class="lv-filter-select bg-surface-container-lowest border border-outline-variant text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors cursor-pointer shadow-sm">
+@foreach (var opt in new[] { ("popularity", "Sort by Popularity"), ("priceAsc", "Price: Low to High"), ("priceDesc", "Price: High to Low"), ("ratingDesc", "Rating: High to Low"), ("newest", "Newest"), ("durAsc", "Duration: Shortest"), ("durDesc", "Duration: Longest") })
+{
+if (Model.Sort == opt.Item1)
+{ <option value="@opt.Item1" selected>@opt.Item2</option> }
+else
+{ <option value="@opt.Item1">@opt.Item2</option> }
+}
+</select>
+<span class="lv-filter-select-icon material-symbols-outlined text-outline" aria-hidden="true">expand_more</span>
+</div>
+</form>
+</section>
+
+@if (Model.Tours.Count == 0)
+{
+<div class="lv-empty-state">
+<h3>No tours found</h3>
+<p>Try another filter or check back soon for new curated itineraries.</p>
+</div>
+}
+else
+{
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+@foreach (var t in Model.Tours)
+{
+<article class="relative bg-surface-container-lowest border border-surface-dim rounded-xl overflow-hidden flex flex-col group cursor-pointer transition-[box-shadow,border-color] duration-300 hover:shadow-[0px_12px_24px_-6px_rgba(15,23,42,0.12)] hover:border-primary/25">
+<a asp-controller="Bookings" asp-action="Create" asp-route-tourId="@t.Id" class="absolute inset-0 z-[1] rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset" aria-label="Book @t.Title"></a>
+<div class="relative z-[2] pointer-events-none flex flex-col flex-grow min-h-0">
+<div class="relative h-[240px] w-full overflow-hidden bg-surface-container-low shrink-0">
+@if (!string.IsNullOrEmpty(t.ImageUrl))
+{
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" alt="" src="@t.ImageUrl" onerror="this.onerror=null;this.src='/images/placeholders/lv-placeholder.svg';" />
+}
+<div class="absolute top-margin-mobile right-margin-mobile bg-on-tertiary-container text-on-tertiary px-sm py-[6px] rounded-full font-label-sm text-label-sm shadow-md backdrop-blur-sm">
+                        $@t.Price.ToString("0")
+                    </div>
+<div class="absolute top-margin-mobile left-margin-mobile bg-surface-container-lowest/90 text-on-surface-variant px-sm py-[4px] rounded-full font-label-sm text-[12px] uppercase tracking-wider backdrop-blur-md">
+                        @t.CategoryLabel
+                    </div>
+</div>
+<div class="p-margin-mobile flex flex-col flex-grow">
+<div class="flex justify-between items-start gap-sm mb-xs">
+<h3 class="font-h3 text-h3 text-primary line-clamp-1 flex-1 min-w-0 group-hover:text-primary">@t.Title</h3>
+<form asp-controller="Favorites" asp-action="Toggle" method="post" class="shrink-0 relative z-10 lv-favorite-form pointer-events-auto">
+@Html.AntiForgeryToken()
+<input type="hidden" name="itemType" value="Tour" />
+<input type="hidden" name="itemId" value="@t.Id" />
+<input type="hidden" name="returnUrl" value="@returnUrl" />
+<button type="submit" class="lv-favorite-btn @(t.IsFavorite ? "is-active" : "") transition-colors border-0 cursor-pointer" title="@(t.IsFavorite ? "Remove favorite" : "Save favorite")" aria-label="Favorite tour" aria-pressed="@(t.IsFavorite ? "true" : "false")">
+<span class="material-symbols-outlined lv-favorite-icon" style="font-variation-settings: 'FILL' @(t.IsFavorite ? "1" : "0");">@(t.IsFavorite ? "favorite" : "favorite_border")</span>
+</button>
+</form>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md line-clamp-2 flex-grow">@t.Summary</p>
+<div class="flex items-center justify-between mb-md border-t border-surface-container pt-md">
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+<span class="font-body-md text-[14px]">@t.DurationDays Days</span>
+</div>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px] text-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-body-md text-[14px] font-semibold text-primary">@t.Rating.ToString("0.0")</span>
+<span class="text-[12px]">(@t.ReviewCount)</span>
+</div>
+</div>
+<a asp-controller="Bookings" asp-action="Create" asp-route-tourId="@t.Id" class="relative z-10 pointer-events-auto w-full font-label-sm text-label-sm bg-secondary-container text-on-secondary-container py-sm rounded-lg hover:brightness-110 transition-all flex justify-center items-center gap-xs">
+                        Book Now
+                        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</article>
+}
+</section>
+
+<div class="mt-xl flex justify-center items-center gap-sm">
+@if (Model.Page > 1)
+{
+<a asp-controller="Tours" asp-action="Index" asp-route-sort="@Model.Sort" asp-route-page="@(Model.Page - 1)" class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-on-surface hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[20px]">chevron_left</span>
+</a>
+}
+else
+{
+<button type="button" disabled class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-on-surface opacity-50 cursor-not-allowed">
+<span class="material-symbols-outlined text-[20px]">chevron_left</span>
+</button>
+}
+@for (var p = 1; p <= Model.TotalPages; p++)
+{
+if (p == Model.Page)
+{
+<span class="font-body-md text-primary font-medium w-10 h-10 flex items-center justify-center bg-surface-container rounded-full">@p</span>
+}
+else
+{
+<a asp-controller="Tours" asp-action="Index" asp-route-sort="@Model.Sort" asp-route-page="@p" class="font-body-md text-on-surface-variant hover:text-primary w-10 h-10 flex items-center justify-center transition-colors">@p</a>
+}
+}
+@if (Model.Page < Model.TotalPages)
+{
+<a asp-controller="Tours" asp-action="Index" asp-route-sort="@Model.Sort" asp-route-page="@(Model.Page + 1)" class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-on-surface hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</a>
+}
+else
+{
+<button type="button" disabled class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-on-surface opacity-50 cursor-not-allowed">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+}
+</div>
+}
+
+</main>

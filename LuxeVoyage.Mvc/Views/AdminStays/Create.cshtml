@@ -1,0 +1,16 @@
+@model LuxeVoyage.Mvc.Models.Stay
+<div class="px-8 py-10 font-body-md max-w-xl">
+<h1 class="font-h2 text-h2 mb-6">New stay</h1>
+<form asp-action="Create" method="post" class="space-y-4">
+@Html.AntiForgeryToken()
+<label class="block text-sm">Name<input asp-for="Name" class="mt-1 w-full rounded border px-3 py-2 dark:bg-slate-900" /></label>
+<label class="block text-sm">Slug<input asp-for="Slug" class="mt-1 w-full rounded border px-3 py-2 dark:bg-slate-900" /></label>
+<label class="block text-sm">Price / night<input asp-for="PricePerNight" type="number" step="1" class="mt-1 w-full rounded border px-3 py-2 dark:bg-slate-900" /></label>
+<label class="block text-sm">Star rating (1–5)<input asp-for="StarRating" type="number" min="1" max="5" class="mt-1 w-full rounded border px-3 py-2 dark:bg-slate-900" /></label>
+<label class="block text-sm">Region<select asp-for="Region" asp-items="Html.GetEnumSelectList<LuxeVoyage.Mvc.Models.RegionKind>()" class="mt-1 w-full rounded border px-3 py-2 dark:bg-slate-900"></select></label>
+<label class="block text-sm">City line<input asp-for="CityLine" class="mt-1 w-full rounded border px-3 py-2 dark:bg-slate-900" /></label>
+<label class="block text-sm">Image URL<input asp-for="ImageUrl" class="mt-1 w-full rounded border px-3 py-2 dark:bg-slate-900" /></label>
+<label class="block text-sm">Amenities (comma-separated)<input asp-for="AmenitiesCsv" class="mt-1 w-full rounded border px-3 py-2 dark:bg-slate-900" placeholder="wifi,pool,spa" /></label>
+<div class="flex gap-4 pt-4"><button type="submit" class="rounded-lg bg-primary px-6 py-2 text-on-primary">Save</button><a asp-action="Index" class="rounded-lg border px-6 py-2">Cancel</a></div>
+</form>
+</div>

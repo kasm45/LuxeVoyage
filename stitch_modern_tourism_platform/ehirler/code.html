@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cities - Wanderlust Tourism</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#f2f4f6",
+                        "outline": "#76777d",
+                        "tertiary": "#000000",
+                        "tertiary-fixed-dim": "#6bd8cb",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#0c9488",
+                        "surface-container-high": "#e6e8ea",
+                        "on-secondary-fixed-variant": "#653e00",
+                        "on-tertiary-fixed": "#00201d",
+                        "primary": "#000000",
+                        "surface-tint": "#565e74",
+                        "inverse-primary": "#bec6e0",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-surface": "#191c1e",
+                        "on-primary-fixed": "#131b2e",
+                        "tertiary-container": "#00201d",
+                        "surface": "#f7f9fb",
+                        "secondary": "#855300",
+                        "on-secondary-container": "#684000",
+                        "on-secondary-fixed": "#2a1700",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-tertiary": "#ffffff",
+                        "background": "#f7f9fb",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#eff1f3",
+                        "primary-fixed": "#dae2fd",
+                        "on-tertiary-fixed-variant": "#005049",
+                        "on-background": "#191c1e",
+                        "secondary-fixed": "#ffddb8",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c6c6cd",
+                        "primary-container": "#131b2e",
+                        "on-error": "#ffffff",
+                        "surface-container": "#eceef0",
+                        "surface-bright": "#f7f9fb",
+                        "on-primary-container": "#7c839b",
+                        "surface-variant": "#e0e3e5",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#2d3133",
+                        "on-surface-variant": "#45464d",
+                        "secondary-container": "#fea619",
+                        "secondary-fixed-dim": "#ffb95f",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#d8dadc",
+                        "tertiary-fixed": "#89f5e7",
+                        "on-primary-fixed-variant": "#3f465c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "sm": "12px",
+                        "base": "8px",
+                        "xl": "80px",
+                        "md": "24px",
+                        "margin-mobile": "16px",
+                        "lg": "48px",
+                        "margin-desktop": "64px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "h1": ["Noto Serif"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "h3": ["Plus Jakarta Sans"],
+                        "h2": ["Noto Serif"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "h1": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-sm": ["14px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "h3": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "h2": ["36px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col pt-20">
+<!-- TopNavBar Shared Component -->
+<nav class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md fixed top-0 w-full z-50 border-b border-slate-200/50 dark:border-slate-800/50 shadow-sm">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-6 h-20">
+<div class="text-2xl font-black tracking-tighter text-slate-900 dark:text-white">
+                Wanderlust
+            </div>
+<div class="hidden md:flex space-x-6">
+<a class="font-serif text-sm font-medium tracking-wide text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200 scale-95 active:scale-100 transition-transform" href="#">Home</a>
+<a class="font-serif text-sm font-medium tracking-wide text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200 scale-95 active:scale-100 transition-transform" href="#">Destinations</a>
+<a class="font-serif text-sm font-medium tracking-wide text-slate-900 dark:text-white border-b-2 border-orange-500 pb-1 hover:text-orange-500 transition-colors duration-200 scale-95 active:scale-100 transition-transform" href="#">Cities</a>
+<a class="font-serif text-sm font-medium tracking-wide text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200 scale-95 active:scale-100 transition-transform" href="#">Tours</a>
+<a class="font-serif text-sm font-medium tracking-wide text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200 scale-95 active:scale-100 transition-transform" href="#">Hotels</a>
+<a class="font-serif text-sm font-medium tracking-wide text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200 scale-95 active:scale-100 transition-transform" href="#">About Us</a>
+</div>
+<div class="flex items-center space-x-4">
+<button class="font-serif text-sm font-medium tracking-wide text-slate-900 dark:text-white hover:text-orange-500 transition-colors duration-200 scale-95 active:scale-100 transition-transform">
+                    Login
+                </button>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow max-w-[1280px] mx-auto w-full px-margin-mobile md:px-margin-desktop py-xl">
+<!-- Hero Header -->
+<div class="mb-lg max-w-3xl">
+<h1 class="font-h1 text-h1 text-on-surface mb-sm">Iconic Cities</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Immerse yourself in the architecture, culture, and rhythm of the world's most captivating urban landscapes. Discover hidden gems and renowned landmarks tailored for the modern explorer.</p>
+</div>
+<!-- Asymmetric Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter auto-rows-[minmax(300px,auto)]">
+<!-- City Card 1 (Large - spans 8 cols) -->
+<div class="md:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col md:flex-row group transition-all duration-300 hover:shadow-[0_10px_15px_-3px_rgba(15,23,42,0.08)]">
+<div class="w-full md:w-[55%] h-64 md:h-full bg-cover bg-center" data-alt="A breathtaking, wide-angle view of the historic streets of Kyoto, Japan during cherry blossom season. The scene captures traditional wooden machiya houses lining a stone-paved path, softly illuminated by warm, late-afternoon sunlight. Delicate pink cherry blossoms frame the top of the image against a clear, bright sky. The aesthetic is serene, elegant, and highly textured, fitting a premium, minimalist travel platform design. Deep shadows provide contrast to the pristine natural beauty." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCFZ8dM2wfMbVlkFom5aeIY1fDlf7e-e7b-V_vDB-yu0xBLQSRt6vIr1NCxdvbhPGTenmBdeOrZmv28D4V2WR2VWUHk-SF2l2mpgltXjBBXZZVzGo9j55F50jgOBcLTKBhWZKy1ZzoxTlqE1NaeAu5Y0_9BNLwILLZh1wTkNMGf6jOmW8Ymfgz5rqlnAKmXzsNbeb4WgzyXfBfgj6UAr9vZ1I1n78RKe3gaNvE2b9tr-IgciXghP5tgrvP7bYGmld3wFwNemg-23eM')"></div>
+<div class="p-md md:p-lg flex flex-col justify-between w-full md:w-[45%]">
+<div>
+<div class="inline-block bg-surface-container text-on-surface-variant font-label-sm text-label-sm px-sm py-xs rounded-full mb-md">Cultural Heritage</div>
+<h2 class="font-h2 text-h2 text-on-surface mb-sm group-hover:text-secondary-container transition-colors">Kyoto</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md line-clamp-4">Step back in time amidst ancient temples, serene Zen gardens, and traditional tea houses. Kyoto offers an unparalleled glimpse into Japan's profound historical and cultural soul, harmoniously blending natural beauty with meticulous craftsmanship.</p>
+</div>
+<button class="w-fit bg-primary text-on-primary font-label-sm text-label-sm py-sm px-md rounded hover:bg-secondary-container hover:text-on-secondary-container transition-colors mt-auto flex items-center gap-xs">
+                        View Attractions
+                        <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- City Card 2 (Medium - spans 4 cols, vertical) -->
+<div class="md:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col group transition-all duration-300 hover:shadow-[0_10px_15px_-3px_rgba(15,23,42,0.08)]">
+<div class="w-full h-48 lg:h-64 bg-cover bg-center relative" data-alt="A striking, contemporary architectural photograph of the futuristic skyline of Dubai, UAE. The image is taken from a low angle, emphasizing the soaring heights of sleek glass skyscrapers reflecting the bright, azure sky. The lighting is harsh, modern, and high-contrast, perfectly aligning with a sophisticated light-mode UI. Clean geometric lines dominate the composition, showcasing a pristine, luxurious, and highly developed urban landscape without any visual clutter." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAN_74MDU6SmGHo-7eKrHU3DQROyK388CjyBEyB5ckrPrhS0nXOAO0-N4i-9ifAx8qiNqUsDvs69Zm_zPG8wdwRiPu5-TKJyD_ebxhzJY0Hrk3tF0z4O55igvLePpvQdECFdHsIPdZr0OvHvka3QvcxYSmnHxQZFABjD_0rMKzMq7txvsDyfstVb3hM4nm5JxwS6OopJ-FltnjFHJFswELMxDPri84UvzW9d1_MZZ2GzvXioy0O_PNHgykcU4WKDIJrm2fD-hd4EPs')">
+<div class="absolute top-sm right-sm bg-tertiary-fixed-dim text-on-tertiary-fixed font-label-sm text-label-sm px-sm py-xs rounded-full shadow-sm">Trending</div>
+</div>
+<div class="p-md flex flex-col flex-grow">
+<h3 class="font-h3 text-h3 text-on-surface mb-base group-hover:text-secondary-container transition-colors">Dubai</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md flex-grow">A dazzling metropolis rising from the desert, known for luxury shopping, ultramodern architecture, and a vibrant nightlife scene.</p>
+<button class="w-full border border-secondary text-secondary font-label-sm text-label-sm py-sm px-md rounded hover:bg-secondary hover:text-on-secondary transition-colors">
+                        View Attractions
+                    </button>
+</div>
+</div>
+<!-- City Card 3 (Medium - spans 4 cols, vertical) -->
+<div class="md:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col group transition-all duration-300 hover:shadow-[0_10px_15px_-3px_rgba(15,23,42,0.08)]">
+<div class="w-full h-48 lg:h-64 bg-cover bg-center" data-alt="A beautifully composed photograph of a classic Parisian café scene in Paris, France. Wrought-iron chairs and small round tables are neatly arranged on a cobblestone sidewalk outside a chic brasserie with a deep green awning. The soft, diffused daytime lighting evokes a relaxed, romantic, and elegant atmosphere. The color palette emphasizes muted warm tones, crisp whites, and sophisticated greens, seamlessly fitting into a high-end, minimalist travel brand aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB8NWgqHrKpMOFIc-peh2LCWqwJNWe-xF27_VLY0s_0G31xFttmcO-1lNjs6kQPEyGhaSQsbsKA0wzrdHXg8I2J-v3xNs13L0sG8X3ErlX6EXGGLEriJB54Cgo1APFeOTXn4HjmoDzvdAKR92tx8gffWmJdLDcgiok1h2fMxL4OdhYr1BnGFAd5jt5q9eraZGKWCMV2C_C4EDdinHoBPBNtlrocX6SzsxPBKHbUmyNK4F2sD2RJkK3abpEbdW0wb0ruUWWAh2QGnok')"></div>
+<div class="p-md flex flex-col flex-grow">
+<h3 class="font-h3 text-h3 text-on-surface mb-base group-hover:text-secondary-container transition-colors">Paris</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md flex-grow">The global center for art, fashion, gastronomy, and culture. Its 19th-century cityscape is crisscrossed by wide boulevards and the River Seine.</p>
+<button class="w-full border border-secondary text-secondary font-label-sm text-label-sm py-sm px-md rounded hover:bg-secondary hover:text-on-secondary transition-colors">
+                        View Attractions
+                    </button>
+</div>
+</div>
+<!-- City Card 4 (Large - spans 8 cols, reversed layout) -->
+<div class="md:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col md:flex-row-reverse group transition-all duration-300 hover:shadow-[0_10px_15px_-3px_rgba(15,23,42,0.08)]">
+<div class="w-full md:w-[55%] h-64 md:h-full bg-cover bg-center" data-alt="An expansive, misty view of the lush, dramatic coastline near Rio de Janeiro, Brazil. The image captures iconic monolithic granite mountains rising sharply from the vibrant blue Atlantic Ocean, surrounded by dense tropical foliage. The morning light is soft and atmospheric, casting a gentle haze over the distant peaks. The composition is asymmetrical and dynamic, offering a premium, awe-inspiring visual that perfectly anchors a sophisticated, wanderlust-driven UI design." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDuqEyqQBO552urqrM4HACkbAK456Vlu6w1yqeoIhyC7A5N6NQAbQLBkADl8uHCjG2SOE2DPS2rWRtcXpGK3DEK7WgRM72LLICnl0gQ0G_-cRslWL3qKi8oiv3KgoNhp78bya2DiXUvHzay9ftQEmOME15shZ1d5yPW1gB5Or_SG0vA5nEvivTTicaPimJvl5xmx2-V76bhh9PCKAJ-Os5fL3s-IA-c7cFIuqjGpfiWpjG0Ag-xn3_R449o3lerDwv379lWgbl_pjM')"></div>
+<div class="p-md md:p-lg flex flex-col justify-between w-full md:w-[45%]">
+<div>
+<div class="inline-block bg-surface-container text-on-surface-variant font-label-sm text-label-sm px-sm py-xs rounded-full mb-md">Nature &amp; Energy</div>
+<h2 class="font-h2 text-h2 text-on-surface mb-sm group-hover:text-secondary-container transition-colors">Rio de Janeiro</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md line-clamp-4">Famous for its breathtaking landscape, laid-back beach culture, and vibrant annual carnival. Rio pulses with a unique rhythm set against the stunning backdrop of Sugarloaf Mountain and endless stretches of golden sand.</p>
+</div>
+<button class="w-fit bg-primary text-on-primary font-label-sm text-label-sm py-sm px-md rounded hover:bg-secondary-container hover:text-on-secondary-container transition-colors mt-auto flex items-center gap-xs">
+                        View Attractions
+                        <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Shared Component -->
+<footer class="bg-slate-900 dark:bg-black w-full mt-auto border-t border-slate-800">
+<div class="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="col-span-1">
+<div class="text-xl font-bold text-white mb-4">Wanderlust</div>
+<p class="font-serif text-sm text-slate-400">© 2024 Wanderlust Tourism. All rights reserved.</p>
+</div>
+<div class="col-span-1 flex flex-col space-y-3">
+<a class="font-serif text-sm text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100" href="#">Contact</a>
+<a class="font-serif text-sm text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100" href="#">Privacy Policy</a>
+<a class="font-serif text-sm text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100" href="#">Terms of Service</a>
+</div>
+<div class="col-span-1 flex flex-col space-y-3">
+<a class="font-serif text-sm text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100" href="#">Instagram</a>
+<a class="font-serif text-sm text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100" href="#">Facebook</a>
+</div>
+</div>
+</footer>
+</body></html>

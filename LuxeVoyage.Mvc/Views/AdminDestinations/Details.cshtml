@@ -1,0 +1,16 @@
+@model LuxeVoyage.Mvc.Models.Destination
+<div class="px-8 py-10 max-w-3xl font-body-md">
+<h1 class="font-h2 text-h2 text-slate-900 dark:text-white mb-6">@Model.Title</h1>
+<dl class="grid grid-cols-1 gap-4 text-sm">
+<dt class="text-slate-500">Slug</dt><dd>@Model.Slug</dd>
+<dt class="text-slate-500">Category</dt><dd>@Model.Category</dd>
+<dt class="text-slate-500">Region</dt><dd>@Model.Region</dd>
+<dt class="text-slate-500">Location</dt><dd>@Model.LocationLabel</dd>
+<dt class="text-slate-500">Summary</dt><dd>@Model.Summary</dd>
+<dt class="text-slate-500">Image URL</dt><dd class="break-all">@Model.ImageUrl</dd>
+</dl>
+<div class="mt-8 flex gap-4">
+<a asp-action="Edit" asp-route-id="@Model.Id" class="rounded-lg bg-primary px-4 py-2 text-on-primary">Edit</a>
+<a asp-action="Index" class="rounded-lg border border-outline-variant px-4 py-2">Back</a>
+</div>
+</div>

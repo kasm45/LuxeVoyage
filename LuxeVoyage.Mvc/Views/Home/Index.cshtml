@@ -1,0 +1,5 @@
+﻿@model LuxeVoyage.Mvc.Models.ViewModels.HomeIndexViewModel
+@await Html.PartialAsync("_HomeMain", Model)
+@section Scripts {
+<script src="~/js/home-search.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Wanderlust - Login</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-low": "#f2f4f6",
+                      "outline": "#76777d",
+                      "tertiary": "#000000",
+                      "tertiary-fixed-dim": "#6bd8cb",
+                      "error": "#ba1a1a",
+                      "on-tertiary-container": "#0c9488",
+                      "surface-container-high": "#e6e8ea",
+                      "on-secondary-fixed-variant": "#653e00",
+                      "on-tertiary-fixed": "#00201d",
+                      "primary": "#000000",
+                      "surface-tint": "#565e74",
+                      "inverse-primary": "#bec6e0",
+                      "primary-fixed-dim": "#bec6e0",
+                      "on-surface": "#191c1e",
+                      "on-primary-fixed": "#131b2e",
+                      "tertiary-container": "#00201d",
+                      "surface": "#f7f9fb",
+                      "secondary": "#855300",
+                      "on-secondary-container": "#684000",
+                      "on-secondary-fixed": "#2a1700",
+                      "surface-container-highest": "#e0e3e5",
+                      "on-tertiary": "#ffffff",
+                      "background": "#f7f9fb",
+                      "on-primary": "#ffffff",
+                      "inverse-on-surface": "#eff1f3",
+                      "primary-fixed": "#dae2fd",
+                      "on-tertiary-fixed-variant": "#005049",
+                      "on-background": "#191c1e",
+                      "secondary-fixed": "#ffddb8",
+                      "on-secondary": "#ffffff",
+                      "outline-variant": "#c6c6cd",
+                      "primary-container": "#131b2e",
+                      "on-error": "#ffffff",
+                      "surface-container": "#eceef0",
+                      "surface-bright": "#f7f9fb",
+                      "on-primary-container": "#7c839b",
+                      "surface-variant": "#e0e3e5",
+                      "on-error-container": "#93000a",
+                      "inverse-surface": "#2d3133",
+                      "on-surface-variant": "#45464d",
+                      "secondary-container": "#fea619",
+                      "secondary-fixed-dim": "#ffb95f",
+                      "surface-container-lowest": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "surface-dim": "#d8dadc",
+                      "tertiary-fixed": "#89f5e7",
+                      "on-primary-fixed-variant": "#3f465c"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xs": "4px",
+                      "sm": "12px",
+                      "base": "8px",
+                      "xl": "80px",
+                      "md": "24px",
+                      "margin-mobile": "16px",
+                      "lg": "48px",
+                      "margin-desktop": "64px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "h1": [
+                              "Noto Serif"
+                      ],
+                      "label-sm": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "h3": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "h2": [
+                              "Noto Serif"
+                      ],
+                      "body-lg": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-md": [
+                              "Plus Jakarta Sans"
+                      ]
+              },
+              "fontSize": {
+                      "h1": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "h3": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "h2": [
+                              "36px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex antialiased">
+<!-- Left Side: Image Canvas -->
+<div class="hidden lg:flex lg:w-1/2 relative bg-surface-container-high overflow-hidden">
+<img class="absolute inset-0 w-full h-full object-cover" data-alt="A breathtaking, sun-drenched coastal landscape in the Mediterranean, captured from a high vantage point overlooking deep azure waters and pristine white architecture cascading down the cliffside. The scene is bathed in bright, clear morning light, creating a modern, airy aesthetic with stark contrasts between the brilliant white structures and the deep blue sea. The mood is aspirational, serene, and adventurous, perfectly embodying a sophisticated wanderlust identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrgLu-21lmYArw92ihCqaLV_BUSZhTuHrFQz_k9JfqmVOc5WPwjFnH4HP9KzjnsI-0KQtCGm2FISV0L68MQCIKn7vgJAYvaqS144hrIUe8uADn0udsZwM_9iIi_YecMN7uHPd8EPlJfm0MxDAG4veCejxHmCs-d7l0tJ-dCRYBdZsgqqXpWwkkcmgX2eeQG9fcQBAV7yFWZf4iD4zsmqgL6XX56a-Rcx8DSvbRXgpZRncz_cUHD5o3_q94FUuXzen3uAyzkN9Oxik"/>
+<!-- Subtle Overlay for Brand Context -->
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent flex flex-col justify-end p-margin-desktop text-on-primary">
+<h2 class="font-h2 text-h2 mb-sm">Discover your next horizon.</h2>
+<p class="font-body-lg text-body-lg opacity-90 max-w-md">Access your itinerary, manage bookings, and explore curated destinations all in one place.</p>
+</div>
+</div>
+<!-- Right Side: Login Form -->
+<div class="w-full lg:w-1/2 flex items-center justify-center p-margin-mobile sm:p-margin-desktop bg-surface-lowest">
+<div class="w-full max-w-[420px] bg-surface rounded-xl p-md sm:p-lg border border-outline-variant shadow-sm">
+<!-- Brand Header -->
+<div class="mb-lg text-center">
+<div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary-fixed mb-sm">
+<span class="material-symbols-outlined text-primary text-[28px]" data-icon="flight_takeoff">flight_takeoff</span>
+</div>
+<h1 class="font-h1 text-h3 text-primary tracking-tighter">Wanderlust</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Welcome back. Please enter your details.</p>
+</div>
+<!-- Role Selector (Minimalist Toggle) -->
+<div class="flex rounded bg-surface-container-low p-xs mb-md">
+<button class="flex-1 py-sm font-label-sm text-label-sm rounded bg-surface shadow-sm text-on-surface text-center transition-all">Traveler</button>
+<button class="flex-1 py-sm font-label-sm text-label-sm rounded text-on-surface-variant hover:text-on-surface text-center transition-all">Admin</button>
+</div>
+<form action="#" class="space-y-sm" method="POST">
+<!-- Email Input -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-sm text-label-sm text-on-surface" for="email">Email</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline text-[20px]" data-icon="mail">mail</span>
+<input class="w-full h-[48px] pl-lg pr-sm bg-surface-container-low border border-outline rounded text-on-surface font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors placeholder:text-outline-variant" id="email" name="email" placeholder="name@example.com" required="" type="email"/>
+</div>
+</div>
+<!-- Password Input -->
+<div class="flex flex-col gap-xs pt-base">
+<div class="flex items-center justify-between">
+<label class="font-label-sm text-label-sm text-on-surface" for="password">Password</label>
+<a class="font-label-sm text-label-sm text-on-surface hover:text-secondary-container transition-colors" href="#">Forgot password?</a>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline text-[20px]" data-icon="lock">lock</span>
+<input class="w-full h-[48px] pl-lg pr-sm bg-surface-container-low border border-outline rounded text-on-surface font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors placeholder:text-outline-variant" id="password" name="password" placeholder="••••••••" required="" type="password"/>
+</div>
+</div>
+<!-- Submit Button -->
+<div class="pt-sm">
+<button class="w-full h-[48px] bg-primary text-on-primary font-label-sm text-label-sm rounded flex items-center justify-center gap-base hover:opacity-90 active:scale-[0.98] transition-all" type="submit">
+                        Sign In
+                        <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</form>
+<!-- Divider -->
+<div class="mt-lg mb-md flex items-center">
+<div class="flex-grow border-t border-outline-variant"></div>
+<span class="px-sm font-label-sm text-label-sm text-outline">OR CONTINUE WITH</span>
+<div class="flex-grow border-t border-outline-variant"></div>
+</div>
+<!-- Social Logins -->
+<div class="flex flex-col gap-sm">
+<button class="w-full h-[48px] bg-surface border border-outline rounded flex items-center justify-center gap-sm hover:bg-surface-container-low transition-colors text-on-surface font-label-sm text-label-sm" type="button">
+<img alt="Google" class="w-5 h-5" data-alt="A clean, minimalist vector icon of the Google logo, maintaining a professional and recognizable appearance suitable for a modern login interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXt994vZb0oKA1KNrPryGOYBuerxO3TCUJEItq9F91OceFd34_EJ9E1H-SHDGZKXhDkNOdXWnlNoJ0n7VdAwVWYmCsWOopBf_a3veUCxCMPjXSyRTyxTdX8YKuvuK2NBOEroGc6AT6smjW7NjgzIHILxgwgPEUiHLzm2QcWedWE9nbm9NiEceaVBiWZSIpNS_q6F0ol7-OwtsaaU4SdxlH7A9YeRA3uTHRws-lD2u_5-JNFXR23KO-N16wHdli9eQCvNLBGMQVnW4"/>
+                    Google
+                </button>
+<button class="w-full h-[48px] bg-surface border border-outline rounded flex items-center justify-center gap-sm hover:bg-surface-container-low transition-colors text-on-surface font-label-sm text-label-sm" type="button">
+<span class="material-symbols-outlined text-[20px]" data-icon="apple">ios</span>
+                    Apple
+                </button>
+</div>
+<!-- Footer Link -->
+<p class="mt-lg text-center font-body-md text-body-md text-on-surface-variant">
+                Don't have an account? <a class="font-label-sm text-label-sm text-primary hover:text-secondary-container transition-colors" href="#">Sign up</a>
+</p>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kategoriler - Wanderlust</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-low": "#f2f4f6",
+                      "outline": "#76777d",
+                      "tertiary": "#000000",
+                      "tertiary-fixed-dim": "#6bd8cb",
+                      "error": "#ba1a1a",
+                      "on-tertiary-container": "#0c9488",
+                      "surface-container-high": "#e6e8ea",
+                      "on-secondary-fixed-variant": "#653e00",
+                      "on-tertiary-fixed": "#00201d",
+                      "primary": "#000000",
+                      "surface-tint": "#565e74",
+                      "inverse-primary": "#bec6e0",
+                      "primary-fixed-dim": "#bec6e0",
+                      "on-surface": "#191c1e",
+                      "on-primary-fixed": "#131b2e",
+                      "tertiary-container": "#00201d",
+                      "surface": "#f7f9fb",
+                      "secondary": "#855300",
+                      "on-secondary-container": "#684000",
+                      "on-secondary-fixed": "#2a1700",
+                      "surface-container-highest": "#e0e3e5",
+                      "on-tertiary": "#ffffff",
+                      "background": "#f7f9fb",
+                      "on-primary": "#ffffff",
+                      "inverse-on-surface": "#eff1f3",
+                      "primary-fixed": "#dae2fd",
+                      "on-tertiary-fixed-variant": "#005049",
+                      "on-background": "#191c1e",
+                      "secondary-fixed": "#ffddb8",
+                      "on-secondary": "#ffffff",
+                      "outline-variant": "#c6c6cd",
+                      "primary-container": "#131b2e",
+                      "on-error": "#ffffff",
+                      "surface-container": "#eceef0",
+                      "surface-bright": "#f7f9fb",
+                      "on-primary-container": "#7c839b",
+                      "surface-variant": "#e0e3e5",
+                      "on-error-container": "#93000a",
+                      "inverse-surface": "#2d3133",
+                      "on-surface-variant": "#45464d",
+                      "secondary-container": "#fea619",
+                      "secondary-fixed-dim": "#ffb95f",
+                      "surface-container-lowest": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "surface-dim": "#d8dadc",
+                      "tertiary-fixed": "#89f5e7",
+                      "on-primary-fixed-variant": "#3f465c"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xs": "4px",
+                      "sm": "12px",
+                      "base": "8px",
+                      "xl": "80px",
+                      "md": "24px",
+                      "margin-mobile": "16px",
+                      "lg": "48px",
+                      "margin-desktop": "64px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "h1": [
+                              "Noto Serif"
+                      ],
+                      "label-sm": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "h3": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "h2": [
+                              "Noto Serif"
+                      ],
+                      "body-lg": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-md": [
+                              "Plus Jakarta Sans"
+                      ]
+              },
+              "fontSize": {
+                      "h1": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "h3": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "h2": [
+                              "36px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md antialiased">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/50 shadow-sm">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-6 h-20">
+<div class="text-2xl font-black tracking-tighter text-slate-900 dark:text-white">
+                Wanderlust
+            </div>
+<div class="hidden md:flex items-center gap-8 font-serif text-sm font-medium tracking-wide">
+<a class="text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200" href="#">Home</a>
+<a class="text-slate-900 dark:text-white border-b-2 border-orange-500 pb-1" href="#">Destinations</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200" href="#">Cities</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200" href="#">Tours</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200" href="#">Hotels</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200" href="#">About Us</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden md:block font-serif text-sm font-medium tracking-wide text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200 scale-95 active:scale-100 transition-transform">
+                    Login
+                </button>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow pt-[120px] pb-xl px-6 max-w-[1280px] mx-auto w-full">
+<!-- Header Section -->
+<header class="mb-lg">
+<h1 class="font-h1 text-h1 text-on-background mb-sm">Kategoriler</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                Discover curated travel experiences tailored to your unique wanderlust. Whether you seek thrilling escapades, serene retreats, or deep cultural immersions, find your perfect journey here.
+            </p>
+</header>
+<!-- Bento Grid Categories -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter auto-rows-[300px]">
+<!-- Category 1: Adventure (Large) -->
+<a class="md:col-span-8 md:row-span-2 relative block group overflow-hidden rounded-xl border border-outline-variant bg-surface" href="#">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A sweeping, dramatic photograph of a hiker standing on a rugged mountain peak at sunrise, embodying the spirit of an Adventure travel category. The lighting is golden and breathtaking, casting long, dynamic shadows across the rocky terrain, fitting perfectly within a modern, premium light-mode UI. The vastness of the landscape and the tiny figure of the explorer evoke a sense of thrilling wanderlust. The image uses a sophisticated palette of warm golds, deep earthy browns, and crisp sky blues, maintaining the airy and sophisticated aesthetic of the overall design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-H6V_kHGDz4mSRgT5aNEFI1P0GCUyj4zhJ_EKZAQvGNGenyJjHh4G9yk9v14nB7duBXKFcEWT1n6WaOvRwaoasIZkPA8KJqSk4T03yMHs3xL1e36fWmmJDP_FY53CbMRxTYJV2p5NGIGjD2KqshxcfY3GgmPIPX2r5ynMJM8tom0-yTzvMVrSUMbZ1xmdHTPXlLKzgFB1wYha-BJYdldd8MpQwNgUl9og5VFgxTcavgdkIm24vA0sf6k7wr0yau5Vcd6AHTt6iKA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-tertiary/80 via-tertiary/20 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-lg w-full">
+<div class="inline-flex items-center gap-xs bg-surface-container-low/90 backdrop-blur-md px-sm py-xs rounded-full mb-base border border-outline/20">
+<span class="material-symbols-outlined text-[16px] text-on-surface">landscape</span>
+<span class="font-label-sm text-label-sm text-on-surface">Macera</span>
+</div>
+<h2 class="font-h2 text-h2 text-on-tertiary mb-xs">Adventure &amp; Exploration</h2>
+<p class="font-body-md text-body-md text-inverse-on-surface max-w-lg">Push your limits with high-altitude treks, remote expeditions, and adrenaline-pumping activities in the world's most untamed wildernesses.</p>
+</div>
+</a>
+<!-- Category 2: Relaxing (Tall) -->
+<a class="md:col-span-4 md:row-span-2 relative block group overflow-hidden rounded-xl border border-outline-variant bg-surface" href="#">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A serene, minimalist photograph of a pristine white sand beach meeting crystal clear turquoise waters, representing the Relaxing travel category. An empty hammock swings gently between two palm trees under a bright, cloudless sky, perfectly capturing a modern, airy aesthetic. The high-key lighting creates a soft, tranquil atmosphere that aligns with the premium light-mode UI design. The color palette is restricted to pristine whites, soothing cyans, and the warm tan of the sand, offering a visual breath of fresh air and effortless discovery." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHlMcXuwe_ELsu4fekzeCTOhsYkZlDyme8nATEM8C8iFYOyZwKfILC95A0a5tB4fCE3Z9JUWGnunH0Ww28pw2qOFjYHUn8HEiK74Sf2xATd0gsLFhscsdQOnmQYqk6VZN-_nKjw5MhINEyJQGoN3lEuYAxL2ftBMAzKovgOhIrYX7F2lrGWSniuW6Xh2Jwa6k2onAhPLUpBWPC98WkfphLcHh6f6H-xez9F1_AscfMUUuNbYHLlt8I6g-acnshxN-b2z4hleVFQDk"/>
+<div class="absolute inset-0 bg-gradient-to-t from-tertiary/70 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-md w-full">
+<div class="inline-flex items-center gap-xs bg-surface-container-low/90 backdrop-blur-md px-sm py-xs rounded-full mb-base border border-outline/20">
+<span class="material-symbols-outlined text-[16px] text-on-surface">pool</span>
+<span class="font-label-sm text-label-sm text-on-surface">Dinlenme</span>
+</div>
+<h3 class="font-h3 text-h3 text-on-tertiary mb-xs">Relaxing Retreats</h3>
+<p class="font-body-md text-body-md text-inverse-on-surface">Unwind in pristine luxury and find your zen in serene, sun-drenched coastal paradises.</p>
+</div>
+</a>
+<!-- Category 3: Cultural (Standard) -->
+<a class="md:col-span-4 md:row-span-1 relative block group overflow-hidden rounded-xl border border-outline-variant bg-surface" href="#">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="An intricately detailed photograph of an ancient temple complex bathed in soft morning light, serving as the visual anchor for the Cultural travel category. The image focuses on the ornate architectural carvings and stone textures, presenting a sophisticated and deeply historical mood. The lighting is gentle and diffused, ensuring the image feels premium and integrates smoothly into a modern light-mode interface. The color scheme is a harmonious blend of weathered stone grays, subtle moss greens, and warm sunlight, avoiding harsh contrasts to maintain an airy feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtHOAn-aVJMCqFoUIGarpCsn_EbLN2Vj0mYBwsmOhfOVtrs2Slh1-OJYf2ndYGqbUIDifVkfRmyDykfGJOfBpKI8sPYBPNYS-Zxjtuz6byC2ovnjuvGql2q4bIoOTwFxONLyX1dFxmGrCfOjExaSqvuGd8DtprpiUVTymjNg8hiC1xpwzp4eZm2vEBUaFr-i3l3R3uW2SUkJwROBsyB74i43frFK5Zs_CKRG2OX_IWcvvRSENrbsgMp99Xd4Wm8fRekbEymtsmoqw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-tertiary/70 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-md w-full">
+<div class="inline-flex items-center gap-xs bg-surface-container-low/90 backdrop-blur-md px-sm py-xs rounded-full mb-base border border-outline/20">
+<span class="material-symbols-outlined text-[16px] text-on-surface">museum</span>
+<span class="font-label-sm text-label-sm text-on-surface">Kültür</span>
+</div>
+<h3 class="font-h3 text-h3 text-on-tertiary">Cultural Journeys</h3>
+</div>
+</a>
+<!-- Category 4: Family (Standard) -->
+<a class="md:col-span-4 md:row-span-1 relative block group overflow-hidden rounded-xl border border-outline-variant bg-surface" href="#">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A heartwarming, high-quality photograph of a family walking together through a vibrant, sunlit European city square, symbolizing the Family travel category. The composition is clean and modern, focusing on the joyful interaction between parents and children against a backdrop of elegant historical architecture. Bright, natural daylight creates an optimistic and airy atmosphere, strictly adhering to the light-mode UI requirements. The palette features lively, natural colors—warm cobblestone tones, bright clothing accents, and clear skies—resulting in an inviting, premium aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZpmMWOXhpKwoxMe7Dur4J3l--hipkRX1hgMhLYf8psp5It1mULOKa099aehzWXZbS-R6BvhHa8e3gxA-DOSPhYab_UfF2ZKSpFrzgMLmWskgdI_Q_WciY3_Qs3h5xOEJK8z39xXKIA-XQda0MnUbIWldnETQdlR7X6ZeX_q3FW69rBcKKSW6iuNG95FAWPwxhHlrQOMRG_Uw9Q19KdCmXvnw7IHd-dS38iXSR0ZXZPjHodXOj8G1UktaMHrsh15qG8f-BH2FalEI"/>
+<div class="absolute inset-0 bg-gradient-to-t from-tertiary/70 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-md w-full">
+<div class="inline-flex items-center gap-xs bg-surface-container-low/90 backdrop-blur-md px-sm py-xs rounded-full mb-base border border-outline/20">
+<span class="material-symbols-outlined text-[16px] text-on-surface">family_restroom</span>
+<span class="font-label-sm text-label-sm text-on-surface">Aile</span>
+</div>
+<h3 class="font-h3 text-h3 text-on-tertiary">Family Fun</h3>
+</div>
+</a>
+<!-- Category 5: Luxury (Standard) -->
+<a class="md:col-span-4 md:row-span-1 relative block group overflow-hidden rounded-xl border border-outline-variant bg-surface" href="#">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="An exceptionally sleek and luxurious photograph of a high-end infinity pool overlooking a stunning cosmopolitan skyline at dusk, representing the Luxury travel category. The image is sophisticated and minimalist, utilizing clean architectural lines and expansive negative space. Subtle, ambient lighting from the cityscape reflects off the water, creating a premium, refined mood that complements a modern design system. The color palette relies on deep indigo blues, pristine whites, and warm glowing city lights, ensuring a high-end visual experience within the UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHWmBBHimQgl12OzcvCa6y2I1ZvgWlLiue_PeL8FFppaWXZ33uqhW4VYrBK2CkV7MtL6dB7wYKEsQL_5I2oHBLNAMsjvSI7I3erz3IT8aGlUN0f2wd8CY-pNbhYmczpfyJ6HD-9hr34ngZxLXEKdlny_1iJn4URp7yY0S9qF4EVbgkEgQi-5HbwWI4TBjnGHbfBzkqS3ftRMjOXQImfe9nczk22iwE8MSMvs0kN60tNFtCHfWwXKJP9SBba26ZUoe80bmvd1MWgKI"/>
+<div class="absolute inset-0 bg-gradient-to-t from-tertiary/70 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-md w-full">
+<div class="inline-flex items-center gap-xs bg-surface-container-low/90 backdrop-blur-md px-sm py-xs rounded-full mb-base border border-outline/20">
+<span class="material-symbols-outlined text-[16px] text-on-surface">diamond</span>
+<span class="font-label-sm text-label-sm text-on-surface">Lüks</span>
+</div>
+<h3 class="font-h3 text-h3 text-on-tertiary">Luxury Escapes</h3>
+</div>
+</a>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-auto border-t border-slate-800 bg-slate-900 dark:bg-black">
+<div class="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="text-xl font-bold text-white mb-4 md:mb-0">
+                Wanderlust
+            </div>
+<div class="col-span-1 md:col-span-3 flex flex-wrap gap-6 md:justify-end items-center font-serif text-sm">
+<a class="text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100" href="#">Contact</a>
+<a class="text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100" href="#">Privacy Policy</a>
+<a class="text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100" href="#">Terms of Service</a>
+<a class="text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100" href="#">Instagram</a>
+<a class="text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100" href="#">Facebook</a>
+</div>
+<div class="col-span-1 md:col-span-4 text-slate-400 font-serif text-sm mt-8 md:mt-0 text-left md:text-right opacity-80">
+                © 2024 Wanderlust Tourism. All rights reserved.
+            </div>
+</div>
+</footer>
+</body></html>

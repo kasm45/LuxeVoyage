@@ -1,0 +1,28 @@
+@model LuxeVoyage.Mvc.Models.ViewModels.AdminSettingsViewModel
+<div class="px-8 py-10 font-body-md max-w-3xl">
+    <h1 class="font-h2 text-h2 mb-2 text-slate-900 dark:text-white">Settings</h1>
+    <p class="text-slate-600 dark:text-slate-400 mb-8 text-sm">Environment and deployment summary. Editing is not enabled in this version.</p>
+
+    <div class="bg-surface-container-lowest rounded-xl shadow-[0_4px_20px_rgba(15,23,42,0.05)] divide-y divide-slate-200 dark:divide-slate-800 overflow-hidden">
+        <div class="px-6 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Site name</span>
+            <span class="text-on-surface font-medium">@Model.SiteName</span>
+        </div>
+        <div class="px-6 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Environment</span>
+            <span class="text-on-surface font-medium font-mono text-sm">@Model.EnvironmentName</span>
+        </div>
+        <div class="px-6 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Database provider</span>
+            <span class="text-on-surface font-medium">@Model.DatabaseProvider</span>
+        </div>
+        <div class="px-6 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Current year</span>
+            <span class="text-on-surface font-medium">@Model.CurrentYear</span>
+        </div>
+        <div class="px-6 py-4">
+            <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider block mb-2">Demo mode</span>
+            <p class="text-on-surface text-sm leading-relaxed">@Model.DemoNote</p>
+        </div>
+    </div>
+</div>

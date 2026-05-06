@@ -1,0 +1,7 @@
+@model LuxeVoyage.Mvc.Models.Tour
+<div class="px-8 py-10 font-body-md">
+<h1 class="font-h2 text-h2 mb-4">@Model.Title</h1>
+<p class="text-slate-600 dark:text-slate-400 mb-6">@Model.Summary</p>
+<dl class="text-sm space-y-2"><dt class="text-slate-500">Price</dt><dd>$@Model.Price.ToString("0")</dd><dt class="text-slate-500">Duration</dt><dd>@Model.DurationDays days</dd></dl>
+<div class="mt-8 flex gap-4"><a asp-action="Edit" asp-route-id="@Model.Id" class="rounded-lg bg-primary px-4 py-2 text-on-primary">Edit</a><a asp-action="Index" class="rounded-lg border px-4 py-2">Back</a></div>
+</div>

@@ -1,0 +1,32 @@
+@{
+    var msg = TempData["Message"] as string;
+    var err = TempData["Error"] as string;
+    var bookingMsg = TempData["BookingConfirmation"] as string;
+    var hasToast = !string.IsNullOrWhiteSpace(msg) || !string.IsNullOrWhiteSpace(err) || !string.IsNullOrWhiteSpace(bookingMsg);
+}
+@if (hasToast)
+{
+    <div class="lv-toast-stack" aria-live="polite" aria-atomic="true">
+        @if (!string.IsNullOrWhiteSpace(msg))
+        {
+            <div class="lv-toast lv-toast-success" data-lv-auto-dismiss="3200" role="status">
+                <span class="material-symbols-outlined text-primary mt-0.5" aria-hidden="true">check_circle</span>
+                <p class="m-0">@msg</p>
+            </div>
+        }
+        @if (!string.IsNullOrWhiteSpace(bookingMsg))
+        {
+            <div class="lv-toast lv-toast-success" data-lv-auto-dismiss="3600" role="status">
+                <span class="material-symbols-outlined text-primary mt-0.5" aria-hidden="true">check_circle</span>
+                <p class="m-0">@bookingMsg</p>
+            </div>
+        }
+        @if (!string.IsNullOrWhiteSpace(err))
+        {
+            <div class="lv-toast lv-toast-error" data-lv-auto-dismiss="3600" role="alert">
+                <span class="material-symbols-outlined text-error mt-0.5" aria-hidden="true">error</span>
+                <p class="m-0">@err</p>
+            </div>
+        }
+    </div>
+}

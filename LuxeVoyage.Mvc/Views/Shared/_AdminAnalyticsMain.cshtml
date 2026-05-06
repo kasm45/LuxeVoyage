@@ -1,0 +1,183 @@
+@model LuxeVoyage.Mvc.Models.ViewModels.AdminAnalyticsViewModel
+<div class="px-8 py-10 font-body-md space-y-8">
+    <div>
+        <h1 class="font-h2 text-h2 text-slate-900 dark:text-white">Analytics</h1>
+        <p class="text-slate-600 dark:text-slate-400 mt-2 text-sm">Live counts from the LuxeVoyage database.</p>
+    </div>
+
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(15,23,42,0.05)] flex flex-col justify-between relative overflow-hidden group">
+            <div class="flex justify-between items-start mb-2 relative z-10">
+                <div>
+                    <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-1">Total users</p>
+                    <h3 class="font-h2 text-h2 text-on-surface">@Model.TotalUsers</h3>
+                </div>
+                <div class="w-10 h-10 rounded-full bg-primary-container/20 flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined">group</span>
+                </div>
+            </div>
+            <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-primary-container/5 rounded-full blur-2xl group-hover:bg-primary-container/10 transition-colors"></div>
+        </div>
+        <div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(15,23,42,0.05)] flex flex-col justify-between relative overflow-hidden group">
+            <div class="flex justify-between items-start mb-2 relative z-10">
+                <div>
+                    <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-1">Total reservations</p>
+                    <h3 class="font-h2 text-h2 text-on-surface">@Model.TotalBookings</h3>
+                </div>
+                <div class="w-10 h-10 rounded-full bg-secondary-container/50 flex items-center justify-center text-on-secondary-container">
+                    <span class="material-symbols-outlined">event_available</span>
+                </div>
+            </div>
+            <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-secondary-container/20 rounded-full blur-2xl group-hover:bg-secondary-container/30 transition-colors"></div>
+        </div>
+        <div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(15,23,42,0.05)] flex flex-col justify-between relative overflow-hidden group">
+            <div class="flex justify-between items-start mb-2 relative z-10">
+                <div>
+                    <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-1">Pending</p>
+                    <h3 class="font-h2 text-h2 text-on-surface">@Model.PendingBookings</h3>
+                </div>
+                <div class="w-10 h-10 rounded-full bg-tertiary-container/20 flex items-center justify-center text-tertiary">
+                    <span class="material-symbols-outlined">schedule</span>
+                </div>
+            </div>
+            <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-tertiary-container/10 rounded-full blur-2xl group-hover:bg-tertiary-container/20 transition-colors"></div>
+        </div>
+        <div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(15,23,42,0.05)] flex flex-col justify-between relative overflow-hidden group">
+            <div class="flex justify-between items-start mb-2 relative z-10">
+                <div>
+                    <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-1">Confirmed</p>
+                    <h3 class="font-h2 text-h2 text-on-surface">@Model.ConfirmedBookings</h3>
+                </div>
+                <div class="w-10 h-10 rounded-full bg-primary-container/20 flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined">check_circle</span>
+                </div>
+            </div>
+            <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-primary-container/5 rounded-full blur-2xl group-hover:bg-primary-container/10 transition-colors"></div>
+        </div>
+        <div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(15,23,42,0.05)] flex flex-col justify-between relative overflow-hidden group">
+            <div class="flex justify-between items-start mb-2 relative z-10">
+                <div>
+                    <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-1">Destinations</p>
+                    <h3 class="font-h2 text-h2 text-on-surface">@Model.TotalDestinations</h3>
+                </div>
+                <div class="w-10 h-10 rounded-full bg-secondary-container/50 flex items-center justify-center text-on-secondary-container">
+                    <span class="material-symbols-outlined">travel_explore</span>
+                </div>
+            </div>
+            <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-secondary-container/20 rounded-full blur-2xl group-hover:bg-secondary-container/30 transition-colors"></div>
+        </div>
+        <div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(15,23,42,0.05)] flex flex-col justify-between relative overflow-hidden group">
+            <div class="flex justify-between items-start mb-2 relative z-10">
+                <div>
+                    <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-1">Experiences</p>
+                    <h3 class="font-h2 text-h2 text-on-surface">@Model.TotalExperiences</h3>
+                </div>
+                <div class="w-10 h-10 rounded-full bg-tertiary-container/20 flex items-center justify-center text-tertiary">
+                    <span class="material-symbols-outlined">star</span>
+                </div>
+            </div>
+            <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-tertiary-container/10 rounded-full blur-2xl group-hover:bg-tertiary-container/20 transition-colors"></div>
+        </div>
+        <div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(15,23,42,0.05)] flex flex-col justify-between relative overflow-hidden group">
+            <div class="flex justify-between items-start mb-2 relative z-10">
+                <div>
+                    <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-1">Tours</p>
+                    <h3 class="font-h2 text-h2 text-on-surface">@Model.TotalTours</h3>
+                </div>
+                <div class="w-10 h-10 rounded-full bg-primary-container/20 flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined">hiking</span>
+                </div>
+            </div>
+            <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-primary-container/5 rounded-full blur-2xl group-hover:bg-primary-container/10 transition-colors"></div>
+        </div>
+        <div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(15,23,42,0.05)] flex flex-col justify-between relative overflow-hidden group">
+            <div class="flex justify-between items-start mb-2 relative z-10">
+                <div>
+                    <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-1">Stays</p>
+                    <h3 class="font-h2 text-h2 text-on-surface">@Model.TotalStays</h3>
+                </div>
+                <div class="w-10 h-10 rounded-full bg-secondary-container/50 flex items-center justify-center text-on-secondary-container">
+                    <span class="material-symbols-outlined">hotel</span>
+                </div>
+            </div>
+            <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-secondary-container/20 rounded-full blur-2xl group-hover:bg-secondary-container/30 transition-colors"></div>
+        </div>
+        <div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(15,23,42,0.05)] flex flex-col justify-between relative overflow-hidden group">
+            <div class="flex justify-between items-start mb-2 relative z-10">
+                <div>
+                    <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-1">Favorites</p>
+                    <h3 class="font-h2 text-h2 text-on-surface">@Model.TotalFavorites</h3>
+                </div>
+                <div class="w-10 h-10 rounded-full bg-tertiary-container/20 flex items-center justify-center text-tertiary">
+                    <span class="material-symbols-outlined">favorite</span>
+                </div>
+            </div>
+            <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-tertiary-container/10 rounded-full blur-2xl group-hover:bg-tertiary-container/20 transition-colors"></div>
+        </div>
+    </section>
+
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <article class="bg-surface-container-lowest rounded-xl p-5 border border-outline-variant">
+            <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-1">Most reserved</p>
+            <p class="font-body-md text-on-surface">@Model.MostReservedItem</p>
+        </article>
+        <article class="bg-surface-container-lowest rounded-xl p-5 border border-outline-variant">
+            <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-1">Most favorited type</p>
+            <p class="font-body-md text-on-surface">@Model.MostFavoritedItem</p>
+        </article>
+        <article class="bg-surface-container-lowest rounded-xl p-5 border border-outline-variant">
+            <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-1">Latest user</p>
+            <p class="font-body-md text-on-surface">@Model.LatestUserEmail</p>
+        </article>
+    </section>
+
+    <section class="bg-surface-container-lowest rounded-xl shadow-[0_4px_20px_rgba(15,23,42,0.05)] overflow-hidden">
+        <div class="px-6 py-5 border-b border-surface-variant flex justify-between items-center flex-wrap gap-3">
+            <h3 class="font-h3 text-[20px] leading-snug font-semibold text-on-surface">Recent reservations</h3>
+            <a asp-controller="AdminManageBookings" asp-action="Index" class="text-primary font-button text-sm hover:underline underline-offset-4 inline-block">All reservations</a>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-sm">
+                <thead>
+                    <tr class="bg-surface-container-low/50">
+                        <th class="py-3 px-6 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider border-b border-surface-variant font-medium">Id</th>
+                        <th class="py-3 px-6 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider border-b border-surface-variant font-medium">Guest</th>
+                        <th class="py-3 px-6 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider border-b border-surface-variant font-medium">Item</th>
+                        <th class="py-3 px-6 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider border-b border-surface-variant font-medium">Dates</th>
+                        <th class="py-3 px-6 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider border-b border-surface-variant font-medium">Status</th>
+                        <th class="py-3 px-6 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider border-b border-surface-variant font-medium">Created</th>
+                        <th class="py-3 px-6 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider border-b border-surface-variant font-medium"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.RecentBookings.Count == 0)
+                    {
+                        <tr><td colspan="7" class="py-6 px-6"><div class="admin-empty-state"><h3>No reservations yet</h3><p>Recent reservation activity will appear here.</p></div></td></tr>
+                    }
+                    @foreach (var b in Model.RecentBookings)
+                    {
+                        var statusClass = b.Status switch
+                        {
+                            LuxeVoyage.Mvc.Models.BookingStatus.Pending => "admin-status-pending",
+                            LuxeVoyage.Mvc.Models.BookingStatus.Confirmed => "admin-status-confirmed",
+                            LuxeVoyage.Mvc.Models.BookingStatus.Cancelled => "admin-status-cancelled",
+                            LuxeVoyage.Mvc.Models.BookingStatus.Completed => "admin-status-completed",
+                            _ => "admin-status-pending"
+                        };
+                        <tr class="border-b border-slate-100 dark:border-slate-800">
+                            <td class="py-3 px-6">#@b.Id</td>
+                            <td class="py-3 px-6 max-w-[180px] truncate" title="@b.GuestEmail">@b.GuestEmail</td>
+                            <td class="py-3 px-6 max-w-[200px] truncate" title="@b.ItemLabel">@b.ItemLabel</td>
+                            <td class="py-3 px-6 whitespace-nowrap">@b.StartDate.ToString("MMM d") – @b.EndDate.ToString("MMM d")</td>
+                            <td class="py-3 px-6"><span class="admin-status-badge @statusClass">@b.Status</span></td>
+                            <td class="py-3 px-6 whitespace-nowrap text-slate-500 dark:text-slate-400">@b.CreatedAtUtc.ToString("MMM d, yyyy HH:mm") UTC</td>
+                            <td class="py-3 px-6 whitespace-nowrap">
+                                <a asp-controller="AdminManageBookings" asp-action="Details" asp-route-id="@b.Id" class="admin-action-link">Details</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>

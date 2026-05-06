@@ -1,0 +1,24 @@
+@model LuxeVoyage.Mvc.Models.Attraction
+<div class="space-y-4 max-w-xl">
+<div asp-validation-summary="All" class="text-red-600 dark:text-red-400 text-sm"></div>
+<div>
+<label asp-for="Name" class="block text-sm font-medium text-slate-700 dark:text-slate-300"></label>
+<input asp-for="Name" class="mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900 dark:border-slate-600" />
+<span asp-validation-for="Name" class="text-red-600 dark:text-red-400 text-sm"></span>
+</div>
+<div>
+<label asp-for="City" class="block text-sm font-medium text-slate-700 dark:text-slate-300"></label>
+<input asp-for="City" class="mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900 dark:border-slate-600" />
+<span asp-validation-for="City" class="text-red-600 dark:text-red-400 text-sm"></span>
+</div>
+<div>
+<label asp-for="Category" class="block text-sm font-medium text-slate-700 dark:text-slate-300"></label>
+<input asp-for="Category" class="mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900 dark:border-slate-600" placeholder="e.g. Landmark, Museum, Nature" />
+<span asp-validation-for="Category" class="text-red-600 dark:text-red-400 text-sm"></span>
+</div>
+<div>
+<label asp-for="ImageUrl" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Image URL <span class="text-slate-500 font-normal">(optional)</span></label>
+<input asp-for="ImageUrl" class="mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900 dark:border-slate-600" />
+<span asp-validation-for="ImageUrl" class="text-red-600 dark:text-red-400 text-sm"></span>
+</div>
+</div>

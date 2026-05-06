@@ -1,0 +1,146 @@
+﻿@model LuxeVoyage.Mvc.Models.ViewModels.HotelsIndexViewModel
+@{
+    var returnUrl = $"{Context.Request.Path}{Context.Request.QueryString}";
+}
+<main class="pt-28 pb-xl max-w-7xl mx-auto px-6">
+<div class="lv-catalog-hero flex flex-col md:flex-row justify-between items-start md:items-end mb-md gap-4">
+<div class="max-w-3xl">
+<h1 class="font-h1 text-h1 text-on-background mb-xs">Find Your Perfect Stay</h1>
+<p class="lv-catalog-subtitle font-body-lg text-body-lg text-on-surface-variant">Discover exceptional stays designed for comfort, elegance, and unforgettable travel.</p>
+</div>
+<div class="lv-view-toggle flex items-center gap-1.5 bg-surface-container-low p-1.5 rounded-xl border border-surface-dim/80 shadow-[0_4px_14px_rgba(15,23,42,0.05)]">
+<a asp-controller="Hotels" asp-action="Index" asp-route-price="@Model.PriceFilter" asp-route-stars="@Model.StarsFilter" asp-route-amenity="@Model.AmenityFilter" asp-route-view="grid" class="lv-view-toggle-option flex items-center gap-2 px-4 py-2.5 rounded-lg font-label-sm text-label-sm @(Model.ViewMode == "grid" ? "bg-surface-container-lowest shadow-sm text-on-surface" : "text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors")">
+<span class="material-symbols-outlined text-lg">grid_view</span>
+                    Grid
+                </a>
+<a asp-controller="Hotels" asp-action="Index" asp-route-price="@Model.PriceFilter" asp-route-stars="@Model.StarsFilter" asp-route-amenity="@Model.AmenityFilter" asp-route-view="map" class="lv-view-toggle-option flex items-center gap-2 px-4 py-2.5 rounded-lg font-label-sm text-label-sm @(Model.ViewMode == "map" ? "bg-surface-container-lowest shadow-sm text-on-surface" : "text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors")">
+<span class="material-symbols-outlined text-lg">map</span>
+                    Map View
+                </a>
+</div>
+</div>
+
+<div class="lv-filter-card mb-lg">
+<div class="lv-filter-card-inner">
+<form method="get" asp-controller="Hotels" asp-action="Index" id="hotel-filters" class="lv-filter-actions">
+<input type="hidden" name="view" value="@Model.ViewMode" />
+<div class="lv-filter-select-wrap relative">
+<select name="price" onchange="this.form.submit()" class="lv-filter-select bg-surface-container border border-surface-dim cursor-pointer hover:border-outline transition-colors font-label-sm text-label-sm text-on-surface">
+@foreach (var opt in new[] { ("any", "Price: Any"), ("budget", "Under $200"), ("mid", "$200 – $400"), ("luxury", "Luxury ($400+)") })
+{
+if (Model.PriceFilter == opt.Item1)
+{ <option value="@opt.Item1" selected>@opt.Item2</option> }
+else
+{ <option value="@opt.Item1">@opt.Item2</option> }
+}
+</select>
+<span class="lv-filter-select-icon material-symbols-outlined text-sm text-on-surface-variant" aria-hidden="true">keyboard_arrow_down</span>
+</div>
+<div class="lv-filter-select-wrap relative">
+<select name="stars" onchange="this.form.submit()" class="lv-filter-select bg-surface-container border border-surface-dim cursor-pointer hover:border-outline transition-colors font-label-sm text-label-sm text-on-surface">
+@foreach (var opt in new[] { ("any", "Stars: Any"), ("3", "3+ Stars"), ("4", "4+ Stars"), ("5", "5 Stars") })
+{
+if (Model.StarsFilter == opt.Item1)
+{ <option value="@opt.Item1" selected>@opt.Item2</option> }
+else
+{ <option value="@opt.Item1">@opt.Item2</option> }
+}
+</select>
+<span class="lv-filter-select-icon material-symbols-outlined text-sm text-on-surface-variant" aria-hidden="true">keyboard_arrow_down</span>
+</div>
+<div class="lv-filter-select-wrap relative">
+<select name="amenity" onchange="this.form.submit()" class="lv-filter-select bg-surface-container border border-surface-dim cursor-pointer hover:border-outline transition-colors font-label-sm text-label-sm text-on-surface">
+@foreach (var opt in new[] { ("any", "Amenities: Any"), ("wifi", "Wi‑Fi"), ("pool", "Pool"), ("spa", "Spa"), ("gym", "Gym"), ("dining", "Dining"), ("eco", "Eco"), ("yoga", "Yoga") })
+{
+if (Model.AmenityFilter == opt.Item1)
+{ <option value="@opt.Item1" selected>@opt.Item2</option> }
+else
+{ <option value="@opt.Item1">@opt.Item2</option> }
+}
+</select>
+<span class="lv-filter-select-icon material-symbols-outlined text-sm text-on-surface-variant" aria-hidden="true">keyboard_arrow_down</span>
+</div>
+</form>
+<span class="lv-filter-count">Viewing @Model.Stays.Count @(Model.Stays.Count == 1 ? "stay" : "stays")</span>
+</div>
+</div>
+
+@if (Model.ViewMode == "map")
+{
+<section class="mb-lg rounded-xl border border-surface-dim overflow-hidden bg-surface-container-low">
+<div class="h-72 bg-gradient-to-br from-primary/15 via-surface-container-lowest to-secondary/10 flex flex-col items-center justify-center gap-3 px-6 text-center">
+<span class="material-symbols-outlined text-6xl text-primary">map</span>
+<p class="font-body-md text-on-surface-variant max-w-lg">Map preview — pins reflect filtered stays. Switch back to Grid for full cards.</p>
+</div>
+<div class="p-6 border-t border-surface-dim">
+<h3 class="font-h3 text-h3 text-on-surface mb-4">Locations in this list</h3>
+<ul class="space-y-3 font-body-md text-body-md text-on-surface-variant">
+@foreach (var s in Model.Stays)
+{
+<li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary text-[20px]">location_on</span><span><span class="text-on-surface font-medium">@s.Name</span> — @s.CityLine</span></li>
+}
+</ul>
+</div>
+</section>
+}
+
+@if (Model.Stays.Count == 0)
+{
+<div class="lv-empty-state">
+<h3>No stays found</h3>
+<p>No stays match these filters. Try broadening your preferences.</p>
+</div>
+}
+else if (Model.ViewMode == "grid")
+{
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md">
+@foreach (var h in Model.Stays)
+{
+<div class="relative bg-surface rounded-xl border border-surface-dim overflow-hidden flex flex-col group cursor-pointer transition-[box-shadow,border-color] duration-300 hover:shadow-[0_12px_28px_-6px_rgba(15,23,42,0.14)] hover:border-primary/25">
+<a asp-controller="Hotels" asp-action="Detail" asp-route-id="@h.Slug" class="absolute inset-0 z-[1] rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface" aria-label="View details for @h.Name"></a>
+<div class="relative z-[2] pointer-events-none flex flex-col flex-grow min-h-0">
+<div class="relative h-64 overflow-hidden shrink-0">
+@if (!string.IsNullOrEmpty(h.ImageUrl))
+{
+<img alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="@h.ImageUrl" onerror="this.onerror=null;this.src='/images/placeholders/lv-placeholder.svg';" />
+}
+<div class="absolute top-4 right-4 bg-tertiary-container text-on-tertiary-container font-label-sm text-label-sm px-3 py-1 rounded-full shadow-sm">
+                        $@h.PricePerNight.ToString("0") / night
+                    </div>
+<div class="absolute bottom-4 left-4 flex gap-2">
+<span class="bg-surface/90 backdrop-blur-sm text-on-surface font-label-sm text-label-sm px-2 py-1 rounded shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span> @h.StarDisplay.ToString("0.0")
+                         </span>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-h3 text-h3 text-on-surface leading-tight group-hover:text-primary transition-colors"><span>@h.Name</span></h3>
+<form asp-controller="Favorites" asp-action="Toggle" method="post" class="shrink-0 relative z-10 lv-favorite-form pointer-events-auto">
+@Html.AntiForgeryToken()
+<input type="hidden" name="itemType" value="Stay" />
+<input type="hidden" name="itemId" value="@h.Id" />
+<input type="hidden" name="returnUrl" value="@returnUrl" />
+<button type="submit" class="lv-favorite-btn @(h.IsFavorite ? "is-active" : "") transition-colors border-0 cursor-pointer" title="@(h.IsFavorite ? "Remove favorite" : "Save favorite")" aria-label="Favorite stay" aria-pressed="@(h.IsFavorite ? "true" : "false")">
+<span class="material-symbols-outlined lv-favorite-icon" style="font-variation-settings: 'FILL' @(h.IsFavorite ? "1" : "0");">@(h.IsFavorite ? "favorite" : "favorite_border")</span>
+</button>
+</form>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-1 mb-4">
+<span class="material-symbols-outlined text-sm">location_on</span> @h.CityLine
+                    </p>
+<div class="flex flex-wrap gap-2 mb-4 border-t border-surface-dim pt-4">
+@foreach (var tag in h.AmenityTags)
+{
+<span class="flex items-center gap-1 text-on-surface-variant font-label-sm text-[12px] bg-surface-container-low px-2 py-1 rounded-md">@tag</span>
+}
+</div>
+<a asp-controller="Hotels" asp-action="Detail" asp-route-id="@h.Slug" class="font-label-sm text-label-sm text-primary inline-flex items-center gap-1 mt-auto relative z-10 pointer-events-auto">Details <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+</div>
+</div>
+</div>
+}
+</div>
+}
+
+</main>

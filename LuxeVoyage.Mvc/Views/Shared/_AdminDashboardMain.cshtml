@@ -1,0 +1,141 @@
+﻿<!-- TopAppBar -->
+<header class="sticky top-0 w-full z-40 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center px-8 h-16">
+<div class="flex items-center gap-4">
+<h1 class="font-h3 text-h3 text-slate-900 dark:text-white">Dashboard Overview</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-sm w-64 focus:ring-2 focus:ring-primary focus:outline-none transition-shadow text-on-surface" placeholder="Search..." type="text"/>
+</div>
+<button type="button" onclick="lvPlaceholder(event)" class="text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-full p-2 opacity-80 active:opacity-100 transition-all">
+<span class="material-symbols-outlined text-[24px]">notifications</span>
+</button>
+<button type="button" onclick="lvPlaceholder(event)" class="text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-full p-2 opacity-80 active:opacity-100 transition-all">
+<span class="material-symbols-outlined text-[24px]">help_outline</span>
+</button>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 p-8 lg:p-12 space-y-lg">
+<!-- Bento Grid - Stats -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Stat Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(15,23,42,0.05)] flex flex-col justify-between relative overflow-hidden group">
+<div class="flex justify-between items-start mb-4 relative z-10">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-1">Active Users</p>
+<h3 class="font-h2 text-h2 text-on-surface">12,482</h3>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">group</span>
+</div>
+</div>
+<div class="flex items-center gap-2 text-tertiary-container relative z-10 font-body-md text-sm">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+<span>+14.5% vs last month</span>
+</div>
+<!-- Decorative background element -->
+<div class="absolute -bottom-6 -right-6 w-32 h-32 bg-primary-container/5 rounded-full blur-2xl group-hover:bg-primary-container/10 transition-colors"></div>
+</div>
+<!-- Stat Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(15,23,42,0.05)] flex flex-col justify-between relative overflow-hidden group">
+<div class="flex justify-between items-start mb-4 relative z-10">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-1">Bookings</p>
+<h3 class="font-h2 text-h2 text-on-surface">3,840</h3>
+</div>
+<div class="w-10 h-10 rounded-full bg-secondary-container/50 flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined">event_available</span>
+</div>
+</div>
+<div class="flex items-center gap-2 text-tertiary-container relative z-10 font-body-md text-sm">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+<span>+5.2% vs last month</span>
+</div>
+<!-- Decorative background element -->
+<div class="absolute -bottom-6 -right-6 w-32 h-32 bg-secondary-container/20 rounded-full blur-2xl group-hover:bg-secondary-container/30 transition-colors"></div>
+</div>
+<!-- Stat Card 3 -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(15,23,42,0.05)] flex flex-col justify-between relative overflow-hidden group">
+<div class="flex justify-between items-start mb-4 relative z-10">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-1">Revenue</p>
+<h3 class="font-h2 text-h2 text-on-surface">$842.5K</h3>
+</div>
+<div class="w-10 h-10 rounded-full bg-tertiary-container/20 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined">payments</span>
+</div>
+</div>
+<div class="flex items-center gap-2 text-error relative z-10 font-body-md text-sm">
+<span class="material-symbols-outlined text-[16px]">trending_down</span>
+<span>-1.2% vs last month</span>
+</div>
+<!-- Decorative background element -->
+<div class="absolute -bottom-6 -right-6 w-32 h-32 bg-tertiary-container/10 rounded-full blur-2xl group-hover:bg-tertiary-container/20 transition-colors"></div>
+</div>
+</section>
+<!-- Table Section -->
+<section class="bg-surface-container-lowest rounded-xl shadow-[0_4px_20px_rgba(15,23,42,0.05)] overflow-hidden">
+<div class="px-6 py-5 border-b border-surface-variant flex justify-between items-center">
+<h3 class="font-h3 text-[20px] leading-snug font-semibold text-on-surface">Recent Activity</h3>
+<a asp-controller="AdminAttractions" asp-action="Index" class="text-primary font-button text-sm hover:underline underline-offset-4 inline-block">View All</a>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/50">
+<th class="py-3 px-6 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider border-b border-surface-variant font-medium">User</th>
+<th class="py-3 px-6 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider border-b border-surface-variant font-medium">Action</th>
+<th class="py-3 px-6 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider border-b border-surface-variant font-medium">Destination</th>
+<th class="py-3 px-6 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider border-b border-surface-variant font-medium">Date</th>
+<th class="py-3 px-6 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider border-b border-surface-variant font-medium">Status</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-sm text-on-surface">
+<tr class="hover:bg-surface-container-low/30 transition-colors border-b border-surface-variant/50 last:border-0">
+<td class="py-4 px-6 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden">
+<img alt="User" class="w-full h-full object-cover" data-alt="A small, professional headshot of a smiling woman with warm lighting, suitable for a corporate dashboard avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMcuZU3XfOLlBHTjoSaEAaaUWtqTnxlZxQ3LU-iv7Y4fHJDKG_ZGBfrlJ8WTee_pCSqheybdkjJwy6yEpwfiTGojpdRBfOlM9Za4pLLM8AG33pqw2BZJ9BwQG9HbQXhiupNpHQAjmT9QI7xxOW0Q4T85x0f9cWS84vYDUMCDUANpLAib2MEYSrDhyYBwLvCsvElN-nGC0F0nsXO8u2t-PpREsA9w4evIOY9xjkEcmnKQRBhIjqStlbd4ji_gYrawkic3KWnTrdUlk"/>
+</div>
+<span class="font-medium">Sarah Jenkins</span>
+</td>
+<td class="py-4 px-6 text-on-surface-variant">Booked Flight</td>
+<td class="py-4 px-6 font-medium">Bali, Indonesia</td>
+<td class="py-4 px-6 text-on-surface-variant">Oct 24, 2023</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-tertiary-container/20 text-tertiary">Confirmed</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors border-b border-surface-variant/50 last:border-0">
+<td class="py-4 px-6 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden">
+<div class="w-full h-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-xs">MJ</div>
+</div>
+<span class="font-medium">Marcus Johnson</span>
+</td>
+<td class="py-4 px-6 text-on-surface-variant">Cancelled Reservation</td>
+<td class="py-4 px-6 font-medium">Paris, France</td>
+<td class="py-4 px-6 text-on-surface-variant">Oct 24, 2023</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-error/10 text-error">Cancelled</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors border-b border-surface-variant/50 last:border-0">
+<td class="py-4 px-6 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden">
+<img alt="User" class="w-full h-full object-cover" data-alt="A small, professional headshot of a serious man with modern lighting, suitable for a corporate dashboard avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBABGN6zUBk3HRTwEpEdS9STryXOXjat0nW72Avy3OgA1WdmuK0FUHWg0eP0s0b5pYLpRJBUbuCZBeWtPTwWf14r28-uoGKIfVrXcMR6sCMNEPllu06YwP9Zzz48Bv_clRKsmxPJlap_RQV0PuacXqARPHam24hvfj1iMKcBr9ri5Uu_wJd4nUjurpF43LxA2ycCyWmLbzbfTloyiGU3fSWdCyRMNLDsFOxj4XFXxG3Y0lx-Rspi2kXk-rY5wwHf1dUd7EEN4KOjsI"/>
+</div>
+<span class="font-medium">David Chen</span>
+</td>
+<td class="py-4 px-6 text-on-surface-variant">Upgraded Suite</td>
+<td class="py-4 px-6 font-medium">Tokyo, Japan</td>
+<td class="py-4 px-6 text-on-surface-variant">Oct 23, 2023</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary-container text-on-secondary-container">Pending</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>

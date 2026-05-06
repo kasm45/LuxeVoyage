@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Destinations - Wanderlust</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#f2f4f6",
+                        "outline": "#76777d",
+                        "tertiary": "#000000",
+                        "tertiary-fixed-dim": "#6bd8cb",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#0c9488",
+                        "surface-container-high": "#e6e8ea",
+                        "on-secondary-fixed-variant": "#653e00",
+                        "on-tertiary-fixed": "#00201d",
+                        "primary": "#000000",
+                        "surface-tint": "#565e74",
+                        "inverse-primary": "#bec6e0",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-surface": "#191c1e",
+                        "on-primary-fixed": "#131b2e",
+                        "tertiary-container": "#00201d",
+                        "surface": "#f7f9fb",
+                        "secondary": "#855300",
+                        "on-secondary-container": "#684000",
+                        "on-secondary-fixed": "#2a1700",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-tertiary": "#ffffff",
+                        "background": "#f7f9fb",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#eff1f3",
+                        "primary-fixed": "#dae2fd",
+                        "on-tertiary-fixed-variant": "#005049",
+                        "on-background": "#191c1e",
+                        "secondary-fixed": "#ffddb8",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c6c6cd",
+                        "primary-container": "#131b2e",
+                        "on-error": "#ffffff",
+                        "surface-container": "#eceef0",
+                        "surface-bright": "#f7f9fb",
+                        "on-primary-container": "#7c839b",
+                        "surface-variant": "#e0e3e5",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#2d3133",
+                        "on-surface-variant": "#45464d",
+                        "secondary-container": "#fea619",
+                        "secondary-fixed-dim": "#ffb95f",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#d8dadc",
+                        "tertiary-fixed": "#89f5e7",
+                        "on-primary-fixed-variant": "#3f465c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "sm": "12px",
+                        "base": "8px",
+                        "xl": "80px",
+                        "md": "24px",
+                        "margin-mobile": "16px",
+                        "lg": "48px",
+                        "margin-desktop": "64px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "h1": ["Noto Serif"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "h3": ["Plus Jakarta Sans"],
+                        "h2": ["Noto Serif"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "h1": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-sm": ["14px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "h3": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "h2": ["36px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopNavBar Shared Component -->
+<nav class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md text-slate-900 dark:text-white font-serif text-sm font-medium tracking-wide fixed top-0 w-full z-50 border-b border-slate-200/50 dark:border-slate-800/50 shadow-sm">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-6 h-20">
+<div class="text-2xl font-black tracking-tighter text-slate-900 dark:text-white">
+                Wanderlust
+            </div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200 scale-95 active:scale-100 transition-transform" href="#">Home</a>
+<a class="text-slate-900 dark:text-white border-b-2 border-orange-500 pb-1 scale-95 active:scale-100 transition-transform" href="#">Destinations</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200 scale-95 active:scale-100 transition-transform" href="#">Cities</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200 scale-95 active:scale-100 transition-transform" href="#">Tours</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200 scale-95 active:scale-100 transition-transform" href="#">Hotels</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200 scale-95 active:scale-100 transition-transform" href="#">About Us</a>
+</div>
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined cursor-pointer hover:text-orange-500 transition-colors">search</span>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-DEFAULT font-label-sm text-label-sm hover:opacity-90 transition-opacity">Login</button>
+</div>
+</div>
+</nav>
+<!-- Main Canvas -->
+<main class="flex-grow pt-[120px]">
+<!-- Header Section -->
+<header class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop py-xl">
+<h1 class="font-h1 text-h1 text-on-background mb-sm">Discover Extraordinary Places</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">Immerse yourself in our curated selection of global destinations. From breathtaking natural wonders to profound historical sites, find the perfect canvas for your next adventure.</p>
+</header>
+<!-- Filters Section -->
+<section class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop mb-lg">
+<div class="bg-surface-container-low rounded-xl p-md flex flex-col md:flex-row justify-between items-start md:items-center gap-md border border-outline-variant/30">
+<div class="flex flex-wrap gap-sm items-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant mr-2 uppercase tracking-wider">Category</span>
+<button class="bg-primary text-on-primary px-5 py-2 rounded-full font-label-sm text-label-sm shadow-sm transition-transform hover:scale-105">All</button>
+<button class="bg-surface-container-highest text-on-surface px-5 py-2 rounded-full font-label-sm text-label-sm hover:bg-outline-variant/40 transition-colors">Nature</button>
+<button class="bg-surface-container-highest text-on-surface px-5 py-2 rounded-full font-label-sm text-label-sm hover:bg-outline-variant/40 transition-colors">Culture</button>
+<button class="bg-surface-container-highest text-on-surface px-5 py-2 rounded-full font-label-sm text-label-sm hover:bg-outline-variant/40 transition-colors">History</button>
+</div>
+<div class="flex items-center gap-sm w-full md:w-auto">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Region</span>
+<div class="relative w-full md:w-48">
+<select class="w-full appearance-none bg-surface-container-lowest border border-outline-variant rounded-DEFAULT px-4 py-2.5 font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none cursor-pointer">
+<option>Global (Anywhere)</option>
+<option>Europe</option>
+<option>Asia Pacific</option>
+<option>Americas</option>
+<option>Africa &amp; Middle East</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Grid Section -->
+<section class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop pb-xl grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Featured Large Card -->
+<article class="md:col-span-8 group cursor-pointer rounded-xl overflow-hidden bg-surface-container-lowest border border-outline-variant/30 shadow-sm hover:shadow-[0px_10px_15px_-3px_rgba(15,23,42,0.08)] transition-all duration-300 flex flex-col">
+<div class="h-[400px] overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" data-alt="A breathtaking, wide-angle landscape photograph of ancient temples nestled within a vibrant, lush forest in Kyoto during early autumn. The scene is illuminated by soft, golden-hour sunlight that creates a warm, inviting, and premium travel aesthetic. The composition emphasizes the harmony between the traditional wooden architecture and the deep green and subtle orange natural surroundings. The mood is serene, timeless, and inspiring." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAw3ZjGQwJ90wOHKRMUFcXYi4H7D_TvDoV9LSdUNPXdxJfDO5EMZvSCKhc48ncMJzOs3QwLoOWHzBiLY8yP5jlUEtdMHv5Qg30KPy0bnGAJUrERb3xLgxzkPX7wTjYxIPU7jUpqxA5REF2mEPl3c9W9WudkP63dq6cGkFnbdNk7jepsbMoDqb9UY6iBLRUhz-SWGqHN4buroVavApNf_CGYnG8L6w9B1FdAAYqegx9TfmUicO2HRtrsTfltWt-fNu-iqpnTuVi8Slc"/>
+<div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-md text-on-surface px-4 py-1.5 rounded-full font-label-sm text-label-sm shadow-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary-container">star</span> Featured
+                    </div>
+</div>
+<div class="p-md flex flex-col flex-grow bg-surface-container-lowest">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<h3 class="font-h3 text-h3 text-on-surface mb-xs group-hover:text-primary-container transition-colors">Ancient Trails of Kyoto</h3>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">location_on</span> Kyoto, Japan
+                            </p>
+</div>
+<span class="bg-surface-container-low text-on-surface px-3 py-1.5 rounded-DEFAULT font-label-sm text-label-sm border border-outline-variant/20">Culture</span>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant line-clamp-2 mt-auto">Wander through meticulously preserved historic districts, tranquil Zen rock gardens, and towering bamboo groves in Japan's cultural capital.</p>
+</div>
+</article>
+<!-- Medium Card 1 -->
+<article class="md:col-span-4 group cursor-pointer rounded-xl overflow-hidden bg-surface-container-lowest border border-outline-variant/30 shadow-sm hover:shadow-[0px_10px_15px_-3px_rgba(15,23,42,0.08)] transition-all duration-300 flex flex-col">
+<div class="h-[250px] overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" data-alt="A striking, high-contrast photograph of the rugged, snow-capped peaks of the Swiss Alps against a clear, deep blue sky. The foreground features a winding mountain trail bathed in crisp, bright, natural light, conveying a sense of pristine adventure. The image utilizes a clean, modern aesthetic with sharp details and a cool color palette dominated by whites, grays, and blues. The overall mood is exhilarating and awe-inspiring." src="https://lh3.googleusercontent.com/aida-public/AB6AXuACous8km5qVbmKprPjtGHDhFfqQwpfZy16XWTja82ggBU0YPYKXWgr8nkDaFpSrHxnGCauIw-MR1qRLGh6nlsciwd7mui1rvG-aRNtJsghiPuJDR8-igtcjcfFmEjOGYHQGvLVTOSXihsWM1kiICWtxzz8IqYbqXdN8hJcP1bcD1ah0qRscjnwUkiUGKtKbmcTxZY7UQIEzyCpnhlPSznnOmV1QnNyy-mcbPpkVPU7N1xtWqotYRd1ZLbx8uTPaYG9PIHPrQVWtqs"/>
+</div>
+<div class="p-md flex flex-col flex-grow bg-surface-container-lowest">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<h3 class="font-h3 text-h3 text-on-surface mb-xs group-hover:text-primary-container transition-colors">Alpine Heights</h3>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">location_on</span> Zermatt, Switzerland
+                            </p>
+</div>
+</div>
+<div class="mt-auto pt-sm flex justify-between items-center">
+<span class="bg-surface-container-low text-on-surface px-3 py-1.5 rounded-DEFAULT font-label-sm text-label-sm border border-outline-variant/20">Nature</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">arrow_forward</span>
+</div>
+</div>
+</article>
+<!-- Medium Card 2 -->
+<article class="md:col-span-4 group cursor-pointer rounded-xl overflow-hidden bg-surface-container-lowest border border-outline-variant/30 shadow-sm hover:shadow-[0px_10px_15px_-3px_rgba(15,23,42,0.08)] transition-all duration-300 flex flex-col">
+<div class="h-[250px] overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" data-alt="A vibrant, sunlit photograph of the iconic ruins of Machu Picchu perched high in the Andes mountains. The ancient stone terraces contrast beautifully with the dramatic, lush green peaks surrounding them. The lighting is bright and clear, highlighting the architectural details of the history site in a premium travel editorial style. The scene evokes a sense of epic discovery and deep historical mystery." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBV_FekQ-ju5gdgvKVENQMEthQCwtpyi86NU9Ww3nYJ2OIiHH3LUvd53v8YBQOqF2G5L1pFAP6YAjZqBGizJ9AVKWIDb8CIwSIazaFo5Fav2DDb-QCGtoRrZWs2oBS0RcRhCv2j-ibhuNwmzRogWP3yLQNr7K98fcAThZtAQu7o3Ok_kLY6-LcPQn0S33msM_ufDraEr7fki5u6YFfbo7hxzkInriSSLQv-6rgmgq7jweIc2SqaB0nl4BuFrz4eFMJc2UKGTFPacpM"/>
+</div>
+<div class="p-md flex flex-col flex-grow bg-surface-container-lowest">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<h3 class="font-h3 text-h3 text-on-surface mb-xs group-hover:text-primary-container transition-colors">Inca Citadel</h3>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">location_on</span> Cusco, Peru
+                            </p>
+</div>
+</div>
+<div class="mt-auto pt-sm flex justify-between items-center">
+<span class="bg-surface-container-low text-on-surface px-3 py-1.5 rounded-DEFAULT font-label-sm text-label-sm border border-outline-variant/20">History</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">arrow_forward</span>
+</div>
+</div>
+</article>
+<!-- Medium Card 3 -->
+<article class="md:col-span-4 group cursor-pointer rounded-xl overflow-hidden bg-surface-container-lowest border border-outline-variant/30 shadow-sm hover:shadow-[0px_10px_15px_-3px_rgba(15,23,42,0.08)] transition-all duration-300 flex flex-col">
+<div class="h-[250px] overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" data-alt="A picturesque, high-quality image of the Amalfi Coast showing colorful, stacked houses clinging to steep, dramatic cliffs above the deep blue Mediterranean Sea. The scene is bathed in brilliant midday sunlight, creating a crisp, luxurious, and modern vacation aesthetic. The contrast between the vibrant architecture and the expansive ocean conveys a sense of elegant leisure and breathtaking coastal beauty." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXNsg3iprqgfoA6F9yxzEaR2SGp-u46InhDQDkWMKA27YWNpQVJClW4sayZ7buFvEM4qLqpjzmqeoFQl7J5Ls3-RXuK_XU3yzCD8rWSmm47h-vxiznmF2nDvjNNELi2UVWwLmQnKboXXfnFKR7JMSbBJ-pUQQFr47vwtfi51bn7F81XeKJIALV6ASRgh3dyQMDmT9czOlgwUDqxLJkZ8cic5xacc-GjegpPofCsA17D2zgz_d82kNJQqoPryIlUn42swPiRnifVxI"/>
+</div>
+<div class="p-md flex flex-col flex-grow bg-surface-container-lowest">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<h3 class="font-h3 text-h3 text-on-surface mb-xs group-hover:text-primary-container transition-colors">Amalfi Coast Drive</h3>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">location_on</span> Campania, Italy
+                            </p>
+</div>
+</div>
+<div class="mt-auto pt-sm flex justify-between items-center">
+<span class="bg-surface-container-low text-on-surface px-3 py-1.5 rounded-DEFAULT font-label-sm text-label-sm border border-outline-variant/20">Culture</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">arrow_forward</span>
+</div>
+</div>
+</article>
+<!-- Medium Card 4 -->
+<article class="md:col-span-4 group cursor-pointer rounded-xl overflow-hidden bg-surface-container-lowest border border-outline-variant/30 shadow-sm hover:shadow-[0px_10px_15px_-3px_rgba(15,23,42,0.08)] transition-all duration-300 flex flex-col">
+<div class="h-[250px] overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" data-alt="A tranquil, high-definition photograph of a glassy, turquoise glacial lake reflecting the towering, pine-covered Rocky Mountains in Banff National Park. The lighting is cool and clear, characteristic of a pristine wilderness morning. The image embodies a minimalist, serene nature aesthetic with a palette of deep greens, stark grays, and vivid blues. The overall feeling is one of profound peace and natural majesty." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZHH2uHRQf5kwF97aCRSEnwoXvg03fAQqZOmC4bsGZ2jAX05RqppxCrYKOQbrZGLnBP89wYbV_RhAjhJ2qNNI7Etq4u9J2isox32wvsXPhvk_-Viw7MTSU-n5FmrIVEAXaQFcDmJbmMLrwvbrtsQovZiH8yWcYz5qzSEbGVcKN0x0cICUtMD19yOsrmK-_fP9s2ynnrOaSoqQJd_eXUMxq-B3ermaRfw_WVaA5H9BKrjtRj2Y39qFx0fBGp5qJ47FrtLKg2Gfz5YQ"/>
+</div>
+<div class="p-md flex flex-col flex-grow bg-surface-container-lowest">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<h3 class="font-h3 text-h3 text-on-surface mb-xs group-hover:text-primary-container transition-colors">Banff Wilderness</h3>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">location_on</span> Alberta, Canada
+                            </p>
+</div>
+</div>
+<div class="mt-auto pt-sm flex justify-between items-center">
+<span class="bg-surface-container-low text-on-surface px-3 py-1.5 rounded-DEFAULT font-label-sm text-label-sm border border-outline-variant/20">Nature</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">arrow_forward</span>
+</div>
+</div>
+</article>
+</section>
+</main>
+<!-- Footer Shared Component -->
+<footer class="bg-slate-900 dark:bg-black text-white font-serif text-sm w-full mt-auto border-t border-slate-800">
+<div class="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="flex flex-col gap-4">
+<div class="text-xl font-bold text-white">Wanderlust</div>
+<p class="text-slate-400 font-body-md text-body-md max-w-xs">Inspiring journeys and curating unforgettable experiences around the globe.</p>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-bold text-white mb-2 uppercase tracking-wider text-xs">Company</h4>
+<a class="text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100 w-fit" href="#">About Us</a>
+<a class="text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100 w-fit" href="#">Contact</a>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-bold text-white mb-2 uppercase tracking-wider text-xs">Legal</h4>
+<a class="text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100 w-fit" href="#">Privacy Policy</a>
+<a class="text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100 w-fit" href="#">Terms of Service</a>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-bold text-white mb-2 uppercase tracking-wider text-xs">Social</h4>
+<a class="text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100 w-fit flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-[18px]">photo_camera</span> Instagram
+                </a>
+<a class="text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100 w-fit flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-[18px]">thumb_up</span> Facebook
+                </a>
+</div>
+<div class="col-span-1 md:col-span-4 mt-8 pt-8 border-t border-slate-800 text-slate-400 text-center flex flex-col md:flex-row justify-between items-center gap-4">
+<span>© 2024 Wanderlust Tourism. All rights reserved.</span>
+</div>
+</div>
+</footer>
+</body></html>

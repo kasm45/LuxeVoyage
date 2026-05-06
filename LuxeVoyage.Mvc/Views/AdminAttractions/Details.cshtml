@@ -1,0 +1,14 @@
+@model LuxeVoyage.Mvc.Models.Attraction
+<div class="px-8 py-10 font-body-md max-w-2xl">
+    <h1 class="font-h2 text-h2 mb-6">Attraction details</h1>
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 space-y-4">
+        <img src="@Model.ImageUrl" alt="" class="w-full max-h-72 object-cover rounded-lg" onerror="this.onerror=null;this.src='/images/placeholders/lv-placeholder.svg';" />
+        <p><strong>Name:</strong> @Model.Name</p>
+        <p><strong>City:</strong> @Model.City</p>
+        <p><strong>Category:</strong> @Model.Category</p>
+        <div class="flex gap-3 pt-3">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="admin-action-link">Edit</a>
+            <a asp-action="Index" class="admin-action-link">Back</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="640" viewBox="0 0 960 640" role="img" aria-label="LuxeVoyage placeholder image">
+  <defs>
+    <linearGradient id="lvBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f7efe8"/>
+      <stop offset="100%" stop-color="#eadccf"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="640" fill="url(#lvBg)"/>
+  <rect x="80" y="80" width="800" height="480" rx="28" fill="#ffffff" opacity="0.65"/>
+  <g fill="none" stroke="#a34700" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" opacity="0.85">
+    <path d="M220 430l140-150 120 115 90-92 170 127"/>
+    <circle cx="360" cy="230" r="44"/>
+  </g>
+  <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" fill="#7c3f18" font-family="Inter,Arial,sans-serif" font-size="42" font-weight="600">
+    LuxeVoyage
+  </text>
+</svg>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Hotels - Wanderlust</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#f2f4f6",
+                        "outline": "#76777d",
+                        "tertiary": "#000000",
+                        "tertiary-fixed-dim": "#6bd8cb",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#0c9488",
+                        "surface-container-high": "#e6e8ea",
+                        "on-secondary-fixed-variant": "#653e00",
+                        "on-tertiary-fixed": "#00201d",
+                        "primary": "#000000",
+                        "surface-tint": "#565e74",
+                        "inverse-primary": "#bec6e0",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-surface": "#191c1e",
+                        "on-primary-fixed": "#131b2e",
+                        "tertiary-container": "#00201d",
+                        "surface": "#f7f9fb",
+                        "secondary": "#855300",
+                        "on-secondary-container": "#684000",
+                        "on-secondary-fixed": "#2a1700",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-tertiary": "#ffffff",
+                        "background": "#f7f9fb",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#eff1f3",
+                        "primary-fixed": "#dae2fd",
+                        "on-tertiary-fixed-variant": "#005049",
+                        "on-background": "#191c1e",
+                        "secondary-fixed": "#ffddb8",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c6c6cd",
+                        "primary-container": "#131b2e",
+                        "on-error": "#ffffff",
+                        "surface-container": "#eceef0",
+                        "surface-bright": "#f7f9fb",
+                        "on-primary-container": "#7c839b",
+                        "surface-variant": "#e0e3e5",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#2d3133",
+                        "on-surface-variant": "#45464d",
+                        "secondary-container": "#fea619",
+                        "secondary-fixed-dim": "#ffb95f",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#d8dadc",
+                        "tertiary-fixed": "#89f5e7",
+                        "on-primary-fixed-variant": "#3f465c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "sm": "12px",
+                        "base": "8px",
+                        "xl": "80px",
+                        "md": "24px",
+                        "margin-mobile": "16px",
+                        "lg": "48px",
+                        "margin-desktop": "64px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "h1": ["Noto Serif"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "h3": ["Plus Jakarta Sans"],
+                        "h2": ["Noto Serif"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "h1": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-sm": ["14px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "h3": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "h2": ["36px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background antialiased font-body-md text-body-md">
+<!-- TopNavBar -->
+<nav class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md fixed top-0 w-full z-50 border-b border-slate-200/50 dark:border-slate-800/50 shadow-sm">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-6 h-20">
+<div class="text-2xl font-black tracking-tighter text-slate-900 dark:text-white">Wanderlust</div>
+<div class="hidden md:flex gap-6 items-center">
+<a class="font-serif text-sm font-medium tracking-wide text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200 scale-95 active:scale-100 transition-transform" href="#">Home</a>
+<a class="font-serif text-sm font-medium tracking-wide text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200 scale-95 active:scale-100 transition-transform" href="#">Destinations</a>
+<a class="font-serif text-sm font-medium tracking-wide text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200 scale-95 active:scale-100 transition-transform" href="#">Cities</a>
+<a class="font-serif text-sm font-medium tracking-wide text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200 scale-95 active:scale-100 transition-transform" href="#">Tours</a>
+<a class="font-serif text-sm font-medium tracking-wide text-slate-900 dark:text-white border-b-2 border-orange-500 pb-1 hover:text-orange-500 transition-colors duration-200 scale-95 active:scale-100 transition-transform" href="#">Hotels</a>
+<a class="font-serif text-sm font-medium tracking-wide text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200 scale-95 active:scale-100 transition-transform" href="#">About Us</a>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-lg">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border border-surface-dim rounded-full font-label-sm text-label-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary w-64" placeholder="Search destinations..." type="text"/>
+</div>
+<button class="bg-primary text-on-primary font-label-sm text-label-sm px-6 py-2 rounded-full hover:bg-opacity-90 transition-all">Login</button>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="pt-28 pb-xl max-w-7xl mx-auto px-6">
+<!-- Header & Controls -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-md gap-4">
+<div>
+<h1 class="font-h1 text-h1 text-on-background mb-xs">Find Your Perfect Stay</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Explore handpicked hotels for your next adventure.</p>
+</div>
+<div class="flex items-center gap-sm bg-surface-container-low p-1 rounded-lg border border-surface-dim">
+<button class="flex items-center gap-2 px-4 py-2 bg-surface rounded-md shadow-sm font-label-sm text-label-sm text-on-surface">
+<span class="material-symbols-outlined text-lg">grid_view</span>
+                    Grid
+                </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-md font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-lg">map</span>
+                    Map View
+                </button>
+</div>
+</div>
+<!-- Filters -->
+<div class="flex flex-wrap gap-sm mb-lg">
+<div class="flex items-center gap-2 px-4 py-2 bg-surface-container rounded-full border border-surface-dim cursor-pointer hover:border-outline transition-colors">
+<span class="font-label-sm text-label-sm text-on-surface">Price: Any</span>
+<span class="material-symbols-outlined text-sm">keyboard_arrow_down</span>
+</div>
+<div class="flex items-center gap-2 px-4 py-2 bg-surface-container rounded-full border border-surface-dim cursor-pointer hover:border-outline transition-colors">
+<span class="font-label-sm text-label-sm text-on-surface">Stars: Any</span>
+<span class="material-symbols-outlined text-sm">keyboard_arrow_down</span>
+</div>
+<div class="flex items-center gap-2 px-4 py-2 bg-surface-container rounded-full border border-surface-dim cursor-pointer hover:border-outline transition-colors">
+<span class="font-label-sm text-label-sm text-on-surface">Amenities</span>
+<span class="material-symbols-outlined text-sm">keyboard_arrow_down</span>
+</div>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded-full font-label-sm text-label-sm ml-auto">
+<span class="material-symbols-outlined text-sm">tune</span>
+                More Filters
+            </button>
+</div>
+<!-- Hotel Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md">
+<!-- Hotel Card 1 -->
+<div class="bg-surface rounded-xl border border-surface-dim overflow-hidden hover:shadow-lg transition-shadow duration-300 group cursor-pointer flex flex-col">
+<div class="relative h-64 overflow-hidden">
+<img alt="Hotel Photo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A luxurious modern hotel resort featuring a massive infinity pool overlooking a vibrant sunset ocean. The lighting is warm and inviting, highlighting the sleek white architecture and lush green palm trees. The mood is highly relaxed, premium, and exotic, perfectly capturing a high-end light-mode aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9LpP-KklBMXvFXlveAC3pdDQD6GT3SBOk4CSMXe7lj9TFTnMiAVf3tNa9klzChTq4ucCubzXRC6xNFeqcHxlSJwKqWiU528gUqTRmjRXRkr7s3Gs-tt3XWqA19MeGPcsAcNi1UoS5Cc71iNkCqzVTMhce8ZV24gnbOk_TWjKPJLsyFGYjjT4VcQAUq7ULLmT-iVyOdWOckaqwtsu-8cEpN8x68OlGgTjFdYlj3ooJiXVrAxr0hxtVgCqUFG1wOF2tK-UuiElDsSo"/>
+<div class="absolute top-4 right-4 bg-tertiary-container text-on-tertiary-container font-label-sm text-label-sm px-3 py-1 rounded-full shadow-sm">
+                        $250 / night
+                    </div>
+<div class="absolute bottom-4 left-4 flex gap-2">
+<span class="bg-surface/90 backdrop-blur-sm text-on-surface font-label-sm text-label-sm px-2 py-1 rounded shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span> 4.8
+                         </span>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-h3 text-h3 text-on-surface leading-tight">Azure Horizon Resort</h3>
+<button class="text-outline hover:text-error transition-colors">
+<span class="material-symbols-outlined">favorite_border</span>
+</button>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-1 mb-4">
+<span class="material-symbols-outlined text-sm">location_on</span> Santorini, Greece
+                    </p>
+<div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-surface-dim">
+<span class="flex items-center gap-1 text-on-surface-variant font-label-sm text-[12px] bg-surface-container-low px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[16px]">wifi</span> Wi-Fi
+                        </span>
+<span class="flex items-center gap-1 text-on-surface-variant font-label-sm text-[12px] bg-surface-container-low px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[16px]">pool</span> Pool
+                        </span>
+<span class="flex items-center gap-1 text-on-surface-variant font-label-sm text-[12px] bg-surface-container-low px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[16px]">restaurant</span> Dining
+                        </span>
+</div>
+</div>
+</div>
+<!-- Hotel Card 2 -->
+<div class="bg-surface rounded-xl border border-surface-dim overflow-hidden hover:shadow-lg transition-shadow duration-300 group cursor-pointer flex flex-col">
+<div class="relative h-64 overflow-hidden">
+<img alt="Hotel Photo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A cozy, boutique urban hotel room with a large window showing a bustling cityscape at twilight. The room features minimalist Scandinavian furniture in light woods and soft grey textiles. The lighting is ambient and sophisticated, creating a calm, quiet retreat amidst the city, fitting a modern light-mode design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJ-8PW2KpxsSkp3pvFyouKUDnLU2IBRSOllgJh4OKkzEinFnJPMTNEb2mx8sKiZKLcEfkP_VcSbCDYMSBEejGZCceY097AatBGQq3z2YVuS8XgajAmnSKxAFmlefONgiT9R_oif2s9gIMyJKgTk1P5rqN5AjD-wohpVVpgMy-aJtEguR4Qu1U6kBtYAAH0t7ODIkbQTMbtF5fX6Yx4OFEPIBZ93C-jvd_crTBz5PrGYNKENnk2m1UvRZc37j9O1OTmz3V4U8czzgE"/>
+<div class="absolute top-4 right-4 bg-tertiary-container text-on-tertiary-container font-label-sm text-label-sm px-3 py-1 rounded-full shadow-sm">
+                        $180 / night
+                    </div>
+<div class="absolute bottom-4 left-4 flex gap-2">
+<span class="bg-surface/90 backdrop-blur-sm text-on-surface font-label-sm text-label-sm px-2 py-1 rounded shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span> 4.5
+                         </span>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-h3 text-h3 text-on-surface leading-tight">The Metropolis Suites</h3>
+<button class="text-outline hover:text-error transition-colors">
+<span class="material-symbols-outlined">favorite_border</span>
+</button>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-1 mb-4">
+<span class="material-symbols-outlined text-sm">location_on</span> Tokyo, Japan
+                    </p>
+<div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-surface-dim">
+<span class="flex items-center gap-1 text-on-surface-variant font-label-sm text-[12px] bg-surface-container-low px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[16px]">wifi</span> Wi-Fi
+                        </span>
+<span class="flex items-center gap-1 text-on-surface-variant font-label-sm text-[12px] bg-surface-container-low px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[16px]">fitness_center</span> Gym
+                        </span>
+<span class="flex items-center gap-1 text-on-surface-variant font-label-sm text-[12px] bg-surface-container-low px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[16px]">local_cafe</span> Cafe
+                        </span>
+</div>
+</div>
+</div>
+<!-- Hotel Card 3 -->
+<div class="bg-surface rounded-xl border border-surface-dim overflow-hidden hover:shadow-lg transition-shadow duration-300 group cursor-pointer flex flex-col">
+<div class="relative h-64 overflow-hidden">
+<img alt="Hotel Photo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A spectacular tropical beach resort showing private overwater bungalows with thatched roofs in crystal clear turquoise water. Bright, sunny daylight illuminates the pristine white sand and vibrant blue sky. The scene is incredibly peaceful, luxurious, and aspirational, perfectly aligned with a premium, bright travel aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCX_y4PXoBjbcPZ6rK3lSQG0f13P9N1m6mh9rFjYfarVx1b7k9kZ-ATscOp4JEJTuKHoKzFeBad9LUyOcjO2iD0Ef8GGez6Rdt5KVQP5oddrR2sfvdcpyg7MSeZB25c9jQe9MEcESIA6L3I2tFBnNMDUQ36s8CLaR9pqJlArXvNCJYLvOgjNS2aQcE73aX9NksauHTvENMLoT37HHhSIJBgL6GWTKwVMOOwYbZlGJrbDr52H0L0e4ciU7T_Tt-AGsjdlgPd9PS1bM"/>
+<div class="absolute top-4 right-4 bg-tertiary-container text-on-tertiary-container font-label-sm text-label-sm px-3 py-1 rounded-full shadow-sm">
+                        $550 / night
+                    </div>
+<div class="absolute bottom-4 left-4 flex gap-2">
+<span class="bg-surface/90 backdrop-blur-sm text-on-surface font-label-sm text-label-sm px-2 py-1 rounded shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span> 5.0
+                         </span>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-h3 text-h3 text-on-surface leading-tight">Emerald Cove Villas</h3>
+<button class="text-outline hover:text-error transition-colors">
+<span class="material-symbols-outlined">favorite_border</span>
+</button>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-1 mb-4">
+<span class="material-symbols-outlined text-sm">location_on</span> Bora Bora, French Polynesia
+                    </p>
+<div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-surface-dim">
+<span class="flex items-center gap-1 text-on-surface-variant font-label-sm text-[12px] bg-surface-container-low px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[16px]">wifi</span> Wi-Fi
+                        </span>
+<span class="flex items-center gap-1 text-on-surface-variant font-label-sm text-[12px] bg-surface-container-low px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[16px]">spa</span> Spa
+                        </span>
+<span class="flex items-center gap-1 text-on-surface-variant font-label-sm text-[12px] bg-surface-container-low px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[16px]">scuba_diving</span> Diving
+                        </span>
+</div>
+</div>
+</div>
+<!-- Hotel Card 4 -->
+<div class="bg-surface rounded-xl border border-surface-dim overflow-hidden hover:shadow-lg transition-shadow duration-300 group cursor-pointer flex flex-col">
+<div class="relative h-64 overflow-hidden">
+<img alt="Hotel Photo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A grand, historic European hotel lobby with sweeping marble staircases, ornate gold chandeliers, and rich velvet furnishings. Sunlight streams through tall arched windows, casting soft shadows across the polished floor. The mood is deeply elegant, classic, and wealthy, suitable for a refined travel platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCspA9nivE7Z5w9HT4yw17NY_OYB2xEhGWU5lDtKzvG5pPIQpRPr_3c6kS193am78kpQ9D5kvm8Snwiwyn8fQ9hWa1schihorZqkIOe8GiVP0_6WWB5HXA6NQME73nsIiChrrprV6drGJoLWVL8K1eLuuN98TvRv1RlvmS07VY5YKES2_ryVVVUTdGunmgX63Ka6EtKrXOd_1ezKZtYjXM4ymGzf9QN-RJwzura65X7lkzpH9W_X6bRR4HJSRnV8bA0NbOE8AmsG7k"/>
+<div class="absolute top-4 right-4 bg-tertiary-container text-on-tertiary-container font-label-sm text-label-sm px-3 py-1 rounded-full shadow-sm">
+                        $320 / night
+                    </div>
+<div class="absolute bottom-4 left-4 flex gap-2">
+<span class="bg-surface/90 backdrop-blur-sm text-on-surface font-label-sm text-label-sm px-2 py-1 rounded shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span> 4.7
+                         </span>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-h3 text-h3 text-on-surface leading-tight">The Grand Imperial</h3>
+<button class="text-outline hover:text-error transition-colors">
+<span class="material-symbols-outlined">favorite_border</span>
+</button>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-1 mb-4">
+<span class="material-symbols-outlined text-sm">location_on</span> Vienna, Austria
+                    </p>
+<div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-surface-dim">
+<span class="flex items-center gap-1 text-on-surface-variant font-label-sm text-[12px] bg-surface-container-low px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[16px]">wifi</span> Wi-Fi
+                        </span>
+<span class="flex items-center gap-1 text-on-surface-variant font-label-sm text-[12px] bg-surface-container-low px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[16px]">room_service</span> Room Service
+                        </span>
+<span class="flex items-center gap-1 text-on-surface-variant font-label-sm text-[12px] bg-surface-container-low px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[16px]">local_bar</span> Bar
+                        </span>
+</div>
+</div>
+</div>
+<!-- Hotel Card 5 -->
+<div class="bg-surface rounded-xl border border-surface-dim overflow-hidden hover:shadow-lg transition-shadow duration-300 group cursor-pointer flex flex-col">
+<div class="relative h-64 overflow-hidden">
+<img alt="Hotel Photo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A modern alpine ski resort covered in fresh white snow, set against a backdrop of jagged, dramatic mountains under a clear blue sky. The lodge features warm timber siding and large glass windows glowing with firelight from within. The atmosphere is crisp, adventurous, and cozy, reflecting a high-end winter getaway." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpdLN_wxJ8Nuw8lA2zTCP1B9PdSYP9VC8y-CPaEROjghfco2poY-msDcRJahrRW4O70K1N1Wnikol7nK8UxnlE2UQ6ACxHxeqEbIXDsHucgCIE2I-20fGAVP0FdxjTXYB1_ECOwO2TlQ5fzTkjLYoQMWc5ulHP9lvfe--Ow73nZbAYakwfvpKXh4YHSnhxpVyUs9xL8-xU19UF-MnDcyeQEDof_c_BDXxJyFvf8TKEFFlY8V0_KsprxQO62jG_jwR9C3Bpfdnr7sI"/>
+<div class="absolute top-4 right-4 bg-tertiary-container text-on-tertiary-container font-label-sm text-label-sm px-3 py-1 rounded-full shadow-sm">
+                        $290 / night
+                    </div>
+<div class="absolute bottom-4 left-4 flex gap-2">
+<span class="bg-surface/90 backdrop-blur-sm text-on-surface font-label-sm text-label-sm px-2 py-1 rounded shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span> 4.6
+                         </span>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-h3 text-h3 text-on-surface leading-tight">Alpine Ridge Lodge</h3>
+<button class="text-outline hover:text-error transition-colors">
+<span class="material-symbols-outlined">favorite_border</span>
+</button>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-1 mb-4">
+<span class="material-symbols-outlined text-sm">location_on</span> Whistler, Canada
+                    </p>
+<div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-surface-dim">
+<span class="flex items-center gap-1 text-on-surface-variant font-label-sm text-[12px] bg-surface-container-low px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[16px]">wifi</span> Wi-Fi
+                        </span>
+<span class="flex items-center gap-1 text-on-surface-variant font-label-sm text-[12px] bg-surface-container-low px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[16px]">downhill_skiing</span> Ski Access
+                        </span>
+<span class="flex items-center gap-1 text-on-surface-variant font-label-sm text-[12px] bg-surface-container-low px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[16px]">fireplace</span> Fireplace
+                        </span>
+</div>
+</div>
+</div>
+<!-- Hotel Card 6 -->
+<div class="bg-surface rounded-xl border border-surface-dim overflow-hidden hover:shadow-lg transition-shadow duration-300 group cursor-pointer flex flex-col">
+<div class="relative h-64 overflow-hidden">
+<img alt="Hotel Photo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A lush, green eco-resort nestled deep in a tropical rainforest. The structures are built from natural bamboo and blend seamlessly into the dense jungle foliage. Morning mist hangs lightly in the air, creating a serene, earthy, and mystical atmosphere. The scene is highly detailed and vibrant, representing sustainable luxury." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkRLQ6PWu4Hoecl6OtMu1OsiWZv1mcvHVBuicR4EMODonkjHT0tvM3KdNyoLUIfZL91KMa0b1g7tMz11WqAxdXrbNYptNXDsG4jQjqtkwtymHbo1ONCyt2p9BjGKGIq0KHD53Hys-nElgCj8Upwblz0bbNFdGmLsF9v7VQ4XkBcGejhl-RpLNKKCxRxQfAwBoQjr9uprNTTRekj2CxCulm_NUuLCi582I-6rGhyCJSYhhVgHefrHP8gTtKwopbq0d0ZlNEsK3PBVM"/>
+<div class="absolute top-4 right-4 bg-tertiary-container text-on-tertiary-container font-label-sm text-label-sm px-3 py-1 rounded-full shadow-sm">
+                        $210 / night
+                    </div>
+<div class="absolute bottom-4 left-4 flex gap-2">
+<span class="bg-surface/90 backdrop-blur-sm text-on-surface font-label-sm text-label-sm px-2 py-1 rounded shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span> 4.9
+                         </span>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-h3 text-h3 text-on-surface leading-tight">Jungle Canopy Retreat</h3>
+<button class="text-outline hover:text-error transition-colors">
+<span class="material-symbols-outlined">favorite_border</span>
+</button>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-1 mb-4">
+<span class="material-symbols-outlined text-sm">location_on</span> Ubud, Bali
+                    </p>
+<div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-surface-dim">
+<span class="flex items-center gap-1 text-on-surface-variant font-label-sm text-[12px] bg-surface-container-low px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[16px]">wifi_off</span> Unplugged
+                        </span>
+<span class="flex items-center gap-1 text-on-surface-variant font-label-sm text-[12px] bg-surface-container-low px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[16px]">self_improvement</span> Yoga
+                        </span>
+<span class="flex items-center gap-1 text-on-surface-variant font-label-sm text-[12px] bg-surface-container-low px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[16px]">eco</span> Eco-Friendly
+                        </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Load More -->
+<div class="flex justify-center mt-xl">
+<button class="border border-outline text-on-surface font-label-sm text-label-sm px-8 py-3 rounded-full hover:bg-surface-variant transition-colors">
+                Load More Hotels
+            </button>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-900 dark:bg-black w-full mt-auto border-t border-slate-800">
+<div class="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-4 gap-8">
+<div>
+<div class="text-xl font-bold text-white mb-4">Wanderlust</div>
+<p class="text-slate-400 font-serif text-sm">© 2024 Wanderlust Tourism. All rights reserved.</p>
+</div>
+<div class="flex flex-col gap-3">
+<a class="font-serif text-sm text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100" href="#">Contact</a>
+<a class="font-serif text-sm text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100" href="#">Privacy Policy</a>
+<a class="font-serif text-sm text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100" href="#">Terms of Service</a>
+</div>
+<div class="flex flex-col gap-3">
+<a class="font-serif text-sm text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100" href="#">Instagram</a>
+<a class="font-serif text-sm text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100" href="#">Facebook</a>
+</div>
+<div>
+<p class="font-serif text-sm text-slate-400 mb-4">Subscribe to our newsletter for travel inspiration.</p>
+<div class="flex gap-2">
+<input class="bg-slate-800 border-none text-white px-4 py-2 rounded-md w-full focus:ring-1 focus:ring-orange-400 font-serif text-sm" placeholder="Email address" type="email"/>
+<button class="bg-orange-500 text-white px-4 py-2 rounded-md font-serif text-sm hover:bg-orange-600 transition-colors">Send</button>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

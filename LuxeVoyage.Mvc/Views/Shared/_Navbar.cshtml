@@ -1,0 +1,55 @@
+@{
+    var nav = ViewBag.NavSection as string ?? "";
+    string DestinationsNavClass() => nav == "Destinations"
+        ? "text-orange-600 font-semibold relative after:block after:w-1 after:h-1 after:bg-orange-600 after:rounded-full after:mx-auto after:mt-1 hover:text-orange-500 transition-colors duration-200 font-body-md text-body-md"
+        : "text-slate-700 dark:text-slate-300 font-medium hover:text-orange-500 transition-colors duration-200 font-body-md text-body-md";
+    string ExperiencesNavClass() => nav == "Experiences"
+        ? "text-orange-600 font-semibold relative after:block after:w-1 after:h-1 after:bg-orange-600 after:rounded-full after:mx-auto after:mt-1 hover:text-orange-500 transition-colors duration-200 font-body-md text-body-md"
+        : "text-slate-700 dark:text-slate-300 font-medium hover:text-orange-500 transition-colors duration-200 font-body-md text-body-md";
+    string HotelsNavClass() => nav == "Hotels"
+        ? "text-orange-600 font-semibold relative after:block after:w-1 after:h-1 after:bg-orange-600 after:rounded-full after:mx-auto after:mt-1 hover:text-orange-500 transition-colors duration-200 font-body-md text-body-md"
+        : "text-slate-700 dark:text-slate-300 font-medium hover:text-orange-500 transition-colors duration-200 font-body-md text-body-md";
+    string ToursNavClass() => nav == "Tours"
+        ? "text-orange-600 font-semibold relative after:block after:w-1 after:h-1 after:bg-orange-600 after:rounded-full after:mx-auto after:mt-1 hover:text-orange-500 transition-colors duration-200 font-body-md text-body-md"
+        : "text-slate-700 dark:text-slate-300 font-medium hover:text-orange-500 transition-colors duration-200 font-body-md text-body-md";
+    string AboutNavClass() => nav == "About"
+        ? "text-orange-600 font-semibold relative after:block after:w-1 after:h-1 after:bg-orange-600 after:rounded-full after:mx-auto after:mt-1 hover:text-orange-500 transition-colors duration-200 font-body-md text-body-md"
+        : "text-slate-700 dark:text-slate-300 font-medium hover:text-orange-500 transition-colors duration-200 font-body-md text-body-md";
+}
+<!-- TopNavBar (LuxeVoyage — ana_sayfa_yeni_nesil) -->
+<nav class="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-xl dark:bg-slate-900/70 border-b border-white/20 dark:border-slate-800/50 shadow-sm backdrop-blur-md">
+<div class="flex justify-between items-center px-12 py-4 w-full max-w-[1280px] mx-auto">
+<a asp-controller="Home" asp-action="Index" class="text-2xl font-bold text-slate-900 dark:text-white font-h3 text-h3 tracking-tight">
+                LuxeVoyage
+            </a>
+<div class="hidden md:flex items-center gap-8">
+<a class="@DestinationsNavClass()" asp-controller="Destinations" asp-action="Index">Destinations</a>
+<a class="@ExperiencesNavClass()" asp-controller="Experiences" asp-action="Index">Experiences</a>
+<a class="@ToursNavClass()" asp-controller="Tours" asp-action="Index">Tours</a>
+<a class="@HotelsNavClass()" asp-controller="Hotels" asp-action="Index">Stays</a>
+<a class="@AboutNavClass()" asp-controller="Pages" asp-action="About">Journal</a>
+</div>
+<div class="flex items-center gap-3 md:gap-4">
+@if (User.Identity != null && User.Identity.IsAuthenticated)
+{
+<form asp-controller="Account" asp-action="Logout" method="post" class="flex items-center gap-2 md:gap-3">
+@Html.AntiForgeryToken()
+<span class="hidden sm:inline text-sm text-slate-600 dark:text-slate-300 max-w-[160px] truncate" title="@User.Identity?.Name">@User.Identity?.Name</span>
+<button type="submit" class="scale-95 active:scale-100 transition-transform text-slate-700 dark:text-slate-200 hover:text-orange-500 font-body-md text-sm font-medium bg-transparent border-0 cursor-pointer px-2 py-1 rounded-md">
+                Logout
+            </button>
+</form>
+}
+else
+{
+<a asp-controller="Account" asp-action="Login" class="scale-95 active:scale-100 transition-transform text-slate-700 dark:text-slate-200 hover:text-orange-500 p-2" title="Sign in">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_circle</span>
+</a>
+<a asp-controller="Account" asp-action="Register" class="hidden sm:inline font-body-md text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-orange-500 transition-colors">Register</a>
+}
+<a asp-controller="Pages" asp-action="Contact" class="bg-primary text-on-primary font-button text-button px-6 py-3 rounded-[16px] scale-95 active:scale-100 transition-transform shadow-[0px_4px_20px_rgba(15,23,42,0.05)] bg-gradient-to-r from-primary to-surface-tint inline-flex items-center">
+                Book Now
+            </a>
+</div>
+</div>
+</nav>

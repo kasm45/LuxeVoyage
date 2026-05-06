@@ -1,0 +1,73 @@
+﻿@{
+    var p = ViewBag.AdminPage as string ?? "";
+    string L(string key) => p == key
+        ? "bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-300 rounded-lg mx-2 px-4 py-3 flex items-center gap-3 hover:bg-slate-100 dark:hover:bg-slate-900 transition-all translate-x-1 transition-transform font-sans text-sm font-medium"
+        : "text-slate-500 dark:text-slate-400 mx-2 px-4 py-3 flex items-center gap-3 hover:bg-slate-100 dark:hover:bg-slate-900 rounded-lg font-sans text-sm font-medium transition-all";
+}
+<nav class="h-screen w-64 fixed left-0 top-0 border-r border-r border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 flex flex-col h-full py-6 z-50">
+<div class="px-6 mb-8 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-variant overflow-hidden shrink-0">
+<img alt="Admin Portrait" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwHwfqCH6vbgc5RAuuWxaIMlUcn2KYExFezJ03vZueH88-vB1eNRoTfmfLED0ka6fbcmJyoTHYPWDVQ5RM04kxlF5hoYjX8fVNrR4YHOFsG4WfrqcHQX7JnltXQqFAplD8SvuHeY_hgewGrP0eRkHMc1Xt4VrJ7_4CXDfSINfE-uuWQQGs1Cxgt2E9A5T7CQGs6_CmYLgK52POgA2H5nC3EFzZS5p8wGsPlF4moQ0Tb_B01kFDlDVHAShaW_r4yfPw6hIPCbMxUCQ"/>
+</div>
+<div>
+<h2 class="font-h3 text-[16px] leading-tight text-slate-900 dark:text-white font-black">Admin Portal</h2>
+<p class="font-label-caps text-label-caps text-slate-500">Global Controller</p>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto px-2 space-y-1">
+<a class="@L("Dashboard")" asp-controller="Admin" asp-action="Dashboard">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+                Dashboard
+            </a>
+<a class="@L("Attractions")" asp-controller="AdminAttractions" asp-action="Index">
+<span class="material-symbols-outlined text-[20px]">map</span>
+                Attractions
+            </a>
+<a class="@L("Destinations")" asp-controller="AdminDestinations" asp-action="Index">
+<span class="material-symbols-outlined text-[20px]">travel_explore</span>
+                Destinations CRUD
+            </a>
+<a class="@L("Experiences")" asp-controller="AdminExperiences" asp-action="Index">
+<span class="material-symbols-outlined text-[20px]">star</span>
+                Experiences CRUD
+            </a>
+<a class="@L("Tours")" asp-controller="AdminTours" asp-action="Index">
+<span class="material-symbols-outlined text-[20px]">hiking</span>
+                Tours CRUD
+            </a>
+<a class="@L("Stays")" asp-controller="AdminStays" asp-action="Index">
+<span class="material-symbols-outlined text-[20px]">hotel</span>
+                Stays CRUD
+            </a>
+<a class="@L("Bookings")" asp-controller="AdminManageBookings" asp-action="Index">
+<span class="material-symbols-outlined text-[20px]">event_available</span>
+                Reservations
+            </a>
+<a class="@L("Users")" asp-controller="Admin" asp-action="Users">
+<span class="material-symbols-outlined text-[20px]">group</span>
+                Users
+            </a>
+<a class="@L("Analytics")" asp-controller="Admin" asp-action="Analytics">
+<span class="material-symbols-outlined text-[20px]">insights</span>
+                Analytics
+            </a>
+</div>
+<div class="px-4 mt-auto mb-4">
+<a asp-controller="Admin" asp-action="NewListing" class="w-full block text-center bg-gradient-to-r from-primary to-surface-tint text-on-primary font-button text-button py-3 rounded-lg hover:opacity-90 transition-opacity">
+                New Listing
+            </a>
+</div>
+<div class="px-2 border-t border-slate-200 dark:border-slate-800 pt-4 space-y-1">
+<a class="@L("Settings")" asp-controller="Admin" asp-action="Settings">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+                Settings
+            </a>
+<form asp-controller="Account" asp-action="Logout" method="post" class="mx-2">
+@Html.AntiForgeryToken()
+<button type="submit" class="w-full text-left px-4 py-3 flex items-center gap-3 hover:bg-slate-100 dark:hover:bg-slate-900 rounded-lg font-sans text-sm font-medium text-slate-500 dark:text-slate-400 bg-transparent border-0 cursor-pointer">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+                Logout
+            </button>
+</form>
+</div>
+</nav>

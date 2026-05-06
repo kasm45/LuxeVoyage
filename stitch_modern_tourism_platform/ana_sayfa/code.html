@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Wanderlust - Modern Tourism</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-low": "#f2f4f6",
+                      "outline": "#76777d",
+                      "tertiary": "#000000",
+                      "tertiary-fixed-dim": "#6bd8cb",
+                      "error": "#ba1a1a",
+                      "on-tertiary-container": "#0c9488",
+                      "surface-container-high": "#e6e8ea",
+                      "on-secondary-fixed-variant": "#653e00",
+                      "on-tertiary-fixed": "#00201d",
+                      "primary": "#000000",
+                      "surface-tint": "#565e74",
+                      "inverse-primary": "#bec6e0",
+                      "primary-fixed-dim": "#bec6e0",
+                      "on-surface": "#191c1e",
+                      "on-primary-fixed": "#131b2e",
+                      "tertiary-container": "#00201d",
+                      "surface": "#f7f9fb",
+                      "secondary": "#855300",
+                      "on-secondary-container": "#684000",
+                      "on-secondary-fixed": "#2a1700",
+                      "surface-container-highest": "#e0e3e5",
+                      "on-tertiary": "#ffffff",
+                      "background": "#f7f9fb",
+                      "on-primary": "#ffffff",
+                      "inverse-on-surface": "#eff1f3",
+                      "primary-fixed": "#dae2fd",
+                      "on-tertiary-fixed-variant": "#005049",
+                      "on-background": "#191c1e",
+                      "secondary-fixed": "#ffddb8",
+                      "on-secondary": "#ffffff",
+                      "outline-variant": "#c6c6cd",
+                      "primary-container": "#131b2e",
+                      "on-error": "#ffffff",
+                      "surface-container": "#eceef0",
+                      "surface-bright": "#f7f9fb",
+                      "on-primary-container": "#7c839b",
+                      "surface-variant": "#e0e3e5",
+                      "on-error-container": "#93000a",
+                      "inverse-surface": "#2d3133",
+                      "on-surface-variant": "#45464d",
+                      "secondary-container": "#fea619",
+                      "secondary-fixed-dim": "#ffb95f",
+                      "surface-container-lowest": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "surface-dim": "#d8dadc",
+                      "tertiary-fixed": "#89f5e7",
+                      "on-primary-fixed-variant": "#3f465c"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xs": "4px",
+                      "sm": "12px",
+                      "base": "8px",
+                      "xl": "80px",
+                      "md": "24px",
+                      "margin-mobile": "16px",
+                      "lg": "48px",
+                      "margin-desktop": "64px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "h1": [
+                              "Noto Serif"
+                      ],
+                      "label-sm": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "h3": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "h2": [
+                              "Noto Serif"
+                      ],
+                      "body-lg": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-md": [
+                              "Plus Jakarta Sans"
+                      ]
+              },
+              "fontSize": {
+                      "h1": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "h3": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "h2": [
+                              "36px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background antialiased flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<nav class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md fixed top-0 w-full z-50 border-b border-slate-200/50 dark:border-slate-800/50 shadow-sm">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-6 h-20">
+<div class="text-2xl font-black tracking-tighter text-slate-900 dark:text-white">
+                Wanderlust
+            </div>
+<ul class="hidden md:flex space-x-6">
+<li><a class="font-serif text-sm font-medium tracking-wide text-slate-900 dark:text-white border-b-2 border-orange-500 pb-1 hover:text-orange-500 transition-colors duration-200" href="#">Home</a></li>
+<li><a class="font-serif text-sm font-medium tracking-wide text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200" href="#">Destinations</a></li>
+<li><a class="font-serif text-sm font-medium tracking-wide text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200" href="#">Cities</a></li>
+<li><a class="font-serif text-sm font-medium tracking-wide text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200" href="#">Tours</a></li>
+<li><a class="font-serif text-sm font-medium tracking-wide text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200" href="#">Hotels</a></li>
+<li><a class="font-serif text-sm font-medium tracking-wide text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200" href="#">About Us</a></li>
+</ul>
+<div class="flex items-center gap-4">
+<button class="scale-95 active:scale-100 transition-transform font-serif text-sm font-medium tracking-wide text-slate-900 dark:text-white hover:text-orange-500 transition-colors duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 300;">search</span>
+</button>
+<button class="scale-95 active:scale-100 transition-transform bg-primary text-on-primary font-label-sm text-label-sm px-md py-sm rounded-full">
+                    Login
+                </button>
+</div>
+</div>
+</nav>
+<main class="pt-20 flex-grow">
+<!-- Hero Section -->
+<section class="relative w-full h-[819px] min-h-[600px] flex items-center justify-center bg-surface-container-high" data-alt="A breathtaking, wide-angle panoramic photograph of an expansive canyon landscape at dawn. The scene is bathed in soft, golden hour light that creates dramatic, deep shadows and highlights the rich, warm terracotta and ochre tones of the layered rock formations. A winding, emerald-green river cuts through the canyon floor, adding a striking contrast. The mood is immensely adventurous and serene, perfectly embodying a sophisticated, modern travel aesthetic with high-resolution clarity and an expansive, airy feel." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBMnUW3fHjF-ldrRVLK3XWaNevW4uvTjyxeMiZHOgZLof8okQxX76BkHVz8AGdbIEp_ayMoBPKo7_4AAtzsBoE203XU0BDTB0OQ-ddbo5SjlOizQzp4oUjluIp9FChc0KxKuQkCxEbBcw5xJMXHU_zI23sI7BNE8US4uIMbCz1ThYMMCJoJixaFf297kCN6UvHB19z64k7H1m6a8BAkMMXlOBLXpgoFoNESLC3QKaZ83X7qzOgIcmX2DfbI8PXYkU9hLteF7PIkz4c'); background-size: cover; background-position: center;">
+<div class="absolute inset-0 bg-black/20"></div>
+<div class="relative z-10 max-w-4xl w-full px-6 flex flex-col items-center text-center">
+<h1 class="font-h1 text-h1 text-white mb-sm drop-shadow-md">Discover Your Next Horizon</h1>
+<p class="font-body-lg text-body-lg text-white/90 mb-lg max-w-2xl drop-shadow">
+                    Curated journeys for the modern explorer. Find exclusive destinations, luxury stays, and unforgettable experiences.
+                </p>
+<!-- Glassmorphism Search Bar -->
+<div class="w-full max-w-3xl bg-white/20 backdrop-blur-xl border border-white/30 rounded-xl p-xs flex flex-col md:flex-row gap-xs shadow-[0_8px_32px_0_rgba(31,38,135,0.15)]">
+<div class="flex-1 bg-white/60 rounded-lg flex items-center px-sm h-12 focus-within:border-primary border border-transparent transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant mr-base" style="font-variation-settings: 'wght' 300;">location_on</span>
+<input class="w-full bg-transparent border-none focus:ring-0 font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/70 p-0" placeholder="Where to?" type="text"/>
+</div>
+<div class="flex-1 bg-white/60 rounded-lg flex items-center px-sm h-12 focus-within:border-primary border border-transparent transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant mr-base" style="font-variation-settings: 'wght' 300;">calendar_today</span>
+<input class="w-full bg-transparent border-none focus:ring-0 font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/70 p-0" placeholder="Dates" type="text"/>
+</div>
+<button class="bg-secondary-container text-on-secondary-container font-label-sm text-label-sm h-12 px-lg rounded-lg hover:bg-secondary-container/90 transition-colors flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 400;">search</span>
+                        Explore
+                    </button>
+</div>
+</div>
+</section>
+<!-- Categories & Chips -->
+<section class="max-w-7xl mx-auto px-6 py-xl flex flex-col items-center">
+<div class="flex flex-wrap justify-center gap-sm">
+<button class="bg-surface-container-low text-on-surface font-label-sm text-label-sm px-md py-sm rounded-full border border-outline-variant hover:bg-surface-container hover:border-outline transition-colors">
+                    Beach Escapes
+                </button>
+<button class="bg-surface-container-low text-on-surface font-label-sm text-label-sm px-md py-sm rounded-full border border-outline-variant hover:bg-surface-container hover:border-outline transition-colors">
+                    Urban Exploration
+                </button>
+<button class="bg-surface-container-low text-on-surface font-label-sm text-label-sm px-md py-sm rounded-full border border-outline-variant hover:bg-surface-container hover:border-outline transition-colors">
+                    Mountain Retreats
+                </button>
+<button class="bg-surface-container-low text-on-surface font-label-sm text-label-sm px-md py-sm rounded-full border border-outline-variant hover:bg-surface-container hover:border-outline transition-colors">
+                    Luxury Stays
+                </button>
+<button class="bg-surface-container-low text-on-surface font-label-sm text-label-sm px-md py-sm rounded-full border border-outline-variant hover:bg-surface-container hover:border-outline transition-colors">
+                    Cultural Tours
+                </button>
+</div>
+</section>
+<!-- Popular Cities Bento Grid -->
+<section class="max-w-7xl mx-auto px-6 py-xl">
+<div class="flex justify-between items-end mb-lg">
+<div>
+<h2 class="font-h2 text-h2 text-on-background mb-xs">Iconic Destinations</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Explore the world's most captivating cities.</p>
+</div>
+<button class="hidden md:flex items-center gap-xs font-label-sm text-label-sm text-primary hover:text-on-tertiary-container transition-colors">
+                    View All <span class="material-symbols-outlined" style="font-variation-settings: 'wght' 300;">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter auto-rows-[300px]">
+<!-- Large Feature -->
+<div class="md:col-span-8 md:row-span-2 rounded-xl overflow-hidden relative group">
+<img alt="Paris" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A striking, high-contrast photograph of the Eiffel Tower in Paris captured during a misty twilight. The iron lattice structure is illuminated with warm, golden lights that cut through the cool, bluish-grey fog rolling in off the Seine. The composition is shot from a slightly low angle, emphasizing the monumental scale of the landmark against a minimalist, muted sky. The overall aesthetic is moody, romantic, and highly sophisticated, fitting for a premium travel editorial." data-location="Paris" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkEHnJJAVJBabIJZDq2PcUj-Xi3-BJetSlNR6OlAgWOY-w-IhQG-lYLv9BCfAjNeL-NyF6k5qjvq-b8Gq4wnEygOb5fcZ2znebNYfnDq3Rvyt1k23qH6ecl7LdG0Pbv1hHgqfH8H34NTIiJkQwcbWUV8n3yzW2O8WByaUjMQBZLsrQk5qj0p9GSk33EEn-ngBQ6uwHL19hCq_AZletw1x4WY7dpJX4E6ORVYFwO_sk1iJlZmi44OX9oNfULUAWTiHscnK88EhdPIg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute bottom-md left-md">
+<h3 class="font-h3 text-h3 text-white mb-xs">Paris, France</h3>
+<p class="font-body-md text-body-md text-white/80">The City of Light awaits.</p>
+</div>
+</div>
+<!-- Square Tile -->
+<div class="md:col-span-4 md:row-span-1 rounded-xl overflow-hidden relative group">
+<img alt="Kyoto" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A tranquil, vividly detailed shot of a traditional Japanese pathway in Kyoto lined with historic wooden machiya houses and ancient, vibrant green willow trees. The scene is illuminated by soft, diffused daylight creating a calm, zen-like atmosphere. A geisha in a striking red kimono is partially visible walking away in the distance, adding a touch of cultural mystery. The color palette emphasizes natural greens, warm woods, and serene greys, fitting a high-end minimalist travel aesthetic." data-location="Kyoto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAC8BdqC8yjwKsM-LaNzc3OlGjehDYApUOVrabdZmJfyX0bwNTw3qDbCfQJ7c5qSJsaEq5ZhLvVs9XYe14opkxoLn8Jv6BbZkLH8v4Ncg3gncPm5t53IwcrlwxLlinqp8AU1L6U-F7QBBgf5UjN10OWShYB1gRmVskCuWUe68KjTzueKHsvWABt6txJuttGIW4z2tESWcYUPM4Z0sqvrdZQA6ceFOgOjk4jVSeCxvklZqrbxuI2WGUX4j_wyhPIcpTqyNrMN3TSAPQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute bottom-md left-md">
+<h3 class="font-h3 text-h3 text-white">Kyoto, Japan</h3>
+</div>
+</div>
+<!-- Square Tile -->
+<div class="md:col-span-4 md:row-span-1 rounded-xl overflow-hidden relative group">
+<img alt="New York" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A dynamic, vertically-oriented shot looking straight up a concrete canyon of towering glass and steel skyscrapers in New York City. The sky above is a sliver of crisp, clear azure blue. Sunlight reflects off the glass facades, creating sharp geometric patterns of light and shadow. The image conveys a sense of immense scale, urban energy, and modern architectural majesty, utilizing a clean, high-contrast visual style perfect for a contemporary lifestyle brand." data-location="New York" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXCFenRrox5BauO5nb6BYIm6TsTb5XpzazdZTtubO2uNYVLc8OjL5Q1CrEY69iSPc1-kjLhTdLLXgF4XAFFlkErCeTmlzjGAScb_7i09AVSkpH1hlp7939Wyo7vHyyXq-Zax5wKwt3JBG4RY0PA57XFmVsV7aavu4xtvv46ROqoSzVWfWhHvXouRmvmbReYwlVJNTRcwzG1Ch3HYAXu8-aNM6jbHmnRGx0OayhfsdWHHIhWdmZbHxConASP3_RTkdFU2a65zFbYZk"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute bottom-md left-md">
+<h3 class="font-h3 text-h3 text-white">New York, USA</h3>
+</div>
+</div>
+</div>
+</section>
+<!-- Top-Rated Tours Cards -->
+<section class="max-w-7xl mx-auto px-6 py-xl">
+<div class="mb-lg">
+<h2 class="font-h2 text-h2 text-on-background mb-xs">Curated Experiences</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Handpicked tours for the discerning traveler.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Card 1 -->
+<div class="bg-surface rounded-xl border border-outline-variant overflow-hidden group hover:shadow-[0px_10px_15px_-3px_rgba(15,23,42,0.08)] transition-shadow duration-300">
+<div class="relative h-64 overflow-hidden">
+<img alt="Cinque Terre Tour" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A picturesque view of the vibrant, multi-colored cliffside houses of Cinque Terre, Italy, cascading down rugged rocks towards a deep blue Mediterranean Sea. The scene is drenched in bright, midday sunlight that makes the pastel colors of the buildings pop against the stark coastline. Small boats dot the clear water in the harbor below. The aesthetic is cheerful, luxurious, and inviting, capturing the essence of a high-end European summer getaway." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAD_Qx9Nhg6JtZU6u5Y14RzBFg58BiQ0MOr72XTexNEQYUhf4doJQllqRs77ZwErJnXgLCwLWV2LYyl5My-5vsu_6a5d6UUmvlNwb9SFWJrScLh9ARfjPABAFUMBGmeysotd45RKpl58JPpSUKla_xhQhCuiSH4Me4hh0uCG01N_-QewCop2vlirFOZXei4kFOzL8dyDueTHS0n82IZA-Vd37D0ZNymAGgUJDFRZoRTOCWYlWpfOxxCW1d2fB4Xvkv_18xWxCXDG8"/>
+<div class="absolute top-sm right-sm bg-tertiary-fixed-dim text-on-tertiary-fixed px-base py-xs rounded-full font-label-sm text-label-sm shadow-sm">
+                            $120 / day
+                        </div>
+</div>
+<div class="p-4">
+<div class="flex items-center gap-xs mb-xs">
+<span class="material-symbols-outlined text-secondary-container" style="font-variation-settings: 'FILL' 1, 'wght' 400; font-size: 16px;">star</span>
+<span class="font-label-sm text-label-sm text-on-surface">4.9</span>
+<span class="font-body-md text-body-md text-on-surface-variant">(128 reviews)</span>
+</div>
+<h3 class="font-h3 text-h3 text-on-background mb-xs">Coastal Villages &amp; Wine Tasting</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md line-clamp-2">Explore the rugged Italian Riviera coastline and enjoy exclusive local wine tastings.</p>
+<button class="w-full bg-transparent border border-secondary-container text-secondary-container font-label-sm text-label-sm py-sm rounded-lg hover:bg-secondary-container/10 transition-colors">
+                            View Details
+                        </button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface rounded-xl border border-outline-variant overflow-hidden group hover:shadow-[0px_10px_15px_-3px_rgba(15,23,42,0.08)] transition-shadow duration-300">
+<div class="relative h-64 overflow-hidden">
+<img alt="Safari" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A majestic, sweeping wide shot of the African savanna at sunrise. A solitary, ancient acacia tree stands prominently in the foreground, silhouetted against a brilliant sky transitioning from deep purple to fiery orange. In the mid-ground, a small herd of elephants is visible walking peacefully through the tall, golden dry grass. The image evokes a profound sense of wild adventure and raw natural beauty, utilizing warm, earthy tones suitable for a luxury adventure catalog." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdKXdzSXYOyGbF9ZpCCBpsPS5UptrvMv73iED3TmIIqD6ZOq3lUhqKZChbECGzCnmuLyXzRKYNyEeWJ13RfDIUhVlylq5iSBM95juRYMVqqQARMxPbn-IgJtOu3xb3I0kNVj6xtlvrKMUFmtSDZmU-Gb-XQBjwnTmQoX9iOROLcbGt9pZpVLYFdYRwglyYrP-TUaOvPIZWgvGRpDUcwlRjq_Orz3I4a3m0QElLZHrRblnppFRuwp1VF4aGPmCdE8NS1gczeH_6Ztk"/>
+<div class="absolute top-sm right-sm bg-tertiary-fixed-dim text-on-tertiary-fixed px-base py-xs rounded-full font-label-sm text-label-sm shadow-sm">
+                            $450 / day
+                        </div>
+</div>
+<div class="p-4">
+<div class="flex items-center gap-xs mb-xs">
+<span class="material-symbols-outlined text-secondary-container" style="font-variation-settings: 'FILL' 1, 'wght' 400; font-size: 16px;">star</span>
+<span class="font-label-sm text-label-sm text-on-surface">5.0</span>
+<span class="font-body-md text-body-md text-on-surface-variant">(84 reviews)</span>
+</div>
+<h3 class="font-h3 text-h3 text-on-background mb-xs">Serengeti Great Migration</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md line-clamp-2">Witness one of nature's greatest spectacles on a guided luxury safari experience.</p>
+<button class="w-full bg-transparent border border-secondary-container text-secondary-container font-label-sm text-label-sm py-sm rounded-lg hover:bg-secondary-container/10 transition-colors">
+                            View Details
+                        </button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface rounded-xl border border-outline-variant overflow-hidden group hover:shadow-[0px_10px_15px_-3px_rgba(15,23,42,0.08)] transition-shadow duration-300">
+<div class="relative h-64 overflow-hidden">
+<img alt="Swiss Alps" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A pristine, high-altitude view of the Swiss Alps in winter. Sharp, snow-capped peaks dominate the skyline against a flawless, deep blue sky. In the foreground, untouched, glistening white snow fields undulate gently. A lone, modern, architecturally minimalist timber cabin sits quietly nestled in a valley. The lighting is bright, crisp, and high-key, conveying a sense of cold, pure, and luxurious isolation typical of an elite winter resort aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgCqL-LI06LlcTLwGtuOqT-tfoZ69z6tz2nG7gOh8QpnDX-ovRVWyLHHhdQDK5KS6pajyO8NjIlTFrJxTtmq6uYoRgdN-d-0RqCbJoypNVx0EnmuIlOi7uf7ZBm0WlZ69HICg33Vrk2Q3aomF61KeOBki_laK8mpHvpamldZZ4_jJSekk_O9XFVgEKZozTPRVIry1i5pMe9Tu38fVZjq7rxQb5QghoU7nhsBQ0BcmjjdX-ooH6dqev98atZX5k8x0G5dZP76yEZH8"/>
+<div class="absolute top-sm right-sm bg-tertiary-fixed-dim text-on-tertiary-fixed px-base py-xs rounded-full font-label-sm text-label-sm shadow-sm">
+                            $280 / day
+                        </div>
+</div>
+<div class="p-4">
+<div class="flex items-center gap-xs mb-xs">
+<span class="material-symbols-outlined text-secondary-container" style="font-variation-settings: 'FILL' 1, 'wght' 400; font-size: 16px;">star</span>
+<span class="font-label-sm text-label-sm text-on-surface">4.8</span>
+<span class="font-body-md text-body-md text-on-surface-variant">(210 reviews)</span>
+</div>
+<h3 class="font-h3 text-h3 text-on-background mb-xs">Alpine Hiking &amp; Wellness</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md line-clamp-2">Breath crisp mountain air, hike stunning trails, and relax in thermal spas.</p>
+<button class="w-full bg-transparent border border-secondary-container text-secondary-container font-label-sm text-label-sm py-sm rounded-lg hover:bg-secondary-container/10 transition-colors">
+                            View Details
+                        </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-900 dark:bg-black w-full mt-auto border-t border-slate-800">
+<div class="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="col-span-1 md:col-span-1">
+<div class="text-xl font-bold text-white mb-4">
+                    Wanderlust
+                </div>
+<p class="font-serif text-sm text-slate-400">
+                    © 2024 Wanderlust Tourism. All rights reserved.
+                </p>
+</div>
+<div class="col-span-1 md:col-span-3 flex flex-wrap gap-8 justify-start md:justify-end">
+<a class="font-serif text-sm text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100" href="#">Contact</a>
+<a class="font-serif text-sm text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100" href="#">Privacy Policy</a>
+<a class="font-serif text-sm text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100" href="#">Terms of Service</a>
+<a class="font-serif text-sm text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100" href="#">Instagram</a>
+<a class="font-serif text-sm text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100" href="#">Facebook</a>
+</div>
+</div>
+</footer>
+</body></html>

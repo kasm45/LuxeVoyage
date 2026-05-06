@@ -1,0 +1,118 @@
+@model LuxeVoyage.Mvc.Models.ViewModels.SearchResultsViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<main class="pt-28 pb-16 px-gutter md:px-xl max-w-container-max mx-auto min-h-screen">
+<header class="mb-10">
+<h1 class="font-h1 text-h1 text-on-background mb-3">Search results</h1>
+<div class="flex flex-wrap gap-3 text-body-md text-on-surface-variant font-body-md">
+@if (!string.IsNullOrEmpty(Model.Query))
+{
+<span class="rounded-full bg-surface-container-low px-3 py-1 border border-outline-variant">Query: <strong class="text-on-surface">@Model.Query</strong></span>
+}
+@if (Model.DestinationId is int did)
+{
+<span class="rounded-full bg-surface-container-low px-3 py-1 border border-outline-variant">Destination id: <strong class="text-on-surface">@did</strong></span>
+}
+@if (!string.IsNullOrEmpty(Model.TravelDatesSummary))
+{
+<span class="rounded-full bg-surface-container-low px-3 py-1 border border-outline-variant">Dates: <strong class="text-on-surface">@Model.TravelDatesSummary</strong></span>
+}
+</div>
+@if (!Model.HasAnyResults)
+{
+<div class="lv-empty-state mt-8">
+<h3>No results found</h3>
+<p>Try adjusting your search term, using broader keywords, or browsing <a asp-controller="Destinations" asp-action="Index" class="text-primary underline">destinations</a>.</p>
+</div>
+}
+</header>
+
+@if (Model.Destinations.Count > 0)
+{
+<section class="mb-12">
+<h2 class="font-h2 text-h2 text-on-surface mb-4">Destinations</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+@foreach (var item in Model.Destinations)
+{
+<a href="@item.DetailUrl" class="group flex gap-4 rounded-xl border border-outline-variant bg-surface-container-lowest p-4 hover:shadow-md transition-shadow">
+@if (!string.IsNullOrEmpty(item.ImageUrl))
+{
+<img src="@item.ImageUrl" alt="" class="h-20 w-24 shrink-0 rounded-lg object-cover" onerror="this.onerror=null;this.src='/images/placeholders/lv-placeholder.svg';" />
+}
+<div class="min-w-0">
+<h3 class="font-h3 text-h3 text-primary group-hover:underline line-clamp-2">@item.Title</h3>
+<p class="text-sm text-on-surface-variant line-clamp-2">@item.Subtitle</p>
+</div>
+</a>
+}
+</div>
+</section>
+}
+
+@if (Model.Experiences.Count > 0)
+{
+<section class="mb-12">
+<h2 class="font-h2 text-h2 text-on-surface mb-4">Experiences</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+@foreach (var item in Model.Experiences)
+{
+<a href="@item.DetailUrl" class="group flex gap-4 rounded-xl border border-outline-variant bg-surface-container-lowest p-4 hover:shadow-md transition-shadow">
+@if (!string.IsNullOrEmpty(item.ImageUrl))
+{
+<img src="@item.ImageUrl" alt="" class="h-20 w-24 shrink-0 rounded-lg object-cover" onerror="this.onerror=null;this.src='/images/placeholders/lv-placeholder.svg';" />
+}
+<div class="min-w-0">
+<h3 class="font-h3 text-h3 text-primary group-hover:underline line-clamp-2">@item.Title</h3>
+<p class="text-sm text-on-surface-variant line-clamp-2">@item.Subtitle</p>
+</div>
+</a>
+}
+</div>
+</section>
+}
+
+@if (Model.Tours.Count > 0)
+{
+<section class="mb-12">
+<h2 class="font-h2 text-h2 text-on-surface mb-4">Tours</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+@foreach (var item in Model.Tours)
+{
+<a href="@item.DetailUrl" class="group flex gap-4 rounded-xl border border-outline-variant bg-surface-container-lowest p-4 hover:shadow-md transition-shadow">
+@if (!string.IsNullOrEmpty(item.ImageUrl))
+{
+<img src="@item.ImageUrl" alt="" class="h-20 w-24 shrink-0 rounded-lg object-cover" onerror="this.onerror=null;this.src='/images/placeholders/lv-placeholder.svg';" />
+}
+<div class="min-w-0">
+<h3 class="font-h3 text-h3 text-primary group-hover:underline line-clamp-2">@item.Title</h3>
+<p class="text-sm text-on-surface-variant line-clamp-2">@item.Subtitle</p>
+</div>
+</a>
+}
+</div>
+</section>
+}
+
+@if (Model.Stays.Count > 0)
+{
+<section class="mb-12">
+<h2 class="font-h2 text-h2 text-on-surface mb-4">Stays</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+@foreach (var item in Model.Stays)
+{
+<a href="@item.DetailUrl" class="group flex gap-4 rounded-xl border border-outline-variant bg-surface-container-lowest p-4 hover:shadow-md transition-shadow">
+@if (!string.IsNullOrEmpty(item.ImageUrl))
+{
+<img src="@item.ImageUrl" alt="" class="h-20 w-24 shrink-0 rounded-lg object-cover" onerror="this.onerror=null;this.src='/images/placeholders/lv-placeholder.svg';" />
+}
+<div class="min-w-0">
+<h3 class="font-h3 text-h3 text-primary group-hover:underline line-clamp-2">@item.Title</h3>
+<p class="text-sm text-on-surface-variant line-clamp-2">@item.Subtitle</p>
+</div>
+</a>
+}
+</div>
+</section>
+}
+</main>

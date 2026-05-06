@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tourist Attraction Detail</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-low": "#f2f4f6",
+                      "outline": "#76777d",
+                      "tertiary": "#000000",
+                      "tertiary-fixed-dim": "#6bd8cb",
+                      "error": "#ba1a1a",
+                      "on-tertiary-container": "#0c9488",
+                      "surface-container-high": "#e6e8ea",
+                      "on-secondary-fixed-variant": "#653e00",
+                      "on-tertiary-fixed": "#00201d",
+                      "primary": "#000000",
+                      "surface-tint": "#565e74",
+                      "inverse-primary": "#bec6e0",
+                      "primary-fixed-dim": "#bec6e0",
+                      "on-surface": "#191c1e",
+                      "on-primary-fixed": "#131b2e",
+                      "tertiary-container": "#00201d",
+                      "surface": "#f7f9fb",
+                      "secondary": "#855300",
+                      "on-secondary-container": "#684000",
+                      "on-secondary-fixed": "#2a1700",
+                      "surface-container-highest": "#e0e3e5",
+                      "on-tertiary": "#ffffff",
+                      "background": "#f7f9fb",
+                      "on-primary": "#ffffff",
+                      "inverse-on-surface": "#eff1f3",
+                      "primary-fixed": "#dae2fd",
+                      "on-tertiary-fixed-variant": "#005049",
+                      "on-background": "#191c1e",
+                      "secondary-fixed": "#ffddb8",
+                      "on-secondary": "#ffffff",
+                      "outline-variant": "#c6c6cd",
+                      "primary-container": "#131b2e",
+                      "on-error": "#ffffff",
+                      "surface-container": "#eceef0",
+                      "surface-bright": "#f7f9fb",
+                      "on-primary-container": "#7c839b",
+                      "surface-variant": "#e0e3e5",
+                      "on-error-container": "#93000a",
+                      "inverse-surface": "#2d3133",
+                      "on-surface-variant": "#45464d",
+                      "secondary-container": "#fea619",
+                      "secondary-fixed-dim": "#ffb95f",
+                      "surface-container-lowest": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "surface-dim": "#d8dadc",
+                      "tertiary-fixed": "#89f5e7",
+                      "on-primary-fixed-variant": "#3f465c"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xs": "4px",
+                      "sm": "12px",
+                      "base": "8px",
+                      "xl": "80px",
+                      "md": "24px",
+                      "margin-mobile": "16px",
+                      "lg": "48px",
+                      "margin-desktop": "64px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "h1": [
+                              "Noto Serif"
+                      ],
+                      "label-sm": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "h3": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "h2": [
+                              "Noto Serif"
+                      ],
+                      "body-lg": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-md": [
+                              "Plus Jakarta Sans"
+                      ]
+              },
+              "fontSize": {
+                      "h1": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "h3": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "h2": [
+                              "36px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopNavBar Shared Component -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/50 shadow-sm font-serif text-sm font-medium tracking-wide text-slate-900 dark:text-white">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-6 h-20">
+<div class="text-2xl font-black tracking-tighter text-slate-900 dark:text-white">Wanderlust</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="scale-95 active:scale-100 transition-transform hover:text-orange-500 transition-colors duration-200 text-slate-500 dark:text-slate-400" href="#">Home</a>
+<a class="scale-95 active:scale-100 transition-transform hover:text-orange-500 transition-colors duration-200 text-slate-900 dark:text-white border-b-2 border-orange-500 pb-1" href="#">Destinations</a>
+<a class="scale-95 active:scale-100 transition-transform hover:text-orange-500 transition-colors duration-200 text-slate-500 dark:text-slate-400" href="#">Cities</a>
+<a class="scale-95 active:scale-100 transition-transform hover:text-orange-500 transition-colors duration-200 text-slate-500 dark:text-slate-400" href="#">Tours</a>
+<a class="scale-95 active:scale-100 transition-transform hover:text-orange-500 transition-colors duration-200 text-slate-500 dark:text-slate-400" href="#">Hotels</a>
+<a class="scale-95 active:scale-100 transition-transform hover:text-orange-500 transition-colors duration-200 text-slate-500 dark:text-slate-400" href="#">About Us</a>
+</div>
+<button class="scale-95 active:scale-100 transition-transform hover:text-orange-500 transition-colors duration-200 font-semibold">Login</button>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow pt-[100px] pb-xl">
+<!-- Bento Grid Image Gallery -->
+<section class="max-w-7xl mx-auto px-6 mb-xl">
+<div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-base h-[500px] md:h-[600px] rounded-xl overflow-hidden">
+<div class="md:col-span-2 md:row-span-2 rounded-xl overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A breathtaking, high-resolution wide shot of a majestic ancient temple complex situated in a lush, mountainous valley. The scene is bathed in golden hour sunlight, creating long, dramatic shadows and highlighting the intricate stone carvings. The aesthetic is epic, sophisticated, and inspires a deep sense of wanderlust, matching a modern, premium travel brand style. The sky is a clear, vibrant gradient of dusk colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCasYOiLgcIKFZ9DFTYivEAcqbvlNyBYK_h2R9bJ3AI372XbKgIYjZcWfX2DST5VYcre2yMVwoXBkb4XsNzPtsLkVxaA-0gi3L_HBt1ysVlJho6KwobmL1PvEOXVW2Ogn7oURsaSAl_yMcz-u8QICGAbWC31SVvZLqECA6yOKK8N0dI-ujgvFrFSZc0ysScKzDqjpPfhA55sdtG5mXir8EGoM81jiMahdRlzzFx1J0veGZDK8JwZwTKYhQQrEiq9qwOrykZyeBUMEY"/>
+</div>
+<div class="hidden md:block col-span-1 row-span-1 rounded-xl overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A close-up, highly detailed photograph of an ancient, weathered stone pathway leading towards a shadowed archway. Soft, diffused natural light filters through overhanging foliage, creating a dappled effect on the ground. The mood is serene, mysterious, and invites exploration. The color palette focuses on earthy tones, deep greens, and soft grays, aligning with a high-end minimalist design aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNr-bq77osFbuQ2e3feVYu6ISRh6NiTbD6HG11iQ1MQZi8JgUONefitJq_I5hYN4gcF-CIM22RKgo-sJtgZVaSnvFPE7JKe5SbaPvR2pYzPpgEafeuYlydvu4y09XSxggHNcDWdYW9pMClB0rWfvsBKySc3fsyPi8lestyWh_lJ6mARChcbSJ4bl4u4oGLBDj6StN_rw5xRxntwpd4MEC2njClezgzje9eQVs8ROWPM8y-74TfGxsBbcFiEwC4Xm3nE1SFpyFMnKE"/>
+</div>
+<div class="hidden md:block col-span-1 row-span-1 rounded-xl overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A sophisticated lifestyle shot showing a pair of vintage binoculars and an open leather-bound journal resting on a rustic wooden railing overlooking a vast canyon. The lighting is bright and clear, indicating mid-morning. The depth of field is shallow, blurring the expansive background to emphasize the foreground objects. The image conveys a sense of thoughtful, unhurried travel and premium adventure." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARV6li-tUzIwkhfVCG1Cbvo9u7ERNpT21zDHZtSBlsUmU_P1G_X30WzVZaFtxOqAN1hp3nmwt0D_2E2YCd7ciyGWTn4n6j7m4RwPc2DioHg2i_HGoq7kB2ggh4eLqzU3NDALp8bYEA6nkjyra4qHwitZLXHs70Vms0cWRQDQzEzdy0aRDWgDGiwuO7Nsg56Ef2JxKl1w6lZ3ZB94uGBBA_oCLsC7VHaFYBIl543exVIs8OA5xMr9qK4qivsj_O9xWP0M8BjY40a0c"/>
+</div>
+<div class="hidden md:block col-span-2 row-span-1 rounded-xl overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A stunning aerial landscape view of a winding river cutting through a dramatic, rocky gorge. The water is a deep, vibrant turquoise, contrasting sharply with the pale, sun-bleached stone cliffs. The image has a clean, airy composition with significant negative space in the sky, perfect for a modern, high-contrast digital interface. The overall feel is majestic and awe-inspiring." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8B_LQdBgJMv1f_K3hC9ivXknJ8X1_gDz57DAmpcDZRYVcqdKVVJ5-To8xw1609PbtVUZD8lNbaUAyWoejyJBs47CX0SBSu5Re0tosr7wjRlN4f-q-Z9bwDVDe6m9me6j_9Ii7nbbjqMmMa_rnl6qvBGGqmoVHOKPN9YSQqt1pScVezJdHGSUeGKS8F06uuT8xjgQCdtjaL2MsOILVlxRELCJMrfyfkoSVnJ0dMi99w0b_oZMohSOGOBBcCYtdEDTOwixhMvhZCo8"/>
+</div>
+</div>
+</section>
+<!-- Details Grid -->
+<section class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Content -->
+<div class="lg:col-span-8">
+<!-- Header -->
+<div class="mb-md">
+<div class="flex items-center gap-sm mb-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]" data-icon="location_on">location_on</span>
+<span class="font-body-md text-body-md">Sacred Valley, Peru</span>
+</div>
+<h1 class="font-h1 text-h1 text-on-surface mb-sm">The Sun Temple Ruins</h1>
+<div class="flex items-center gap-md">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-secondary-container" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-sm text-label-sm text-on-surface">4.9 (1,284 Reviews)</span>
+</div>
+<div class="flex gap-xs">
+<span class="bg-surface-container-high text-on-surface-variant px-sm py-xs rounded-full font-label-sm text-[12px] tracking-wide">Historical</span>
+<span class="bg-surface-container-high text-on-surface-variant px-sm py-xs rounded-full font-label-sm text-[12px] tracking-wide">Architecture</span>
+</div>
+</div>
+</div>
+<hr class="border-outline-variant/30 my-md"/>
+<!-- Description -->
+<div class="mb-xl">
+<h3 class="font-h3 text-h3 text-on-surface mb-sm">About this destination</h3>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-sm">
+                        Nestled high in the Andean peaks, the Sun Temple Ruins stand as a testament to ancient architectural genius. This sprawling complex of polished stone walls and terraced landscapes was once a pivotal ceremonial center. Visitors can wander through the meticulously crafted chambers that align perfectly with the solstices, offering a profound glimpse into a civilization deeply connected to the cosmos.
+                    </p>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+                        The journey to the ruins is as breathtaking as the site itself, winding through lush cloud forests and offering panoramic views of the Sacred Valley below. Whether you're a history enthusiast or a seeker of serene landscapes, this destination promises an unforgettable experience of discovery and wonder.
+                    </p>
+</div>
+<!-- Location Map -->
+<div class="mb-xl">
+<h3 class="font-h3 text-h3 text-on-surface mb-sm">Location</h3>
+<div class="w-full h-[300px] rounded-xl overflow-hidden bg-surface-container-low border border-outline-variant/20 relative">
+<img class="w-full h-full object-cover opacity-80 mix-blend-multiply" data-alt="A stylized, high-contrast digital map interface showing a mountainous terrain. The map uses a minimalist color palette of soft grays, crisp whites, and a single vibrant teal marker indicating a specific location in a valley. The roads and topographical lines are drawn with thin, elegant strokes. The overall aesthetic is clean, modern, and perfectly suited for a premium travel application's location feature." data-location="Sacred Valley, Peru" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqIGVpJ8XtdhzfyMHoBVTeKUlM82kpfKX4sTDtNooa0AL0a6yk3h1Uv_Quz30V9CP0jr2k-TKe_VsEEqfjk-5YDRAg_4fVfhqA292tC3mu5TvfptLB-iFvy8Nf3Ump51_RSz1I0HRISL4MIMyAXt9qmSgECEzxwhoioczJDPOy2R71bp76p-R3lZJFbKderezAYpBF1HRsulbwpjtECOlJpuJuaPiyX7-QhDtN1TkksEqGvwbHeGScg32sT8_HLMORuf4aaTCxmEI"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="bg-primary text-on-primary w-12 h-12 rounded-full flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined" data-icon="pin_drop">pin_drop</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Reviews -->
+<div>
+<h3 class="font-h3 text-h3 text-on-surface mb-sm">Traveler Reviews</h3>
+<div class="space-y-md">
+<!-- Review Item -->
+<div class="bg-surface-container-low p-md rounded-xl border border-outline-variant/10">
+<div class="flex justify-between items-start mb-sm">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-label-sm text-label-sm">SJ</div>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface">Sarah Jenkins</div>
+<div class="font-body-md text-[13px] text-outline">Oct 12, 2023</div>
+</div>
+</div>
+<div class="flex text-secondary-container">
+<span class="material-symbols-outlined text-[18px]" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Absolutely mesmerizing. The precision of the stonework is hard to comprehend until you see it in person. Getting there early in the morning before the crowds arrive makes the experience feel incredibly spiritual and serene.</p>
+</div>
+<!-- Review Item -->
+<div class="bg-surface-container-low p-md rounded-xl border border-outline-variant/10">
+<div class="flex justify-between items-start mb-sm">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed-dim text-on-secondary-fixed flex items-center justify-center font-label-sm text-label-sm">MR</div>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface">Michael Ross</div>
+<div class="font-body-md text-[13px] text-outline">Sep 28, 2023</div>
+</div>
+</div>
+<div class="flex text-secondary-container">
+<span class="material-symbols-outlined text-[18px]" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="star_outline">star_outline</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">A must-see if you are in the region. The altitude can be challenging, so take it slow. The views overlooking the valley from the top terraces are spectacular and perfect for photography.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Sticky Widget & Related -->
+<div class="lg:col-span-4">
+<div class="sticky top-28 space-y-lg">
+<!-- Glassmorphism Booking Card -->
+<div class="bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl rounded-xl p-md border border-outline-variant/20 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)]">
+<div class="flex justify-between items-end mb-sm">
+<div>
+<span class="font-body-md text-body-md text-outline">Entry ticket from</span>
+<div class="font-h2 text-[32px] font-bold text-on-surface">$45<span class="font-body-md text-body-md font-normal text-outline"> / person</span></div>
+</div>
+<div class="bg-tertiary-fixed-dim text-on-tertiary-fixed px-sm py-xs rounded text-[12px] font-bold tracking-wider uppercase mb-2">
+                                Best Value
+                            </div>
+</div>
+<div class="space-y-xs mb-md">
+<div class="flex items-center gap-xs text-on-surface-variant font-body-md text-body-md">
+<span class="material-symbols-outlined text-[18px]" data-icon="schedule">schedule</span>
+<span>Duration: 2-3 Hours</span>
+</div>
+<div class="flex items-center gap-xs text-on-surface-variant font-body-md text-body-md">
+<span class="material-symbols-outlined text-[18px]" data-icon="language">language</span>
+<span>Guide: English, Spanish</span>
+</div>
+<div class="flex items-center gap-xs text-on-surface-variant font-body-md text-body-md">
+<span class="material-symbols-outlined text-[18px]" data-icon="cancel">cancel</span>
+<span>Free cancellation up to 24h</span>
+</div>
+</div>
+<button class="w-full bg-secondary-container text-on-secondary-container py-sm rounded-lg font-label-sm text-[16px] hover:bg-secondary hover:text-on-secondary transition-colors duration-200">
+                            Check Availability
+                        </button>
+</div>
+<!-- Related Tours -->
+<div>
+<h4 class="font-h3 text-[20px] font-semibold text-on-surface mb-sm">Tours including this site</h4>
+<div class="space-y-sm">
+<!-- Tour Card Small -->
+<div class="flex gap-sm p-sm rounded-lg hover:bg-surface-container-low transition-colors duration-200 cursor-pointer border border-transparent hover:border-outline-variant/20 group">
+<div class="w-20 h-20 rounded-md overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" data-alt="A small, vibrant thumbnail image showing a group of hikers walking along a narrow, ancient stone trail hugging a steep mountain face. The scenery is lush and green, with mist clinging to the higher peaks. The style is adventurous and inspiring, fitting a high-quality travel booking interface. Bright, clear daylight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBimScQWZR9rYVHoMnaBYzIlCktUtztGPRVORAoc-vs3uqGrVS8q5CG_CCn706AbH0BJkKmKXLPS6At8NR9bepxv3w8Cnkxx6vDk2j5dI56ij_fci6UnF-BkQF_x77Bgux1uPGXEbV3EUS5sDidAd_FiJoUO0G62Oz4wvrZu65ztGqy5-nTuP0JAX0iG8lMfjuKbwtI2N2AFIGrNlfwdrIRr2lNBIl-KXuRJsO-sSAzj0g4nZnP0rtO5QMYfzaTau05zv3Qo18hbRY"/>
+</div>
+<div class="flex flex-col justify-center">
+<div class="font-label-sm text-[13px] text-on-surface line-clamp-2 mb-1">Full Day Sacred Valley &amp; Ruins Explorer</div>
+<div class="font-body-md text-[13px] text-secondary-container font-semibold">From $120</div>
+</div>
+</div>
+<!-- Tour Card Small -->
+<div class="flex gap-sm p-sm rounded-lg hover:bg-surface-container-low transition-colors duration-200 cursor-pointer border border-transparent hover:border-outline-variant/20 group">
+<div class="w-20 h-20 rounded-md overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" data-alt="A compelling thumbnail image of a vintage campervan parked on a scenic overlook at sunset. The sky is a brilliant mix of orange and purple. The focus is on the concept of independent, road-trip style travel. The aesthetic is warm, nostalgic, yet modern and high-resolution, suitable for a premium tour listing." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDt25yGz1Jo_FJ_2dJhKoJDW-JFCGtkPueQbdvblFYmLr181x_hVb5lfn55Ajjk33Xr1liTzgOZENB9w0JxvXoegDV0cLc8UoEgbiCyRQ9WRtnZOHjTCRSW0H6Ts34K8mf87OUlbjJC9zTFlh2itwD4hyk7culgje8lZ3yU5QatN33cGHronrKsOjk_DHZOt_-InveNpy6AzorhcFuu2hNDOCE2_0LStnrhNbceSU1DH4M_JDiNDxa6w2p7HQwN3qhW6D3zsNmmRCE"/>
+</div>
+<div class="flex flex-col justify-center">
+<div class="font-label-sm text-[13px] text-on-surface line-clamp-2 mb-1">2-Day Trek with Valley Camping</div>
+<div class="font-body-md text-[13px] text-secondary-container font-semibold">From $250</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Shared Component -->
+<footer class="w-full mt-auto bg-slate-900 dark:bg-black border-t border-slate-800 font-serif text-sm">
+<div class="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-4 gap-8">
+<div>
+<div class="text-xl font-bold text-white mb-4">Wanderlust</div>
+<p class="text-slate-400">© 2024 Wanderlust Tourism. All rights reserved.</p>
+</div>
+<div>
+<ul class="space-y-3">
+<li><a class="text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100" href="#">Contact</a></li>
+<li><a class="text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100" href="#">Privacy Policy</a></li>
+<li><a class="text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100" href="#">Terms of Service</a></li>
+</ul>
+</div>
+<div>
+<ul class="space-y-3">
+<li><a class="text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100" href="#">Instagram</a></li>
+<li><a class="text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100" href="#">Facebook</a></li>
+</ul>
+</div>
+</div>
+</footer>
+</body></html>

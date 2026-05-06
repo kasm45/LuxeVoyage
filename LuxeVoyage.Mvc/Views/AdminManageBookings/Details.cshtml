@@ -1,0 +1,26 @@
+@model LuxeVoyage.Mvc.Models.Booking
+<div class="px-8 py-10 font-body-md max-w-2xl">
+<h1 class="font-h2 text-h2 mb-6">Booking #@Model.Id</h1>
+@{
+var statusClass = Model.Status switch
+{
+    LuxeVoyage.Mvc.Models.BookingStatus.Pending => "admin-status-pending",
+    LuxeVoyage.Mvc.Models.BookingStatus.Confirmed => "admin-status-confirmed",
+    LuxeVoyage.Mvc.Models.BookingStatus.Cancelled => "admin-status-cancelled",
+    LuxeVoyage.Mvc.Models.BookingStatus.Completed => "admin-status-completed",
+    _ => "admin-status-pending"
+};
+}
+<dl class="grid grid-cols-2 gap-4 text-sm">
+<dt class="text-slate-500">Guest</dt><dd>@(Model.User?.Email ?? Model.UserId)</dd>
+<dt class="text-slate-500">Tour</dt><dd>@(Model.Tour?.Title ?? "—")</dd>
+<dt class="text-slate-500">Stay</dt><dd>@(Model.Stay?.Name ?? "—")</dd>
+<dt class="text-slate-500">Experience</dt><dd>@(Model.Experience?.Title ?? "—")</dd>
+<dt class="text-slate-500">Destination</dt><dd>@(Model.Destination?.Title ?? "—")</dd>
+<dt class="text-slate-500">Dates</dt><dd>@Model.StartDate.ToString("d") – @Model.EndDate.ToString("d")</dd>
+<dt class="text-slate-500">Guests</dt><dd>@Model.Guests</dd>
+<dt class="text-slate-500">Status</dt><dd><span class="admin-status-badge @statusClass">@Model.Status</span></dd>
+<dt class="text-slate-500">Notes</dt><dd>@Model.Notes</dd>
+</dl>
+<div class="mt-8 flex gap-4"><a asp-action="Edit" asp-route-id="@Model.Id" class="rounded-lg bg-primary px-4 py-2 text-on-primary">Edit</a><a asp-action="Index" class="rounded-lg border px-4 py-2">Back</a></div>
+</div>

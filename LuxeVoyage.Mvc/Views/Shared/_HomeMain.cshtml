@@ -1,0 +1,191 @@
+﻿@model LuxeVoyage.Mvc.Models.ViewModels.HomeIndexViewModel
+<!-- Hero Section -->
+<header class="relative h-[921px] min-h-[600px] w-full flex items-center justify-center overflow-visible">
+<!-- overflow-hidden only on background layer so dropdowns/calendar can extend past hero box -->
+<div class="absolute inset-0 w-full h-full bg-slate-900 overflow-hidden">
+<img alt="Hero Image" class="w-full h-full object-cover opacity-80 mix-blend-overlay" data-alt="A breathtaking, cinematic ultra-wide shot of a pristine, high-end tropical coastal landscape at golden hour. The scene features crystal clear turquoise waters gently lapping against dramatic, rugged cliffs covered in lush emerald greenery. Soft, warm sunset light bathes the entire scene, creating a sense of ultimate luxury and tranquil escape. The aesthetic is modern, editorial, and highly polished, reflecting a refined travel experience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmuxz78CkUOTf5-2i-K-RA3SRKhZP0sQOPSNKZzrmyEwu8oLqJpQG6x6Mfym3dnnHxXx2g9TQkXA1Clvv-XI2lvoJXEdh8jaqGFhm5LuSC2Mb3gQxMxhCTyvj_Grfw6cxxBHdHV3YvV8Kln4kiivHHvHzcClnjwLBPWhaV5kFpGjhyjS6ULK8Wzpo6hqkTcvre-RpRnza8Xuh5q0n9Df6vgUzkdbo6U8ZSEOkurVGq5WPTb7Cps2vuto6xjjoWAf2OAfhfu254U-k"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent"></div>
+</div>
+<div class="relative z-10 w-full max-w-[1280px] px-lg flex flex-col items-center text-center mt-xl overflow-visible">
+<h1 class="font-h1 text-h1 text-white text-glass-shadow mb-lg max-w-4xl">
+                Refined Exploration Awaits.
+            </h1>
+<p class="font-body-lg text-body-lg text-white/90 mb-xl max-w-2xl text-glass-shadow">
+                Discover curated destinations and seamless high-end hospitality tailored for the discerning traveler.
+            </p>
+<!-- Floating Search Bar (Glassmorphism) -->
+<script type="application/json" id="lv-home-destinations-data">@Html.Raw(Model.DestinationSuggestionsJson)</script>
+<form method="get" asp-controller="Search" asp-action="Index" id="lv-home-search-form" class="glass-panel w-full max-w-4xl rounded-xl p-md flex flex-col md:flex-row gap-md shadow-[0px_4px_20px_rgba(15,23,42,0.15)] mt-lg items-stretch md:items-center relative z-20 overflow-visible">
+<div class="flex-1 w-full relative z-30 overflow-visible" id="lv-home-where-wrap">
+<label class="sr-only" for="lv-home-query">Where to?</label>
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-secondary pointer-events-none z-10">location_on</span>
+<input name="query" id="lv-home-query" autocomplete="off" class="w-full pl-12 pr-4 py-4 rounded-lg bg-white/80 border border-transparent focus:border-primary focus:ring-2 focus:ring-primary/20 text-on-surface font-body-md outline-none transition-all placeholder:text-on-surface-variant" placeholder="Where to?" type="text"/>
+<input type="hidden" name="destinationId" id="lv-home-destination-id" value="" />
+<div id="lv-home-suggestions" class="lv-home-dropdown lv-home-suggestions-panel hidden absolute left-0 right-0 top-full mt-2 rounded-xl border border-white/30 bg-white/95 shadow-xl backdrop-blur-md text-left" role="region" aria-label="Suggested destinations"></div>
+</div>
+<div class="flex-1 w-full relative z-20 overflow-visible" id="lv-home-dates-wrap">
+<label class="sr-only" for="lv-home-dates-display">Travel dates</label>
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-secondary pointer-events-none z-10">calendar_month</span>
+<input id="lv-home-dates-display" readonly class="w-full pl-12 pr-4 py-4 rounded-lg bg-white/80 border border-transparent focus:border-primary focus:ring-2 focus:ring-primary/20 text-on-surface font-body-md outline-none transition-all cursor-pointer placeholder:text-on-surface-variant" placeholder="Dates" type="text" value=""/>
+<input type="hidden" name="date" id="lv-home-date" value="" />
+<input type="hidden" name="dateEnd" id="lv-home-date-end" value="" />
+<div id="lv-home-date-panel" class="lv-home-dropdown lv-calendar-panel hidden absolute left-0 right-0 top-full mt-2 z-[120] max-w-[min(100%,380px)] sm:max-w-none sm:w-[360px]" role="dialog" aria-label="Select travel dates">
+<div id="lv-calendar-mount" class="lv-calendar-mount"></div>
+</div>
+</div>
+<button type="submit" class="w-full md:w-auto bg-gradient-to-r from-primary to-surface-tint text-on-primary font-button text-button px-8 py-4 rounded-lg shadow-md hover:opacity-90 transition-opacity whitespace-nowrap flex items-center justify-center gap-2 shrink-0">
+<span class="material-symbols-outlined">search</span>
+                    Explore
+                </button>
+</form>
+</div>
+</header>
+<main class="w-full max-w-[1280px] mx-auto px-lg py-xxl flex flex-col gap-xxl">
+<!-- Iconic Destinations (Bento Grid) -->
+<section>
+<div class="mb-xl flex justify-between items-end">
+<div>
+<h2 class="font-h2 text-h2 text-on-surface mb-sm">Iconic Destinations</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Handpicked locales for your next escape.</p>
+</div>
+<a asp-controller="Destinations" asp-action="Index" class="font-button text-button text-primary hover:text-primary-container transition-colors flex items-center gap-1">
+                    View all <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg auto-rows-[300px]">
+<!-- Card 1 (Large) -->
+<a asp-controller="Destinations" asp-action="Detail" asp-route-id="amalfi-coast" class="md:col-span-2 md:row-span-2 rounded-[16px] overflow-hidden relative group shadow-[0px_4px_20px_rgba(15,23,42,0.05)] cursor-pointer block">
+<img alt="Cinque Terre" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A sweeping, high-resolution view of the colorful cliffside village of Cinque Terre, Italy, cascading down towards the deep blue Mediterranean Sea. The lighting is bright and clear, highlighting the pastel-colored houses against the rugged coastline. The scene conveys a sense of vibrant Mediterranean luxury and idyllic coastal charm, styled with an editorial travel magazine aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-o1yXyiJMLrcfTR49sat4bsjhr4zuvg13D_TF68Ef7BB4voeBpsvIbjR5ppokk_ThlHkR9waRXruwceHzG9iw8quOlUk8IjmSCUPgmAcNU9mFNtLMcVU4PXeONxKptg9klNWAixbea39voBtdgD_MggZHJj0Zb2_1t8p95oqoFp_SVOlxflvBnepA3iD5vFT6Ai6DXB0SjuqZ337maKwHXwu0mv71e3_XNHoGygkrcIWQCer6qeKNgxBwF3tjXa4DJMOcQm-e4PQ" style="border: 0.5px solid rgba(255,255,255,0.1);"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-lg w-full">
+<div class="flex gap-2 mb-sm">
+<span class="bg-secondary-container/90 text-on-secondary-container font-label-caps text-label-caps px-3 py-1 rounded-[40px] backdrop-blur-sm">COASTAL</span>
+<span class="bg-secondary-container/90 text-on-secondary-container font-label-caps text-label-caps px-3 py-1 rounded-[40px] backdrop-blur-sm">EUROPE</span>
+</div>
+<h3 class="font-h3 text-h3 text-white mb-xs">Amalfi Coast, Italy</h3>
+<p class="font-body-md text-body-md text-white/80 line-clamp-2">Cliffside villas and azure waters await in this Mediterranean paradise.</p>
+</div>
+</a>
+<!-- Card 2 -->
+<a asp-controller="Destinations" asp-action="Detail" asp-route-id="tokyo" class="rounded-[16px] overflow-hidden relative group shadow-[0px_4px_20px_rgba(15,23,42,0.05)] cursor-pointer block">
+<img alt="Tokyo" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A moody, high-end nighttime street photography shot of a bustling Tokyo alleyway illuminated by sleek neon signs. The wet pavement reflects the vibrant city lights, creating a modern, cinematic atmosphere. The aesthetic blends urban grit with polished, futuristic luxury, perfect for a refined travel narrative." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMVPZyQmPXZnx0PYtp9I8Q54m5ROPjfQ0JfNsiZk1mbK9AN9Y53k6zKlVF-tSj6Cl9Wjb1JbQZfbZep7U5Z5K0h2r0D3lqLsCPoeaH01iCauiy2mysXS__FIAwLBd9xu9Vi2p0TYhBHEAhpxKUogWBhsy7baYglaDf8GSNv5Iyiwi5SSL6gK9hkIrCKPQxebVIPWX39ru9ZjCN_eW_9e3cdaJ9rP0f8-2Q3ku1H6xLw_qaZczVrCdPP-gwBFunKY8eS93bWaVTkDE" style="border: 0.5px solid rgba(255,255,255,0.1);"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-lg w-full">
+<div class="flex gap-2 mb-sm">
+<span class="bg-secondary-container/90 text-on-secondary-container font-label-caps text-label-caps px-3 py-1 rounded-[40px] backdrop-blur-sm">URBAN</span>
+</div>
+<h3 class="font-h3 text-h3 text-white mb-xs">Tokyo, Japan</h3>
+<p class="font-body-md text-body-md text-white/80 line-clamp-1">Neon lights and serene temples.</p>
+</div>
+</a>
+<!-- Card 3 -->
+<a asp-controller="Destinations" asp-action="Detail" asp-route-id="zermatt" class="rounded-[16px] overflow-hidden relative group shadow-[0px_4px_20px_rgba(15,23,42,0.05)] cursor-pointer block">
+<img alt="Swiss Alps" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A breathtaking view of the majestic Swiss Alps under a crisp, clear blue sky. Snow-capped peaks rise dramatically above a pristine alpine lake reflecting the surrounding mountains. The scene evokes a sense of tranquil, high-altitude luxury and crisp, clean air, styled with a high-end editorial finish." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIR4IjC5A9zYCeVpv-6E2Qsr-6XGwJt_c_ahEjpLc8ZwVjHtz_S8_ABYHEdi18syPgvEJC77vQYcnvKvAVrnJ-5bRklkm1OeYVO9jxHTy-VhSEjEjkfWAigDBqqn8KKjuyysokk89K1Z1lCxhl95xAyFVMl6o9qx6AXkGfZotuG2vff5RbIOgYiqc3ZFT-zAe5gggKvE6s6bvZ7OB012-vm0Lg_HGyIo-JXxaYx54YHQId_hs6eJfYg3MkrDG_aEW5LUR8x2juAyQ" style="border: 0.5px solid rgba(255,255,255,0.1);"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-lg w-full">
+<div class="flex gap-2 mb-sm">
+<span class="bg-secondary-container/90 text-on-secondary-container font-label-caps text-label-caps px-3 py-1 rounded-[40px] backdrop-blur-sm">ALPINE</span>
+</div>
+<h3 class="font-h3 text-h3 text-white mb-xs">Zermatt, Switzerland</h3>
+<p class="font-body-md text-body-md text-white/80 line-clamp-1">Pristine slopes and luxury chalets.</p>
+</div>
+</a>
+</div>
+</section>
+<!-- Curated Experiences (Horizontal Scroll) -->
+<section class="overflow-hidden">
+<div class="mb-xl">
+<h2 class="font-h2 text-h2 text-on-surface mb-sm">Curated Experiences</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Elevate your journey with exclusive activities.</p>
+</div>
+<div class="flex overflow-x-auto gap-lg pb-lg snap-x snap-mandatory scrollbar-hide -mx-lg px-lg md:mx-0 md:px-0">
+<!-- Experience Card 1 -->
+<div class="min-w-[320px] max-w-[320px] snap-start shrink-0 relative bg-surface rounded-[16px] overflow-hidden shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-surface-variant group cursor-pointer transition-[box-shadow,border-color] duration-300 hover:shadow-[0px_12px_28px_-4px_rgba(15,23,42,0.12)] hover:border-primary/25">
+<a asp-controller="Experiences" asp-action="Detail" asp-route-id="private-vineyard" class="absolute inset-0 z-[1] rounded-[16px] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface" aria-label="View details for Private Vineyard Tour"></a>
+<div class="relative z-[2] pointer-events-none flex flex-col h-full">
+<div class="h-[200px] w-full relative overflow-hidden shrink-0">
+<img alt="Wine Tasting" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A close-up, highly stylized shot of elegant crystal wine glasses being filled with rich red wine in a rustic, sunlit Tuscan vineyard. The warm golden hour light creates a soft, inviting glow, emphasizing the luxurious and sensory nature of a private wine tasting experience. The aesthetic is refined and sensory-rich." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5Es1adMGCAvCmj1RVpGBoPpoF4UduxQOJ6wtmLgnD8wTPVSfOS_TGUxYHFst3LSrTS0CCNt1TTMCCFc3F3RY9Zs783o_MGJyg7qRa6xixyBrr6zR8nEG7nEhYY3BbRAu8xLfrOYUIuUk0e0oVBBksUL1hdmBRr4n3R-24W6HnRS4PqHU8QypZMn4WdvDVoXqnHKjzU3956vX0JOL8AG3ij24tVPlXqmfHahcpQUuh2Q0d4yTehJ8zysZnLLQ3xUGvw9RWD_q-Kao" style="border: 0.5px solid rgba(255,255,255,0.1);"/>
+</div>
+<div class="p-lg flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-sm">
+<h3 class="font-h3 text-[20px] leading-tight text-on-surface group-hover:text-primary transition-colors">Private Vineyard Tour</h3>
+<span class="material-symbols-outlined text-primary">wine_bar</span>
+</div>
+<p class="font-body-md text-sm text-on-surface-variant mb-md">Exclusive tastings in hidden cellars across Tuscany.</p>
+<div class="flex justify-between items-center border-t border-surface-variant pt-md mt-auto">
+<span class="font-body-md text-on-surface font-semibold">From $450</span>
+<a asp-controller="Experiences" asp-action="Detail" asp-route-id="private-vineyard" class="font-button text-sm text-primary hover:text-primary-container transition-colors relative z-10 pointer-events-auto">Details</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Experience Card 2 -->
+<div class="min-w-[320px] max-w-[320px] snap-start shrink-0 relative bg-surface rounded-[16px] overflow-hidden shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-surface-variant group cursor-pointer transition-[box-shadow,border-color] duration-300 hover:shadow-[0px_12px_28px_-4px_rgba(15,23,42,0.12)] hover:border-primary/25">
+<a asp-controller="Experiences" asp-action="Detail" asp-route-id="aerial-canyon" class="absolute inset-0 z-[1] rounded-[16px] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface" aria-label="View details for Aerial Canyon Tour"></a>
+<div class="relative z-[2] pointer-events-none flex flex-col h-full">
+<div class="h-[200px] w-full relative overflow-hidden shrink-0">
+<img alt="Helicopter Ride" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A spectacular aerial view from inside a sleek, modern helicopter looking out over a dramatic, lush green canyon and winding river. The interior of the helicopter feels luxurious and secure, while the landscape outside is vast and awe-inspiring. The lighting is bright and clear, conveying a sense of thrilling, high-end adventure." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfLmPPvRhBGcmEobeHhHO2a_7h3knpyF4eiuW5aZdkCyYcsB0Z-qb17FEXLnEeYuUqBeH0vl690tP127JT9xggNqhPlFLMHU0ClCvTtSBIkduweCdWpBHiq63KiXPP2ul1psaTeQQR-U4alttTY_BS2h_ek1d_EGIzLc0awsNarTDMvXgqcMcgogxod07JTOuubpA3042YuMsHetKdqjEy8HYCw1lwhS_SdnXrYrPwaYFQpjcjbtYFjy5TWRpp4kRh3AVKgUObTRY" style="border: 0.5px solid rgba(255,255,255,0.1);"/>
+</div>
+<div class="p-lg flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-sm">
+<h3 class="font-h3 text-[20px] leading-tight text-on-surface group-hover:text-primary transition-colors">Aerial Canyon Tour</h3>
+<span class="material-symbols-outlined text-primary">flight_takeoff</span>
+</div>
+<p class="font-body-md text-sm text-on-surface-variant mb-md">Soar above majestic landscapes in a luxury chopper.</p>
+<div class="flex justify-between items-center border-t border-surface-variant pt-md mt-auto">
+<span class="font-body-md text-on-surface font-semibold">From $890</span>
+<a asp-controller="Experiences" asp-action="Detail" asp-route-id="aerial-canyon" class="font-button text-sm text-primary hover:text-primary-container transition-colors relative z-10 pointer-events-auto">Details</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Experience Card 3 -->
+<div class="min-w-[320px] max-w-[320px] snap-start shrink-0 relative bg-surface rounded-[16px] overflow-hidden shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-surface-variant group cursor-pointer transition-[box-shadow,border-color] duration-300 hover:shadow-[0px_12px_28px_-4px_rgba(15,23,42,0.12)] hover:border-primary/25">
+<a asp-controller="Experiences" asp-action="Detail" asp-route-id="holistic-wellness" class="absolute inset-0 z-[1] rounded-[16px] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface" aria-label="View details for Holistic Wellness"></a>
+<div class="relative z-[2] pointer-events-none flex flex-col h-full">
+<div class="h-[200px] w-full relative overflow-hidden shrink-0">
+<img alt="Spa" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A serene, minimalist high-end spa interior featuring smooth stone textures, warm wood accents, and soft, diffused natural light filtering through bamboo screens. A tranquil plunge pool is visible in the background. The atmosphere is deeply calming, luxurious, and perfectly aligned with a premium wellness retreat aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtlwdsFDJy6Z5yCktCcIz6jG6FvpVgM9u-6tuFV0-Wn5wbXiyykkkb3qWv4pkpIguFDLYgJwkYr0sAgQZYn3mFRDBOgX2V3GRk4e0rBgsfNqaf_J7XV8jGRpVa9yYW418Nlkjbb9-zDtoCHZzMOG-28kyPmYU-Q_O2eTfsTEE8vkb8Km_Fs0f8CP73K6r6Lyf2ef5EnicNomRDQ-BLDtfh0JCLUSQboaINkhi5GI0Cs6RLW9BEw-47at0SkZeJy8lq2fSocbSDNUQ" style="border: 0.5px solid rgba(255,255,255,0.1);"/>
+</div>
+<div class="p-lg flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-sm">
+<h3 class="font-h3 text-[20px] leading-tight text-on-surface group-hover:text-primary transition-colors">Holistic Wellness</h3>
+<span class="material-symbols-outlined text-primary">spa</span>
+</div>
+<p class="font-body-md text-sm text-on-surface-variant mb-md">Rejuvenate with ancient practices in modern luxury.</p>
+<div class="flex justify-between items-center border-t border-surface-variant pt-md mt-auto">
+<span class="font-body-md text-on-surface font-semibold">From $300</span>
+<a asp-controller="Experiences" asp-action="Detail" asp-route-id="holistic-wellness" class="font-button text-sm text-primary hover:text-primary-container transition-colors relative z-10 pointer-events-auto">Details</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Why Travel With Us -->
+<section class="bg-surface-container-low rounded-2xl p-xl flex flex-col items-center text-center">
+<h2 class="font-h2 text-h2 text-on-surface mb-lg">The LuxeVoyage Standard</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-xl w-full max-w-5xl mt-md">
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-secondary-container flex items-center justify-center mb-md text-primary">
+<span class="material-symbols-outlined text-3xl">verified_user</span>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface text-xl mb-xs">Vetted Excellence</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xs">Every property and partner is meticulously inspected to ensure uncompromised quality.</p>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-secondary-container flex items-center justify-center mb-md text-primary">
+<span class="material-symbols-outlined text-3xl">support_agent</span>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface text-xl mb-xs">24/7 Concierge</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xs">Dedicated support at your fingertips, anticipating needs before they arise.</p>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-secondary-container flex items-center justify-center mb-md text-primary">
+<span class="material-symbols-outlined text-3xl">diamond</span>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface text-xl mb-xs">Exclusive Access</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xs">Unlock hidden gems and private experiences unavailable to the general public.</p>
+</div>
+</div>
+</section>
+</main>

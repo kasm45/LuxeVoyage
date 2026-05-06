@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Available Tours | Wanderlust</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#f2f4f6",
+                        "outline": "#76777d",
+                        "tertiary": "#000000",
+                        "tertiary-fixed-dim": "#6bd8cb",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#0c9488",
+                        "surface-container-high": "#e6e8ea",
+                        "on-secondary-fixed-variant": "#653e00",
+                        "on-tertiary-fixed": "#00201d",
+                        "primary": "#000000",
+                        "surface-tint": "#565e74",
+                        "inverse-primary": "#bec6e0",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-surface": "#191c1e",
+                        "on-primary-fixed": "#131b2e",
+                        "tertiary-container": "#00201d",
+                        "surface": "#f7f9fb",
+                        "secondary": "#855300",
+                        "on-secondary-container": "#684000",
+                        "on-secondary-fixed": "#2a1700",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-tertiary": "#ffffff",
+                        "background": "#f7f9fb",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#eff1f3",
+                        "primary-fixed": "#dae2fd",
+                        "on-tertiary-fixed-variant": "#005049",
+                        "on-background": "#191c1e",
+                        "secondary-fixed": "#ffddb8",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c6c6cd",
+                        "primary-container": "#131b2e",
+                        "on-error": "#ffffff",
+                        "surface-container": "#eceef0",
+                        "surface-bright": "#f7f9fb",
+                        "on-primary-container": "#7c839b",
+                        "surface-variant": "#e0e3e5",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#2d3133",
+                        "on-surface-variant": "#45464d",
+                        "secondary-container": "#fea619",
+                        "secondary-fixed-dim": "#ffb95f",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#d8dadc",
+                        "tertiary-fixed": "#89f5e7",
+                        "on-primary-fixed-variant": "#3f465c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "sm": "12px",
+                        "base": "8px",
+                        "xl": "80px",
+                        "md": "24px",
+                        "margin-mobile": "16px",
+                        "lg": "48px",
+                        "margin-desktop": "64px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "h1": ["Noto Serif"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "h3": ["Plus Jakarta Sans"],
+                        "h2": ["Noto Serif"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "h1": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-sm": ["14px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "h3": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "h2": ["36px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background antialiased min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-surface-container-lowest/80 backdrop-blur-md text-primary font-body-md text-sm font-medium tracking-wide fixed top-0 w-full z-50 border-b border-surface-dim/50 shadow-sm transition-colors duration-300">
+<div class="flex justify-between items-center max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop h-[80px]">
+<!-- Brand -->
+<a class="font-h2 text-h2 text-primary font-black tracking-tighter" href="#">Wanderlust</a>
+<!-- Navigation -->
+<nav class="hidden md:flex items-center gap-md">
+<a class="text-on-surface-variant hover:text-secondary-container transition-colors duration-200" href="#">Home</a>
+<a class="text-on-surface-variant hover:text-secondary-container transition-colors duration-200" href="#">Destinations</a>
+<a class="text-on-surface-variant hover:text-secondary-container transition-colors duration-200" href="#">Cities</a>
+<!-- Active Nav Item -->
+<a class="text-primary border-b-2 border-secondary-container pb-1" href="#">Tours</a>
+<a class="text-on-surface-variant hover:text-secondary-container transition-colors duration-200" href="#">Hotels</a>
+<a class="text-on-surface-variant hover:text-secondary-container transition-colors duration-200" href="#">About Us</a>
+</nav>
+<!-- Actions -->
+<div class="flex items-center gap-sm">
+<button class="hidden md:flex items-center justify-center p-sm text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors scale-95 active:scale-100">
+<span class="material-symbols-outlined">search</span>
+</button>
+<a class="font-label-sm text-label-sm bg-primary text-on-primary px-md py-sm rounded-full hover:opacity-90 transition-opacity scale-95 active:scale-100" href="#">Login</a>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-[100px] pb-xl max-w-[1280px] w-full mx-auto px-margin-mobile md:px-margin-desktop">
+<!-- Header Section -->
+<section class="mb-lg flex flex-col md:flex-row md:items-end justify-between gap-md">
+<div class="max-w-2xl">
+<h1 class="font-h1 text-h1 text-primary mb-sm">Curated Experiences</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Discover our handpicked selection of guided tours designed for the sophisticated traveler seeking authentic discovery.</p>
+</div>
+<!-- Sorting & Filtering Controls -->
+<div class="flex items-center gap-sm self-start md:self-end">
+<div class="relative">
+<select class="appearance-none bg-surface-container-lowest border border-outline-variant text-on-surface font-body-md text-body-md py-sm pl-sm pr-[40px] rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors cursor-pointer shadow-sm">
+<option>Sort by Popularity</option>
+<option>Price: Low to High</option>
+<option>Price: High to Low</option>
+<option>Duration: Shortest</option>
+<option>Duration: Longest</option>
+</select>
+<span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+</div>
+</div>
+</section>
+<!-- Tours Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Tour Card 1 -->
+<article class="bg-surface-container-lowest border border-surface-dim rounded-xl overflow-hidden flex flex-col group hover:shadow-[0px_10px_15px_-3px_rgba(15,23,42,0.08)] transition-shadow duration-300">
+<div class="relative h-[240px] w-full overflow-hidden bg-surface-container-low">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" data-alt="A breathtaking landscape photograph of the American Southwest during golden hour, intended for a premium travel website. The scene features deep red canyons and mesas bathed in warm, luminous sunlight, contrasting with a crisp, clear blue sky. The composition emphasizes vastness and adventure, captured with professional lighting that enhances the rich earthy tones and creates a bright, inspiring, and modern light-mode aesthetic suitable for a high-end UI design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAMJP5QjiSuZ_PAaGkhEVC1VehoywPT9HArsjiKJ8lM3W_FPT6-yLFgoMzsZX4mvGv-9DsbyWLHHNlppDDR50HtmgU40xxSofaSo0ej8i1CzjVgTep15PsKYaV1OvdbAfqXYxO90imUTQpiP0YvMnw4chdHLqlREEEjrXadRXw5roKl9_HCfSgftKZvPrSelTM5rFKs-6LUV0KnhZX4XmLa6oN_QKNNDGxDUw_Pc9k9YnmBEtHnDreA1tQH2njyRCoFQt2wVjMkS4"/>
+<!-- Floating Price Tag -->
+<div class="absolute top-margin-mobile right-margin-mobile bg-on-tertiary-container text-on-tertiary px-sm py-[6px] rounded-full font-label-sm text-label-sm shadow-md backdrop-blur-sm">
+                        $1,299
+                    </div>
+<!-- Category Chip -->
+<div class="absolute top-margin-mobile left-margin-mobile bg-surface-container-lowest/90 text-on-surface-variant px-sm py-[4px] rounded-full font-label-sm text-[12px] uppercase tracking-wider backdrop-blur-md">
+                        Adventure
+                    </div>
+</div>
+<div class="p-margin-mobile flex flex-col flex-grow">
+<h3 class="font-h3 text-h3 text-primary mb-xs line-clamp-1">Grand Canyon Expedition</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md line-clamp-2 flex-grow">Immerse yourself in the majestic scale of the canyon with expert guides leading you through hidden trails and scenic vistas.</p>
+<div class="flex items-center justify-between mb-md border-t border-surface-container pt-md">
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+<span class="font-body-md text-[14px]">5 Days</span>
+</div>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px] text-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-body-md text-[14px] font-semibold text-primary">4.9</span>
+<span class="text-[12px]">(128)</span>
+</div>
+</div>
+<button class="w-full font-label-sm text-label-sm bg-secondary-container text-on-secondary-container py-sm rounded-lg hover:brightness-110 transition-all flex justify-center items-center gap-xs">
+                        Book Now
+                        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</article>
+<!-- Tour Card 2 -->
+<article class="bg-surface-container-lowest border border-surface-dim rounded-xl overflow-hidden flex flex-col group hover:shadow-[0px_10px_15px_-3px_rgba(15,23,42,0.08)] transition-shadow duration-300">
+<div class="relative h-[240px] w-full overflow-hidden bg-surface-container-low">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" data-alt="A serene architectural photograph of a traditional Japanese temple in Kyoto during autumn. The image showcases elegant wooden structures framed by vibrant red and orange maple leaves. The lighting is soft and diffused, creating a peaceful, contemplative mood. The overall color palette is warm but grounded in a bright, modern aesthetic, perfectly suited for a sophisticated travel platform focusing on cultural discovery and premium experiences." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMEw_cYbTeAKBSDRFeCtJtK8TtX1mlk8hQrQBU7_Y3YVvEJgEpaLCMsw16yjkgewaXGv3PF58ppstAohdmzYr7EpIEuOtpVCQylmt2bq_K1qFCDSYejNjd2t7AscMtNtlnfp5isBXRlb_k2aCiUauHyFBLp7vkcBcD8duzNOGZcu2EXE3OdwUngG2hS2rV6CNTMw52hdzCInG_eSXwM9Ui4kyRXAut4wt99vlao195uz4EXdkF6jOS0dCGuzNStR9xNKvQVhpTDe4"/>
+<div class="absolute top-margin-mobile right-margin-mobile bg-on-tertiary-container text-on-tertiary px-sm py-[6px] rounded-full font-label-sm text-label-sm shadow-md backdrop-blur-sm">
+                        $850
+                    </div>
+<div class="absolute top-margin-mobile left-margin-mobile bg-surface-container-lowest/90 text-on-surface-variant px-sm py-[4px] rounded-full font-label-sm text-[12px] uppercase tracking-wider backdrop-blur-md">
+                        Cultural
+                    </div>
+</div>
+<div class="p-margin-mobile flex flex-col flex-grow">
+<h3 class="font-h3 text-h3 text-primary mb-xs line-clamp-1">Kyoto Heritage Walk</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md line-clamp-2 flex-grow">Wander through ancient zen gardens, historic shrines, and experience a traditional tea ceremony in Gion.</p>
+<div class="flex items-center justify-between mb-md border-t border-surface-container pt-md">
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+<span class="font-body-md text-[14px]">3 Days</span>
+</div>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px] text-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-body-md text-[14px] font-semibold text-primary">4.8</span>
+<span class="text-[12px]">(94)</span>
+</div>
+</div>
+<button class="w-full font-label-sm text-label-sm bg-secondary-container text-on-secondary-container py-sm rounded-lg hover:brightness-110 transition-all flex justify-center items-center gap-xs">
+                        Book Now
+                        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</article>
+<!-- Tour Card 3 -->
+<article class="bg-surface-container-lowest border border-surface-dim rounded-xl overflow-hidden flex flex-col group hover:shadow-[0px_10px_15px_-3px_rgba(15,23,42,0.08)] transition-shadow duration-300">
+<div class="relative h-[240px] w-full overflow-hidden bg-surface-container-low">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" data-alt="A pristine photograph of a pristine white sand beach in the Maldives, viewed from a slightly elevated angle. Crystal clear turquoise water gently laps onto the shore, under a bright, flawless sky. The image exudes a sense of ultimate luxury and relaxation. The lighting is high-key and brilliant, emphasizing the vibrant blues and stark whites, perfectly aligning with a modern, airy, glassmorphism-inspired UI design for a high-end travel brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNXxIIMkoa-scGap_NvRfRuuX9LUvlAHrDSJsK1XwxpwyBt8FbMwV5LOFrrImZcIBUsqCA5VBxcG6Uu5grHeO3b8NbF99fZnP2UVlojqlSM2krj-vvAcRmOD8uVmcPh35kZB8_N8YmoEdQvQiT_L6HeyLKtZbtccsLBhfJLHgZCcZG6ItWOj9-I3Jv3bO9hJNdNEnZNbPGj_-qJ8NWBB6a2DkBCd-r_QdIBPDQdUWEhhAZpf2y7NW_uvBXz2-BJTedKno08LvYegQ"/>
+<div class="absolute top-margin-mobile right-margin-mobile bg-on-tertiary-container text-on-tertiary px-sm py-[6px] rounded-full font-label-sm text-label-sm shadow-md backdrop-blur-sm">
+                        $2,450
+                    </div>
+<div class="absolute top-margin-mobile left-margin-mobile bg-surface-container-lowest/90 text-on-surface-variant px-sm py-[4px] rounded-full font-label-sm text-[12px] uppercase tracking-wider backdrop-blur-md">
+                        Luxury
+                    </div>
+</div>
+<div class="p-margin-mobile flex flex-col flex-grow">
+<h3 class="font-h3 text-h3 text-primary mb-xs line-clamp-1">Maldives Retreat</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md line-clamp-2 flex-grow">Unwind in an overwater villa, snorkel in vibrant coral reefs, and enjoy private dining under the stars.</p>
+<div class="flex items-center justify-between mb-md border-t border-surface-container pt-md">
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+<span class="font-body-md text-[14px]">7 Days</span>
+</div>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px] text-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-body-md text-[14px] font-semibold text-primary">5.0</span>
+<span class="text-[12px]">(215)</span>
+</div>
+</div>
+<button class="w-full font-label-sm text-label-sm bg-secondary-container text-on-secondary-container py-sm rounded-lg hover:brightness-110 transition-all flex justify-center items-center gap-xs">
+                        Book Now
+                        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</article>
+<!-- Tour Card 4 -->
+<article class="bg-surface-container-lowest border border-surface-dim rounded-xl overflow-hidden flex flex-col group hover:shadow-[0px_10px_15px_-3px_rgba(15,23,42,0.08)] transition-shadow duration-300">
+<div class="relative h-[240px] w-full overflow-hidden bg-surface-container-low">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" data-alt="A romantic street photography shot of a cobblestone alleyway in Paris during early morning. The scene features classic Haussmann architecture, wrought-iron balconies, and a subtle view of the Eiffel Tower in the soft, misty distance. The color palette is muted and elegant, relying on soft greys, warm stone tones, and delicate morning light. This image is curated to evoke sophisticated wanderlust within a clean, minimalist web interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYp_DJyD6Q5PrMRhxdoAVkmloppOgfHcNyvnOqYbIsqQxCcgqlfi-pyvzPGSQmOfLqVKlRFi5YiCfUZg1iUCLrOEjdU5ZS2DlD9G2zHSbb_IqXJFRXVAeWng9n-KjuicBdmsk2YgzPAl7PyMsdkUaNW29123kdRQwpizfDifVqdjn2ShMZVKWvDzjZYbb0RClkNZMomtLVqJ-3nc9e3uf8c256ddTgEjmDmdmoWr6r6tP0ORNvymec15FrxazZLhpcaxxT0XHz1HU"/>
+<div class="absolute top-margin-mobile right-margin-mobile bg-on-tertiary-container text-on-tertiary px-sm py-[6px] rounded-full font-label-sm text-label-sm shadow-md backdrop-blur-sm">
+                        $1,100
+                    </div>
+<div class="absolute top-margin-mobile left-margin-mobile bg-surface-container-lowest/90 text-on-surface-variant px-sm py-[4px] rounded-full font-label-sm text-[12px] uppercase tracking-wider backdrop-blur-md">
+                        City Break
+                    </div>
+</div>
+<div class="p-margin-mobile flex flex-col flex-grow">
+<h3 class="font-h3 text-h3 text-primary mb-xs line-clamp-1">Parisian Romance</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md line-clamp-2 flex-grow">A curated journey through the City of Light, featuring exclusive museum access and culinary masterclasses.</p>
+<div class="flex items-center justify-between mb-md border-t border-surface-container pt-md">
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+<span class="font-body-md text-[14px]">4 Days</span>
+</div>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px] text-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-body-md text-[14px] font-semibold text-primary">4.7</span>
+<span class="text-[12px]">(182)</span>
+</div>
+</div>
+<button class="w-full font-label-sm text-label-sm bg-secondary-container text-on-secondary-container py-sm rounded-lg hover:brightness-110 transition-all flex justify-center items-center gap-xs">
+                        Book Now
+                        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</article>
+<!-- Tour Card 5 -->
+<article class="bg-surface-container-lowest border border-surface-dim rounded-xl overflow-hidden flex flex-col group hover:shadow-[0px_10px_15px_-3px_rgba(15,23,42,0.08)] transition-shadow duration-300">
+<div class="relative h-[240px] w-full overflow-hidden bg-surface-container-low">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" data-alt="An expansive aerial photograph of a vibrant, lush green rice terrace in Bali, Indonesia. The terraced landscape creates striking organic geometric patterns across the frame. The lighting is bright and clear, highlighting the intense, fresh greens against a subtle blue sky. The visual style is highly professional and immersive, intended to provide a burst of natural color within a primarily white, modern minimalist UI structure." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdUbjFf_Ay4_sbeROeCm4qj0zstPYCGCM6V9lY1MQYH2osYeQ5cQu7FDoQccbGetLFPPI1qq7cI_WsNZxfaEJquymiDTQpYwL-dTou7ihFlbweRNvXoIB7C0CSm9Yn7-JJbQeNqY6uHCb5d6tBYCtAH6tAre5Qce9wEuf6o-kLYOtnfHz0dgGnAAU-4oDvct449czcGfMjrDvsErnjzLt7RNqUN42_eN57wU7tjBjVKFIjBhqUhfvWH3vlK0orCLfscLI3l2lmX5A"/>
+<div class="absolute top-margin-mobile right-margin-mobile bg-on-tertiary-container text-on-tertiary px-sm py-[6px] rounded-full font-label-sm text-label-sm shadow-md backdrop-blur-sm">
+                        $720
+                    </div>
+<div class="absolute top-margin-mobile left-margin-mobile bg-surface-container-lowest/90 text-on-surface-variant px-sm py-[4px] rounded-full font-label-sm text-[12px] uppercase tracking-wider backdrop-blur-md">
+                        Nature
+                    </div>
+</div>
+<div class="p-margin-mobile flex flex-col flex-grow">
+<h3 class="font-h3 text-h3 text-primary mb-xs line-clamp-1">Bali Wellness Escape</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md line-clamp-2 flex-grow">Rejuvenate your mind and body with daily yoga, meditation sessions, and organic farm-to-table dining.</p>
+<div class="flex items-center justify-between mb-md border-t border-surface-container pt-md">
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+<span class="font-body-md text-[14px]">6 Days</span>
+</div>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px] text-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-body-md text-[14px] font-semibold text-primary">4.9</span>
+<span class="text-[12px]">(85)</span>
+</div>
+</div>
+<button class="w-full font-label-sm text-label-sm bg-secondary-container text-on-secondary-container py-sm rounded-lg hover:brightness-110 transition-all flex justify-center items-center gap-xs">
+                        Book Now
+                        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</article>
+<!-- Tour Card 6 -->
+<article class="bg-surface-container-lowest border border-surface-dim rounded-xl overflow-hidden flex flex-col group hover:shadow-[0px_10px_15px_-3px_rgba(15,23,42,0.08)] transition-shadow duration-300">
+<div class="relative h-[240px] w-full overflow-hidden bg-surface-container-low">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" data-alt="A dramatic landscape photograph of snow-capped peaks in the Swiss Alps under a clear, bright blue sky. A sleek, modern red train winds its way through the pristine white snow, providing a strong focal point and color contrast. The lighting is sharp and alpine, conveying a crisp, invigorating atmosphere. The image is designed to feel premium and adventurous, aligning with a high-quality travel booking interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbLXtWvhF5N20g780zjl-31NiChKs-438Ld3x1-gKeHtCR2Mh5IdTAqXZhFWD8d9Htlw5zNFIpJHWCHWqRK1lQdjXybDij9ropLnjjLTv24lUDkoQl0mMT5nhivWIkNaeHrqmeWDXZGME2jTKe-B2g5xIXd2wpgcmoUoLs6T9k2H8hny4SIWP6qIBL1mbXwyjp_rPDBLkGmLy3oBoPJTtJcRPw7i6VgkHWy41OwB2ZN6cmCavrZkmLzcMHZZFDlGVV5sRBvHaFm4E"/>
+<div class="absolute top-margin-mobile right-margin-mobile bg-on-tertiary-container text-on-tertiary px-sm py-[6px] rounded-full font-label-sm text-label-sm shadow-md backdrop-blur-sm">
+                        $1,850
+                    </div>
+<div class="absolute top-margin-mobile left-margin-mobile bg-surface-container-lowest/90 text-on-surface-variant px-sm py-[4px] rounded-full font-label-sm text-[12px] uppercase tracking-wider backdrop-blur-md">
+                        Scenic
+                    </div>
+</div>
+<div class="p-margin-mobile flex flex-col flex-grow">
+<h3 class="font-h3 text-h3 text-primary mb-xs line-clamp-1">Swiss Alps Express</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md line-clamp-2 flex-grow">Travel through breathtaking mountain passes via panoramic trains, staying in world-class alpine resorts.</p>
+<div class="flex items-center justify-between mb-md border-t border-surface-container pt-md">
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+<span class="font-body-md text-[14px]">8 Days</span>
+</div>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px] text-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-body-md text-[14px] font-semibold text-primary">4.9</span>
+<span class="text-[12px]">(310)</span>
+</div>
+</div>
+<button class="w-full font-label-sm text-label-sm bg-secondary-container text-on-secondary-container py-sm rounded-lg hover:brightness-110 transition-all flex justify-center items-center gap-xs">
+                        Book Now
+                        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</article>
+</section>
+<!-- Pagination (Subtle) -->
+<div class="mt-xl flex justify-center items-center gap-sm">
+<button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-on-surface hover:bg-surface-container-low transition-colors disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-[20px]">chevron_left</span>
+</button>
+<span class="font-body-md text-primary font-medium w-10 h-10 flex items-center justify-center bg-surface-container rounded-full">1</span>
+<button class="font-body-md text-on-surface-variant hover:text-primary w-10 h-10 flex items-center justify-center transition-colors">2</button>
+<button class="font-body-md text-on-surface-variant hover:text-primary w-10 h-10 flex items-center justify-center transition-colors">3</button>
+<button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-on-surface hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-primary dark:bg-black text-on-primary font-serif text-sm w-full mt-auto border-t border-slate-800 shadow-none opacity-100">
+<div class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop py-16 grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="flex flex-col gap-4">
+<span class="text-xl font-bold text-on-primary">Wanderlust</span>
+<p class="text-on-surface-variant font-body-md text-sm mt-2 opacity-80">Inspiring journeys for the modern traveler. Discover the world with clarity and purpose.</p>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-h3 text-[16px] mb-2">Company</h4>
+<a class="text-on-primary/70 hover:text-secondary-container transition-colors opacity-80 hover:opacity-100" href="#">Contact</a>
+<a class="text-on-primary/70 hover:text-secondary-container transition-colors opacity-80 hover:opacity-100" href="#">About Us</a>
+<a class="text-on-primary/70 hover:text-secondary-container transition-colors opacity-80 hover:opacity-100" href="#">Careers</a>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-h3 text-[16px] mb-2">Legal</h4>
+<a class="text-on-primary/70 hover:text-secondary-container transition-colors opacity-80 hover:opacity-100" href="#">Privacy Policy</a>
+<a class="text-on-primary/70 hover:text-secondary-container transition-colors opacity-80 hover:opacity-100" href="#">Terms of Service</a>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-h3 text-[16px] mb-2">Social</h4>
+<a class="text-on-primary/70 hover:text-secondary-container transition-colors opacity-80 hover:opacity-100" href="#">Instagram</a>
+<a class="text-on-primary/70 hover:text-secondary-container transition-colors opacity-80 hover:opacity-100" href="#">Facebook</a>
+</div>
+</div>
+<div class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop pb-8 pt-4 border-t border-surface-container/20">
+<p class="text-on-primary/50 text-xs">© 2024 Wanderlust Tourism. All rights reserved.</p>
+</div>
+</footer>
+</body></html>

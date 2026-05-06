@@ -1,0 +1,7 @@
+@model LuxeVoyage.Mvc.Models.Stay
+<div class="px-8 py-10 font-body-md">
+<h1 class="font-h2 text-h2 mb-4">@Model.Name</h1>
+<p>@Model.CityLine · $@Model.PricePerNight.ToString("0")/night · @Model.StarRating★</p>
+<p class="mt-4 text-sm text-slate-600">Amenities: @Model.AmenitiesCsv</p>
+<div class="mt-8 flex gap-4"><a asp-action="Edit" asp-route-id="@Model.Id" class="rounded-lg bg-primary px-4 py-2 text-on-primary">Edit</a><a asp-action="Index" class="rounded-lg border px-4 py-2">Back</a></div>
+</div>

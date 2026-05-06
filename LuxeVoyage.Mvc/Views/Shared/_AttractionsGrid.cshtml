@@ -1,0 +1,158 @@
+﻿@model LuxeVoyage.Mvc.Models.ViewModels.AttractionsIndexViewModel
+@{
+    var returnUrl = $"{Context.Request.Path}{Context.Request.QueryString}";
+    var itemType = Model.CardKind == "destination" ? "Destination" : "Experience";
+}
+<main class="pt-32 pb-24 px-gutter md:px-xl max-w-container-max mx-auto min-h-screen">
+<header class="lv-catalog-hero">
+<h1 class="font-h1 text-h1 text-on-background @(string.IsNullOrEmpty(Model.Subtitle) ? "mb-8" : "mb-4")">@Model.Headline</h1>
+@if (!string.IsNullOrEmpty(Model.Subtitle))
+{
+<p class="lv-catalog-subtitle font-body-lg text-body-lg text-on-surface-variant">@Model.Subtitle</p>
+}
+<div id="lv-attraction-filters" class="lv-catalog-filters flex flex-col md:flex-row justify-between items-start md:items-center gap-6 bg-surface-container-lowest p-6 rounded-xl border border-surface-variant shadow-[0_4px_20px_rgba(15,23,42,0.05)]">
+<form method="get" asp-controller="@Model.SourceController" asp-action="Index" class="flex flex-wrap gap-4 w-full md:w-auto">
+<div class="lv-filter-select-wrap relative group w-full md:w-48">
+<select name="category" onchange="this.form.submit()" class="lv-filter-select w-full bg-surface-container-low border border-surface-variant font-body-md text-body-md text-on-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all cursor-pointer">
+@foreach (var opt in new[] { ("", "All Categories"), ("art", "Art & Culture"), ("nature", "Nature Escapes"), ("history", "Historical Sites"), ("culinary", "Culinary Journeys") })
+{
+if ((Model.Category ?? "") == opt.Item1)
+{
+<option value="@opt.Item1" selected>@opt.Item2</option>
+}
+else
+{
+<option value="@opt.Item1">@opt.Item2</option>
+}
+}
+</select>
+<span class="lv-filter-select-icon material-symbols-outlined text-on-surface-variant group-focus-within:text-primary transition-colors" aria-hidden="true">expand_more</span>
+</div>
+<div class="lv-filter-select-wrap relative group w-full md:w-48">
+<select name="region" onchange="this.form.submit()" class="lv-filter-select w-full bg-surface-container-low border border-surface-variant font-body-md text-body-md text-on-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all cursor-pointer">
+@foreach (var opt in new[] { ("", "All Regions"), ("europe", "Europe"), ("asia", "Asia"), ("americas", "Americas"), ("africa", "Africa"), ("middleeast", "Middle East") })
+{
+if ((Model.Region ?? "") == opt.Item1)
+{
+<option value="@opt.Item1" selected>@opt.Item2</option>
+}
+else
+{
+<option value="@opt.Item1">@opt.Item2</option>
+}
+}
+</select>
+<span class="lv-filter-select-icon material-symbols-outlined text-on-surface-variant group-focus-within:text-primary transition-colors" aria-hidden="true">expand_more</span>
+</div>
+</form>
+<div class="flex items-center gap-4 w-full md:w-auto">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Viewing @Model.TotalFilteredCount @(Model.TotalFilteredCount == 1 ? "place" : "places")</span>
+</div>
+</div>
+</header>
+
+@if (Model.Items.Count == 0)
+{
+<div class="lv-empty-state">
+<h3>No results found</h3>
+<p>No matches for these filters. Try clearing category or region.</p>
+</div>
+}
+else
+{
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+@foreach (var item in Model.Items)
+{
+var detailController = Model.CardKind == "destination" ? "Destinations" : "Experiences";
+@if (Model.CardKind == "experience")
+{
+<div class="group relative overflow-hidden rounded-[16px] shadow-[0_4px_20px_rgba(15,23,42,0.05)] bg-surface-container-lowest border border-surface-variant flex flex-col cursor-pointer transition-[box-shadow,border-color] duration-300 hover:shadow-[0_8px_28px_rgba(15,23,42,0.1)] hover:border-primary/30">
+<a asp-controller="@detailController" asp-action="Detail" asp-route-id="@item.Slug" class="absolute inset-0 z-[1] rounded-[16px] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container-lowest" aria-label="View details for @item.Title"></a>
+<div class="relative z-[2] pointer-events-none flex flex-col flex-grow">
+<div class="relative block h-56 overflow-hidden shrink-0">
+@if (!string.IsNullOrEmpty(item.ImageUrl))
+{
+<img alt="" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="@item.ImageUrl" onerror="this.onerror=null;this.src='/images/placeholders/lv-placeholder.svg';" />
+}
+<div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent"></div>
+<div class="absolute bottom-0 left-0 right-0 p-6">
+<span class="bg-secondary-container/90 backdrop-blur-md text-on-secondary-container px-3 py-1 rounded-full font-label-caps text-label-caps uppercase tracking-wider shadow-sm">@item.CategoryLabel</span>
+@if (item.Rating is { } r)
+{
+<span class="ml-2 bg-surface-container-lowest/90 backdrop-blur-md text-on-surface px-3 py-1 rounded-full font-label-caps text-label-caps inline-flex items-center gap-1 shadow-sm"><span class="material-symbols-outlined text-[14px]">star</span> @r.ToString("0.0")</span>
+}
+</div>
+</div>
+<div class="p-5 flex flex-col flex-grow">
+<div class="flex justify-between items-start gap-3 mb-2">
+<h3 class="font-h3 text-h3 text-on-surface leading-tight"><span class="group-hover:text-primary transition-colors">@item.Title</span></h3>
+<form asp-controller="Favorites" asp-action="Toggle" method="post" class="shrink-0 relative z-10 lv-favorite-form pointer-events-auto">
+@Html.AntiForgeryToken()
+<input type="hidden" name="itemType" value="@itemType" />
+<input type="hidden" name="itemId" value="@item.Id" />
+<input type="hidden" name="returnUrl" value="@returnUrl" />
+<button type="submit" class="lv-favorite-btn @(item.IsFavorite ? "is-active" : "") transition-colors border-0 cursor-pointer" title="@(item.IsFavorite ? "Remove favorite" : "Save favorite")" aria-label="Favorite" aria-pressed="@(item.IsFavorite ? "true" : "false")">
+<span class="material-symbols-outlined lv-favorite-icon" style="font-variation-settings: 'FILL' @(item.IsFavorite ? "1" : "0");">@(item.IsFavorite ? "favorite" : "favorite_border")</span>
+</button>
+</form>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-1 mb-3">
+<span class="material-symbols-outlined text-[18px]">location_on</span> @item.RegionDisplay
+</p>
+@if (!string.IsNullOrEmpty(item.Summary))
+{
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-3 mb-4 flex-grow">@item.Summary</p>
+}
+<a asp-controller="@detailController" asp-action="Detail" asp-route-id="@item.Slug" class="font-label-sm text-label-sm text-primary inline-flex items-center gap-1 mt-auto relative z-10 pointer-events-auto">Details <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+</div>
+</div>
+</div>
+}
+else
+{
+<div class="group relative overflow-hidden rounded-[16px] shadow-[0_4px_20px_rgba(15,23,42,0.05)] bg-surface-container-lowest border border-surface-variant flex flex-col cursor-pointer transition-[box-shadow,border-color] duration-300 hover:shadow-[0_8px_28px_rgba(15,23,42,0.1)] hover:border-primary/30">
+<a asp-controller="@detailController" asp-action="Detail" asp-route-id="@item.Slug" class="absolute inset-0 z-[1] rounded-[16px] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container-lowest" aria-label="View details for @item.Title"></a>
+<div class="relative z-[2] pointer-events-none flex flex-col flex-grow">
+<div class="relative block h-56 overflow-hidden shrink-0">
+@if (!string.IsNullOrEmpty(item.ImageUrl))
+{
+<img alt="" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="@item.ImageUrl" onerror="this.onerror=null;this.src='/images/placeholders/lv-placeholder.svg';" />
+}
+<div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent"></div>
+<div class="absolute bottom-0 left-0 right-0 p-6">
+<span class="bg-secondary-container/90 backdrop-blur-md text-on-secondary-container px-3 py-1 rounded-full font-label-caps text-label-caps uppercase tracking-wider shadow-sm">@item.CategoryLabel</span>
+@if (item.Rating is { } r)
+{
+<span class="ml-2 bg-surface-container-lowest/90 backdrop-blur-md text-on-surface px-3 py-1 rounded-full font-label-caps text-label-caps inline-flex items-center gap-1 shadow-sm"><span class="material-symbols-outlined text-[14px]">star</span> @r.ToString("0.0")</span>
+}
+</div>
+</div>
+<div class="p-5 flex flex-col flex-grow">
+<div class="flex justify-between items-start gap-3 mb-2">
+<h3 class="font-h3 text-h3 text-on-surface leading-tight"><span class="group-hover:text-primary transition-colors">@item.Title</span></h3>
+<form asp-controller="Favorites" asp-action="Toggle" method="post" class="shrink-0 relative z-10 lv-favorite-form pointer-events-auto">
+@Html.AntiForgeryToken()
+<input type="hidden" name="itemType" value="@itemType" />
+<input type="hidden" name="itemId" value="@item.Id" />
+<input type="hidden" name="returnUrl" value="@returnUrl" />
+<button type="submit" class="lv-favorite-btn @(item.IsFavorite ? "is-active" : "") transition-colors border-0 cursor-pointer" title="@(item.IsFavorite ? "Remove favorite" : "Save favorite")" aria-label="Favorite" aria-pressed="@(item.IsFavorite ? "true" : "false")">
+<span class="material-symbols-outlined lv-favorite-icon" style="font-variation-settings: 'FILL' @(item.IsFavorite ? "1" : "0");">@(item.IsFavorite ? "favorite" : "favorite_border")</span>
+</button>
+</form>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-1 mb-3">
+<span class="material-symbols-outlined text-[18px]">location_on</span> @item.RegionDisplay
+</p>
+@if (!string.IsNullOrEmpty(item.Summary))
+{
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-3 mb-4 flex-grow">@item.Summary</p>
+}
+<a asp-controller="@detailController" asp-action="Detail" asp-route-id="@item.Slug" class="font-label-sm text-label-sm text-primary inline-flex items-center gap-1 mt-auto relative z-10 pointer-events-auto">Details <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+</div>
+</div>
+</div>
+}
+}
+</div>
+}
+</main>

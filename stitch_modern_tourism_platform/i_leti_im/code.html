@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Contact Us - Wanderlust</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-low": "#f2f4f6",
+                      "outline": "#76777d",
+                      "tertiary": "#000000",
+                      "tertiary-fixed-dim": "#6bd8cb",
+                      "error": "#ba1a1a",
+                      "on-tertiary-container": "#0c9488",
+                      "surface-container-high": "#e6e8ea",
+                      "on-secondary-fixed-variant": "#653e00",
+                      "on-tertiary-fixed": "#00201d",
+                      "primary": "#000000",
+                      "surface-tint": "#565e74",
+                      "inverse-primary": "#bec6e0",
+                      "primary-fixed-dim": "#bec6e0",
+                      "on-surface": "#191c1e",
+                      "on-primary-fixed": "#131b2e",
+                      "tertiary-container": "#00201d",
+                      "surface": "#f7f9fb",
+                      "secondary": "#855300",
+                      "on-secondary-container": "#684000",
+                      "on-secondary-fixed": "#2a1700",
+                      "surface-container-highest": "#e0e3e5",
+                      "on-tertiary": "#ffffff",
+                      "background": "#f7f9fb",
+                      "on-primary": "#ffffff",
+                      "inverse-on-surface": "#eff1f3",
+                      "primary-fixed": "#dae2fd",
+                      "on-tertiary-fixed-variant": "#005049",
+                      "on-background": "#191c1e",
+                      "secondary-fixed": "#ffddb8",
+                      "on-secondary": "#ffffff",
+                      "outline-variant": "#c6c6cd",
+                      "primary-container": "#131b2e",
+                      "on-error": "#ffffff",
+                      "surface-container": "#eceef0",
+                      "surface-bright": "#f7f9fb",
+                      "on-primary-container": "#7c839b",
+                      "surface-variant": "#e0e3e5",
+                      "on-error-container": "#93000a",
+                      "inverse-surface": "#2d3133",
+                      "on-surface-variant": "#45464d",
+                      "secondary-container": "#fea619",
+                      "secondary-fixed-dim": "#ffb95f",
+                      "surface-container-lowest": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "surface-dim": "#d8dadc",
+                      "tertiary-fixed": "#89f5e7",
+                      "on-primary-fixed-variant": "#3f465c"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xs": "4px",
+                      "sm": "12px",
+                      "base": "8px",
+                      "xl": "80px",
+                      "md": "24px",
+                      "margin-mobile": "16px",
+                      "lg": "48px",
+                      "margin-desktop": "64px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "h1": [
+                              "Noto Serif"
+                      ],
+                      "label-sm": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "h3": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "h2": [
+                              "Noto Serif"
+                      ],
+                      "body-lg": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-md": [
+                              "Plus Jakarta Sans"
+                      ]
+              },
+              "fontSize": {
+                      "h1": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "h3": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "h2": [
+                              "36px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/50 shadow-sm">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-6 h-20">
+<div class="text-2xl font-black tracking-tighter text-slate-900 dark:text-white font-h1">
+                Wanderlust
+            </div>
+<div class="hidden md:flex gap-8 items-center font-serif text-sm font-medium tracking-wide">
+<a class="text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200 scale-95 active:scale-100 transition-transform" href="#">Home</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200 scale-95 active:scale-100 transition-transform" href="#">Destinations</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200 scale-95 active:scale-100 transition-transform" href="#">Cities</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200 scale-95 active:scale-100 transition-transform" href="#">Tours</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200 scale-95 active:scale-100 transition-transform" href="#">Hotels</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-orange-500 transition-colors duration-200 scale-95 active:scale-100 transition-transform" href="#">About Us</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="font-serif text-sm font-medium tracking-wide text-slate-900 dark:text-white hover:text-orange-500 transition-colors duration-200">
+                    Login
+                </button>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow pt-[100px] pb-xl w-full">
+<div class="max-w-[1280px] mx-auto px-6">
+<!-- Header Section -->
+<header class="mb-lg">
+<h1 class="font-h1 text-h1 text-primary mb-sm">Get in Touch</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                    Whether you're planning your next great adventure or need assistance with an existing booking, our team of travel experts is ready to help you discover the world.
+                </p>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Contact Form Card -->
+<div class="lg:col-span-7 bg-surface-container-lowest border border-outline-variant rounded-xl p-md">
+<h2 class="font-h3 text-h3 text-primary mb-md">Send us a Message</h2>
+<form class="space-y-md">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-sm">
+<div class="flex flex-col gap-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant" for="first-name">First Name</label>
+<input class="h-12 px-sm border border-outline-variant rounded bg-transparent focus:outline-none focus:border-primary focus:border-2 font-body-md text-body-md transition-all" id="first-name" type="text"/>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant" for="last-name">Last Name</label>
+<input class="h-12 px-sm border border-outline-variant rounded bg-transparent focus:outline-none focus:border-primary focus:border-2 font-body-md text-body-md transition-all" id="last-name" type="text"/>
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant" for="email">Email Address</label>
+<input class="h-12 px-sm border border-outline-variant rounded bg-transparent focus:outline-none focus:border-primary focus:border-2 font-body-md text-body-md transition-all" id="email" type="email"/>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant" for="subject">Subject</label>
+<div class="relative">
+<select class="w-full h-12 px-sm border border-outline-variant rounded bg-transparent focus:outline-none focus:border-primary focus:border-2 font-body-md text-body-md appearance-none transition-all" id="subject">
+<option>General Inquiry</option>
+<option>Booking Support</option>
+<option>Partnerships</option>
+</select>
+<span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant" for="message">Message</label>
+<textarea class="p-sm border border-outline-variant rounded bg-transparent focus:outline-none focus:border-primary focus:border-2 font-body-md text-body-md resize-none transition-all" id="message" rows="5"></textarea>
+</div>
+<button class="w-full md:w-auto px-md h-12 bg-secondary-container text-on-secondary-container font-label-sm text-label-sm rounded hover:opacity-90 transition-opacity" type="submit">
+                            Send Message
+                        </button>
+</form>
+</div>
+<!-- Info Column -->
+<div class="lg:col-span-5 flex flex-col gap-gutter">
+<!-- Map Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden h-64 relative group">
+<img alt="Map location" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A highly stylized, minimalist digital map illustration focused on a premium urban location. The map features a clean, light-mode aesthetic using soft neutral tones like pale gray and muted beige to represent landmasses and city blocks. Crisp, thin lines define the streets, while a sophisticated, subtle pin drop rendered in sunset orange marks the destination. The overall design is uncluttered and elegant, conveying a sense of reliability and modern clarity suitable for a high-end brand interface." data-location="Istanbul, Turkey" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBV4nyzuDuo5nqZttUIhOfu0u1ej-7divSM_RX_6CcoiP2Y8disz65j00NjdLdaxfa4L5QLFXwC7vL-KpDwi3O1nQrQ8AJnHu90hXADHtJHQxk-BJxwzarbrm2i_6HyS2oQ1oBqyabflyMSicGDnomj5kjW05fgDXqSOn9TwGU0WIuPuFrDwr8aroylHaedh3FAyJnNRRQGLQuKnLgvQdcBXIr-dYugq8u8sxwdxPmWIMzeRN4ktG1H5wwbIxZxWhWj0hHoYo9bTCg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent flex items-end p-md">
+<div class="text-on-primary">
+<p class="font-label-sm text-label-sm mb-xs">Global Headquarters</p>
+<p class="font-body-md text-body-md">Istanbul, Turkey</p>
+</div>
+</div>
+</div>
+<!-- Contact Details -->
+<div class="bg-surface-container-low rounded-xl p-md flex flex-col gap-md">
+<div class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-secondary-container">location_on</span>
+<div>
+<h3 class="font-label-sm text-label-sm text-primary">Office</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">123 Explorer's Avenue<br/>Karakoy District<br/>34421 Istanbul</p>
+</div>
+</div>
+<div class="w-full h-px bg-outline-variant/30"></div>
+<div class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-secondary-container">mail</span>
+<div>
+<h3 class="font-label-sm text-label-sm text-primary">Email</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">hello@wanderlust.com</p>
+</div>
+</div>
+<div class="w-full h-px bg-outline-variant/30"></div>
+<div class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-secondary-container">call</span>
+<div>
+<h3 class="font-label-sm text-label-sm text-primary">Phone</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">+90 (555) 123 4567</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-auto bg-slate-900 dark:bg-black border-t border-slate-800">
+<div class="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="col-span-1 md:col-span-2">
+<div class="text-xl font-bold text-white font-serif mb-4">
+                    Wanderlust
+                </div>
+<p class="font-serif text-sm text-slate-400 max-w-sm">
+                    © 2024 Wanderlust Tourism. All rights reserved.
+                </p>
+</div>
+<div class="flex flex-col gap-2">
+<a class="font-serif text-sm text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100" href="#">Contact</a>
+<a class="font-serif text-sm text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100" href="#">Privacy Policy</a>
+<a class="font-serif text-sm text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100" href="#">Terms of Service</a>
+</div>
+<div class="flex flex-col gap-2">
+<a class="font-serif text-sm text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100" href="#">Instagram</a>
+<a class="font-serif text-sm text-slate-400 hover:text-orange-400 transition-colors opacity-80 hover:opacity-100" href="#">Facebook</a>
+</div>
+</div>
+</footer>
+</body></html>

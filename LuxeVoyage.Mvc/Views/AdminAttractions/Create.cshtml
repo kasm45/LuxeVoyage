@@ -1,0 +1,15 @@
+@model LuxeVoyage.Mvc.Models.Attraction
+<div class="px-8 py-10 font-body-md">
+<h1 class="font-h2 text-h2 text-slate-900 dark:text-white mb-6">New attraction</h1>
+<form asp-action="Create" method="post">
+@Html.AntiForgeryToken()
+@await Html.PartialAsync("_AttractionForm", Model)
+<div class="mt-8 flex gap-4">
+<button type="submit" class="rounded-lg bg-primary px-6 py-2 text-on-primary">Save</button>
+<a asp-action="Index" class="rounded-lg border border-outline-variant px-6 py-2 text-on-surface">Cancel</a>
+</div>
+</form>
+</div>
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

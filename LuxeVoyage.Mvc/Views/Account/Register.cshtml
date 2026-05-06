@@ -1,0 +1,43 @@
+@model LuxeVoyage.Mvc.Models.ViewModels.RegisterViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.NavSection = "Login";
+    ViewData["Title"] = "Create account - LuxeVoyage";
+}
+<main class="pt-28 pb-24 px-gutter max-w-[480px] mx-auto min-h-screen">
+<h1 class="font-h1 text-h1 text-primary mb-2">Create account</h1>
+<p class="font-body-md text-on-surface-variant mb-8">Join LuxeVoyage to save favorites and manage bookings.</p>
+
+<form asp-controller="Account" asp-action="Register" method="post" class="space-y-5">
+@Html.AntiForgeryToken()
+<div asp-validation-summary="ModelOnly" class="text-error text-sm"></div>
+<div>
+<label asp-for="DisplayName" class="font-label-sm text-on-surface"></label>
+<input asp-for="DisplayName" class="mt-1 w-full rounded-lg border border-outline-variant bg-surface-container-low px-3 py-2" />
+<span asp-validation-for="DisplayName" class="text-error text-sm"></span>
+</div>
+<div>
+<label asp-for="Email" class="font-label-sm text-on-surface"></label>
+<input asp-for="Email" class="mt-1 w-full rounded-lg border border-outline-variant bg-surface-container-low px-3 py-2" />
+<span asp-validation-for="Email" class="text-error text-sm"></span>
+</div>
+<div>
+<label asp-for="Password" class="font-label-sm text-on-surface"></label>
+<input asp-for="Password" class="mt-1 w-full rounded-lg border border-outline-variant bg-surface-container-low px-3 py-2" />
+<span asp-validation-for="Password" class="text-error text-sm"></span>
+</div>
+<div>
+<label asp-for="ConfirmPassword" class="font-label-sm text-on-surface"></label>
+<input asp-for="ConfirmPassword" class="mt-1 w-full rounded-lg border border-outline-variant bg-surface-container-low px-3 py-2" />
+<span asp-validation-for="ConfirmPassword" class="text-error text-sm"></span>
+</div>
+<button type="submit" class="w-full bg-primary text-on-primary font-button py-3 rounded-[16px] hover:opacity-90">Register</button>
+</form>
+<p class="mt-8 font-body-md text-center">
+Already have an account? <a asp-controller="Account" asp-action="Login" class="text-primary hover:underline">Sign in</a>
+</p>
+</main>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

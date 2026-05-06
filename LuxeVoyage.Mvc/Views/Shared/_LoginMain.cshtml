@@ -1,0 +1,75 @@
+﻿<div class="bg-background text-on-background min-h-screen flex antialiased">
+<!-- Left Side: Image Canvas -->
+<div class="hidden lg:flex lg:w-1/2 relative bg-surface-container-high overflow-hidden">
+<img class="absolute inset-0 w-full h-full object-cover" data-alt="A breathtaking, sun-drenched coastal landscape in the Mediterranean, captured from a high vantage point overlooking deep azure waters and pristine white architecture cascading down the cliffside. The scene is bathed in bright, clear morning light, creating a modern, airy aesthetic with stark contrasts between the brilliant white structures and the deep blue sea. The mood is aspirational, serene, and adventurous, perfectly embodying a sophisticated LuxeVoyage brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrgLu-21lmYArw92ihCqaLV_BUSZhTuHrFQz_k9JfqmVOc5WPwjFnH4HP9KzjnsI-0KQtCGm2FISV0L68MQCIKn7vgJAYvaqS144hrIUe8uADn0udsZwM_9iIi_YecMN7uHPd8EPlJfm0MxDAG4veCejxHmCs-d7l0tJ-dCRYBdZsgqqXpWwkkcmgX2eeQG9fcQBAV7yFWZf4iD4zsmqgL6XX56a-Rcx8DSvbRXgpZRncz_cUHD5o3_q94FUuXzen3uAyzkN9Oxik"/>
+<!-- Subtle Overlay for Brand Context -->
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent flex flex-col justify-end p-margin-desktop text-on-primary">
+<h2 class="font-h2 text-h2 mb-sm">Discover your next horizon.</h2>
+<p class="font-body-lg text-body-lg opacity-90 max-w-md">Access your itinerary, manage bookings, and explore curated destinations all in one place.</p>
+</div>
+</div>
+<!-- Right Side: Login Form -->
+<div class="w-full lg:w-1/2 flex items-center justify-center p-margin-mobile sm:p-margin-desktop bg-surface-lowest">
+<div class="w-full max-w-[420px] bg-surface rounded-xl p-md sm:p-lg border border-outline-variant shadow-sm">
+<!-- Brand Header -->
+<div class="mb-lg text-center">
+<div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary-fixed mb-sm">
+<span class="material-symbols-outlined text-primary text-[28px]" data-icon="flight_takeoff">flight_takeoff</span>
+</div>
+<h1 class="font-h1 text-h3 text-primary tracking-tighter">LuxeVoyage</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Welcome back. Please enter your details.</p>
+</div>
+<!-- Role Selector (demo shell — use Account/Login for real sign-in) -->
+<div class="flex rounded-lg bg-surface-container-low p-1 mb-md border border-outline-variant/60 shadow-sm" role="tablist" aria-label="Sign-in mode">
+<button type="button" class="flex-1 py-2.5 font-label-sm text-label-sm rounded-md bg-surface shadow-sm ring-1 ring-orange-500/35 text-on-surface font-semibold text-center">Traveler</button>
+<button type="button" class="flex-1 py-2.5 font-label-sm text-label-sm rounded-md text-on-surface-variant text-center" disabled title="Use /account/login">Admin</button>
+</div>
+<form action="#" class="space-y-sm" method="post" onsubmit="event.preventDefault(); return lvPlaceholder(event);">
+<!-- Email Input -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-sm text-label-sm text-on-surface" for="email">Email</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline text-[20px]" data-icon="mail">mail</span>
+<input class="w-full h-[48px] pl-lg pr-sm bg-surface-container-low border border-outline rounded text-on-surface font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors placeholder:text-outline-variant" id="email" name="email" placeholder="name@example.com" required="" type="email"/>
+</div>
+</div>
+<!-- Password Input -->
+<div class="flex flex-col gap-xs pt-base">
+<label class="font-label-sm text-label-sm text-on-surface" for="password">Password</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline text-[20px]" data-icon="lock">lock</span>
+<input class="w-full h-[48px] pl-lg pr-sm bg-surface-container-low border border-outline rounded text-on-surface font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors placeholder:text-outline-variant" id="password" name="password" placeholder="••••••••" required="" type="password"/>
+</div>
+</div>
+<!-- Submit Button -->
+<div class="pt-sm">
+<button class="w-full h-[48px] bg-primary text-on-primary font-label-sm text-label-sm rounded flex items-center justify-center gap-base hover:opacity-90 active:scale-[0.98] transition-all" type="submit">
+                        Sign In
+                        <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</form>
+<!-- Divider -->
+<div class="mt-lg mb-md flex items-center">
+<div class="flex-grow border-t border-outline-variant"></div>
+<span class="px-sm font-label-sm text-label-sm text-outline">OR CONTINUE WITH</span>
+<div class="flex-grow border-t border-outline-variant"></div>
+</div>
+<!-- Social Logins -->
+<div class="flex flex-col gap-sm">
+<button class="w-full h-[48px] bg-surface border border-outline rounded flex items-center justify-center gap-sm hover:bg-surface-container-low transition-colors text-on-surface font-label-sm text-label-sm" type="button" onclick="lvPlaceholder(event)">
+<img alt="Google" class="w-5 h-5" data-alt="A clean, minimalist vector icon of the Google logo, maintaining a professional and recognizable appearance suitable for a modern login interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXt994vZb0oKA1KNrPryGOYBuerxO3TCUJEItq9F91OceFd34_EJ9E1H-SHDGZKXhDkNOdXWnlNoJ0n7VdAwVWYmCsWOopBf_a3veUCxCMPjXSyRTyxTdX8YKuvuK2NBOEroGc6AT6smjW7NjgzIHILxgwgPEUiHLzm2QcWedWE9nbm9NiEceaVBiWZSIpNS_q6F0ol7-OwtsaaU4SdxlH7A9YeRA3uTHRws-lD2u_5-JNFXR23KO-N16wHdli9eQCvNLBGMQVnW4"/>
+                    Google
+                </button>
+<button class="w-full h-[48px] bg-surface border border-outline rounded flex items-center justify-center gap-sm hover:bg-surface-container-low transition-colors text-on-surface font-label-sm text-label-sm" type="button" onclick="lvPlaceholder(event)">
+<span class="material-symbols-outlined text-[20px]" data-icon="apple">ios</span>
+                    Apple
+                </button>
+</div>
+<!-- Footer Link -->
+<p class="mt-lg text-center font-body-md text-body-md text-on-surface-variant">
+                Don't have an account? <a class="font-label-sm text-label-sm text-primary hover:text-secondary-container transition-colors" href="#" onclick="return lvPlaceholder(event)">Sign up</a>
+</p>
+</div>
+</div>
+</div>

@@ -1,0 +1,114 @@
+@model LuxeVoyage.Mvc.Models.ViewModels.LoginViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.NavSection = "Login";
+    ViewData["Title"] = "LuxeVoyage - Login";
+}
+<div class="bg-background text-on-background min-h-screen flex antialiased">
+<div class="hidden lg:flex lg:w-1/2 relative bg-surface-container-high overflow-hidden">
+<img class="absolute inset-0 w-full h-full object-cover" alt="" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrgLu-21lmYArw92ihCqaLV_BUSZhTuHrFQz_k9JfqmVOc5WPwjFnH4HP9KzjnsI-0KQtCGm2FISV0L68MQCIKn7vgJAYvaqS144hrIUe8uADn0udsZwM_9iIi_YecMN7uHPd8EPlJfm0MxDAG4veCejxHmCs-d7l0tJ-dCRYBdZsgqqXpWwkkcmgX2eeQG9fcQBAV7yFWZf4iD4zsmqgL6XX56a-Rcx8DSvbRXgpZRncz_cUHD5o3_q94FUuXzen3uAyzkN9Oxik"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent flex flex-col justify-end p-margin-desktop text-on-primary">
+<h2 class="font-h2 text-h2 mb-sm">Discover your next horizon.</h2>
+<p class="font-body-lg text-body-lg opacity-90 max-w-md">Access your itinerary, manage bookings, and explore curated destinations all in one place.</p>
+</div>
+</div>
+<div class="w-full lg:w-1/2 flex items-center justify-center p-margin-mobile sm:p-margin-desktop bg-surface-lowest">
+<div class="w-full max-w-[420px] bg-surface rounded-xl p-md sm:p-lg border border-outline-variant shadow-sm">
+<div class="mb-lg text-center">
+<div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary-fixed mb-sm">
+<span class="material-symbols-outlined text-primary text-[28px]">flight_takeoff</span>
+</div>
+<h1 class="font-h1 text-h3 text-primary tracking-tighter">LuxeVoyage</h1>
+<div id="lv-login-sub-traveler" class="@(Model.AdminLogin ? "hidden" : "") mt-xs space-y-1">
+<p class="font-body-md text-body-md text-on-surface-variant">Welcome back. Please enter your details.</p>
+</div>
+<div id="lv-login-sub-admin" class="@(!Model.AdminLogin ? "hidden" : "") mt-xs space-y-1">
+<p class="font-body-md text-body-md text-on-surface font-semibold">Admin sign in</p>
+<p class="text-sm leading-snug text-on-surface-variant">Use your administrator account to open the dashboard.</p>
+</div>
+</div>
+<div class="flex rounded-lg bg-surface-container-low p-1 mb-md border border-outline-variant/60 shadow-sm" role="tablist" aria-label="Sign-in mode">
+<button type="button" id="lv-tab-traveler" class="lv-login-tab flex-1 py-2.5 font-label-sm text-label-sm rounded-md text-center transition-all outline-none focus-visible:ring-2 focus-visible:ring-primary/50 @(Model.AdminLogin ? "text-on-surface-variant hover:text-on-surface" : "bg-surface text-on-surface font-semibold shadow-sm ring-1 ring-orange-500/35")" data-lv-mode="traveler" aria-selected="@(!Model.AdminLogin ? "true" : "false")">Traveler</button>
+<button type="button" id="lv-tab-admin" class="lv-login-tab flex-1 py-2.5 font-label-sm text-label-sm rounded-md text-center transition-all outline-none focus-visible:ring-2 focus-visible:ring-primary/50 @(Model.AdminLogin ? "bg-surface text-on-surface font-semibold shadow-sm ring-1 ring-orange-500/35" : "text-on-surface-variant hover:text-on-surface")" data-lv-mode="admin" aria-selected="@(Model.AdminLogin ? "true" : "false")">Admin</button>
+</div>
+
+<div asp-validation-summary="ModelOnly" class="text-error text-sm mb-md"></div>
+
+<form asp-controller="Account" asp-action="Login" method="post" class="space-y-sm" id="lv-login-form">
+@Html.AntiForgeryToken()
+<input type="hidden" asp-for="ReturnUrl" />
+<input type="hidden" asp-for="AdminLogin" id="lv-admin-login-hidden" />
+<div class="flex flex-col gap-xs">
+<label asp-for="Email" class="font-label-sm text-label-sm text-on-surface"></label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline text-[20px]">mail</span>
+<input asp-for="Email" class="w-full h-[48px] pl-lg pr-sm bg-surface-container-low border border-outline rounded text-on-surface font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors" autocomplete="username" />
+</div>
+</div>
+<div class="flex flex-col gap-xs pt-base">
+<label asp-for="Password" class="font-label-sm text-label-sm text-on-surface"></label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline text-[20px]">lock</span>
+<input asp-for="Password" class="w-full h-[48px] pl-lg pr-sm bg-surface-container-low border border-outline rounded text-on-surface font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors" autocomplete="current-password" />
+</div>
+</div>
+<div class="flex items-center gap-2 pt-sm">
+<input asp-for="RememberMe" class="rounded border-outline" />
+<label asp-for="RememberMe" class="font-body-md text-body-md text-on-surface-variant"></label>
+</div>
+<div class="pt-sm">
+<button type="submit" class="w-full h-[48px] bg-primary text-on-primary font-label-sm text-label-sm rounded flex items-center justify-center gap-base hover:opacity-90 active:scale-[0.98] transition-all">
+                        Sign In
+                        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</form>
+
+<div class="mt-lg mb-md flex items-center">
+<div class="flex-grow border-t border-outline-variant"></div>
+<span class="px-sm font-label-sm text-label-sm text-outline">OR CONTINUE WITH</span>
+<div class="flex-grow border-t border-outline-variant"></div>
+</div>
+<div class="flex flex-col gap-sm opacity-60 pointer-events-none select-none">
+<button type="button" class="w-full h-[48px] bg-surface border border-outline rounded flex items-center justify-center gap-sm text-on-surface font-label-sm text-label-sm" disabled>Google (demo)</button>
+<button type="button" class="w-full h-[48px] bg-surface border border-outline rounded flex items-center justify-center gap-sm text-on-surface font-label-sm text-label-sm" disabled>Apple (demo)</button>
+</div>
+<p class="mt-lg text-center font-body-md text-body-md text-on-surface-variant">
+                Don't have an account? <a asp-controller="Account" asp-action="Register" class="font-label-sm text-label-sm text-primary hover:text-secondary-container transition-colors">Sign up</a>
+</p>
+<p class="mt-4 text-center font-body-md text-body-md text-on-surface-variant text-sm space-y-1">
+<span class="block">Traveler demo: traveler@demo.com / Traveler123!</span>
+<span class="block">Admin (seed): admin@luxevoyage.com / Admin123!</span>
+</p>
+</div>
+</div>
+</div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+<script>
+(function () {
+  var hidden = document.getElementById('lv-admin-login-hidden');
+  var tabTraveler = document.getElementById('lv-tab-traveler');
+  var tabAdmin = document.getElementById('lv-tab-admin');
+  var subTraveler = document.getElementById('lv-login-sub-traveler');
+  var subAdmin = document.getElementById('lv-login-sub-admin');
+  if (!hidden || !tabTraveler || !tabAdmin) return;
+
+  function setMode(admin) {
+    hidden.value = admin ? 'true' : 'false';
+    tabTraveler.setAttribute('aria-selected', admin ? 'false' : 'true');
+    tabAdmin.setAttribute('aria-selected', admin ? 'true' : 'false');
+    tabTraveler.className = 'lv-login-tab flex-1 py-2.5 font-label-sm text-label-sm rounded-md text-center transition-all outline-none focus-visible:ring-2 focus-visible:ring-primary/50 ' +
+      (admin ? 'text-on-surface-variant hover:text-on-surface' : 'bg-surface text-on-surface font-semibold shadow-sm ring-1 ring-orange-500/35');
+    tabAdmin.className = 'lv-login-tab flex-1 py-2.5 font-label-sm text-label-sm rounded-md text-center transition-all outline-none focus-visible:ring-2 focus-visible:ring-primary/50 ' +
+      (admin ? 'bg-surface text-on-surface font-semibold shadow-sm ring-1 ring-orange-500/35' : 'text-on-surface-variant hover:text-on-surface');
+    if (subTraveler) subTraveler.classList.toggle('hidden', admin);
+    if (subAdmin) subAdmin.classList.toggle('hidden', !admin);
+  }
+
+  tabTraveler.addEventListener('click', function () { setMode(false); });
+  tabAdmin.addEventListener('click', function () { setMode(true); });
+})();
+</script>
+}
