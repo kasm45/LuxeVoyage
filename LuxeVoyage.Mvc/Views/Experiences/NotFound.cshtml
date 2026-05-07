@@ -1,0 +1,14 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Experience not found | LuxeVoyage";
+}
+<main class="pt-[104px] pb-xxl max-w-3xl mx-auto px-gutter md:px-xl text-center">
+<h1 class="font-h1 text-h1 text-on-surface mb-md">Experience not found</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-lg">
+    We couldn’t find that experience. It may be inactive, renamed, or the link could be outdated.
+</p>
+<a asp-controller="Experiences" asp-action="Index" class="inline-flex items-center gap-2 rounded-xl bg-primary text-on-primary font-label-sm text-label-sm px-6 py-3 hover:opacity-95 transition-opacity">
+    Browse experiences
+    <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</main>

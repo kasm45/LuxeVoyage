@@ -101,6 +101,16 @@ public static class ExperienceCatalogRepair
             e.Slug = slug;
         }
 
+        foreach (var slug in new[] { "holistic-wellness" })
+        {
+            var row = await ctx.Experiences.FirstOrDefaultAsync(e => e.Slug == slug);
+            if (row != null)
+            {
+                row.IsActive = true;
+                row.IsVisibleOnListing = true;
+            }
+        }
+
         await ctx.SaveChangesAsync();
     }
 

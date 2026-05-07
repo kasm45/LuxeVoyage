@@ -15,6 +15,22 @@ public static class DestinationDisplayMapper
     public static string? EffectiveCardImageUrl(Destination d) =>
         string.IsNullOrWhiteSpace(d.CardImageUrl) ? d.ImageUrl : d.CardImageUrl.Trim();
 
+    /// <summary>Admin destinations table thumbnail: same precedence as public listing, then existing gallery resolution, then nothing (placeholder in UI).</summary>
+    public static string? AdminDestinationListThumbnailUrl(Destination d)
+    {
+        var u = EffectiveCardImageUrl(d);
+        if (!string.IsNullOrWhiteSpace(u))
+            return u.Trim();
+        for (var slot = 1; slot <= 4; slot++)
+        {
+            u = ResolvedGalleryUrl(d, slot);
+            if (!string.IsNullOrWhiteSpace(u))
+                return u.Trim();
+        }
+
+        return null;
+    }
+
     public static string? EffectiveCardBadge(Destination d) => d.CardBadge?.Trim();
 
     public static string EffectiveCardRegionDisplay(Destination d) =>

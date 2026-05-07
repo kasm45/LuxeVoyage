@@ -34,13 +34,14 @@ public enum RegionKind
     PacificIslands = 7
 }
 
+/// <summary>Stored as int in SQLite. Do not renumber without a data migration — values 0–3 are used in existing rows.</summary>
 public enum BookingStatus
 {
     Pending = 0,
+    /// <summary>Admin accepted the request (displayed as &quot;Confirmed&quot; in several UIs).</summary>
     Accepted = 1,
-    Confirmed = 1,
+    /// <summary>Admin rejected the request (displayed as &quot;Unavailable&quot; / cancelled styling in UIs).</summary>
     Rejected = 2,
-    Cancelled = 2,
     Completed = 3
 }
 

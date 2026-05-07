@@ -2,7 +2,7 @@ using LuxeVoyage.Mvc.Models;
 
 namespace LuxeVoyage.Mvc.Data;
 
-/// <summary>Canonical catalog destinations inserted by <see cref="DbInitializer"/> when missing (matched by <see cref="Destination.Title"/>).</summary>
+/// <summary>Canonical catalog destinations inserted by <see cref="DbInitializer"/> when missing (matched by <see cref="Destination.Slug"/> or <see cref="Destination.Title"/>).</summary>
 public static class SeedDestinationsData
 {
     // Reuse polished imagery from existing catalog seeds where possible.
@@ -27,20 +27,44 @@ public static class SeedDestinationsData
     {
         new Destination
         {
-            Title = "Old Town Amalfi",
+            Title = "Amalfi Coast, Italy",
             Slug = "amalfi-coast",
-            Category = ExperienceCategoryKind.HistoricalSites,
+            Category = ExperienceCategoryKind.NatureEscapes,
             Region = RegionKind.Europe,
             ImageUrl = ImgAmalfi,
-            Summary = "Sun-drenched cobblestones and coastal heritage.",
-            LocationLabel = "Italy",
+            CardImageUrl = ImgAmalfi,
+            HeroImageUrl = ImgAmalfi,
+            Summary =
+                "Vertical villages, lemon groves, and yacht-ready coastlines along Italy’s most iconic shoreline.",
+            DetailDescription =
+                "The Amalfi Coast unfolds as a ribbon of pastel towns stitched into limestone cliffs — Positano’s stacked terraces, Ravello’s garden belvederes, and Amalfi’s maritime cathedral steps.\n\n" +
+                "Your days trace quiet coves by private boat, cliff-road panoramas in a chauffeured cabriolet, and chef-led tastings where citrus and olive oil speak of terroir. Evenings settle into terrace tables timed for golden hour over the Tyrrhenian.",
+            LongDescription =
+                "Experience one of the Mediterranean’s most cinematic coastlines with concierge-paced pacing — boat charters to Li Galli islets, ceramics atelier visits in Vietri sul Mare, and tailored hikes on the Path of the Gods.\n\n" +
+                "We coordinate boutique stays that prize discretion and sea views, pairing coastal heritage with contemporary Italian hospitality.",
+            LocationLabel = "Campania, Italy",
             Rating = 4.9,
             PriceHint = "$420",
             BreadcrumbRegion = "Europe",
             BreadcrumbCity = "Campania",
             BreadcrumbCurrent = "Amalfi Coast",
-            TagLine = "History",
-            IsActive = false
+            TagLine = "Coastal",
+            CardBadge = "COASTAL,EUROPE",
+            CardSummary =
+                "Cliffside villas and azure waters await in this Mediterranean paradise.",
+            WhereYoullBeText =
+                "Primary hubs include Positano, Amalfi, Ravello, and Praiano — with boat embarkations from Marina Grande and scenic transfers along SS163 — routes and meeting points are finalized after booking.",
+            BestTimeToVisit = "Apr–Jun & Sep–Oct for mild weather and thinner crowds; Jul–Aug for full resort energy.",
+            WeatherClimate = "Mediterranean — warm dry summers, mild wet winters; sea breezes along the coast.",
+            HighlightsCsv =
+                "Private boat coastal passages, Path of the Gods hike, Ravello gardens, Positano evenings, Vietri ceramics",
+            GalleryImage1Url = ImgAmalfi,
+            GalleryImage2Url = ImgKyoto,
+            GalleryImage3Url = ImgBeach,
+            GalleryImage4Url = ImgParis,
+            MapImageUrl = ImgAmalfi,
+            IsActive = true,
+            IsVisibleOnListing = true
         },
         new Destination
         {
@@ -56,24 +80,48 @@ public static class SeedDestinationsData
             BreadcrumbRegion = "Asia",
             BreadcrumbCity = "Tokyo",
             BreadcrumbCurrent = "Tokyo",
-            TagLine = "Culinary"
+            TagLine = "Culinary",
+            CardBadge = "URBAN"
         },
         new Destination
         {
-            Title = "Swiss Alpine Vista",
+            Title = "Zermatt, Switzerland",
             Slug = "zermatt",
             Category = ExperienceCategoryKind.NatureEscapes,
             Region = RegionKind.Europe,
             ImageUrl = ImgAlps,
-            Summary = "Glacier-carved peaks and crisp alpine air.",
-            LocationLabel = "Switzerland",
+            CardImageUrl = ImgAlps,
+            HeroImageUrl = ImgAlps,
+            Summary =
+                "Matterhorn views, glacier trains, and alpine wellness at the roof of Europe.",
+            DetailDescription =
+                "Car-free Zermatt sits beneath the Matterhorn’s iconic pyramid — a pedestrian village of timber chalets, glacier taxis, and Michelin-calibre mountain dining.\n\n" +
+                "Ride the Gornergrat or Glacier Paradise for sunrise panoramas, ski legendary pistes in winter, or hike flower-lined ridges in summer — always returning to spa rituals and fondue evenings curated by your LuxeVoyage host.",
+            LongDescription =
+                "From cog railways threading ancient pine forests to helicopter glimpses of Monte Rosa’s icefields, Zermatt rewards slow exploration at altitude.\n\n" +
+                "We pair ridge-line picnics, guided glacier outlooks, and boutique alpine lodges where wellness programming meets Swiss precision.",
+            LocationLabel = "Valais, Switzerland",
             Rating = 4.95,
             PriceHint = "$580",
             BreadcrumbRegion = "Europe",
-            BreadcrumbCity = "Valais",
-            BreadcrumbCurrent = "Zermatt",
-            TagLine = "Nature",
-            IsActive = false
+            BreadcrumbCity = "Zermatt",
+            BreadcrumbCurrent = "Matterhorn",
+            TagLine = "Alpine",
+            CardBadge = "ALPINE",
+            CardSummary = "Pristine slopes and luxury chalets beneath the Matterhorn.",
+            WhereYoullBeText =
+                "The village is entirely pedestrian — transfers arrive via taxi from Täsch; lifts depart from Sunnegga, Gornergrat, and Klein Matterhorn stations — meeting zones are confirmed post-booking.",
+            BestTimeToVisit = "Dec–Mar for skiing; Jun–Sep for hiking and glacier viewpoints.",
+            WeatherClimate = "Alpine — crisp summers, snowy winters; layered clothing year-round.",
+            HighlightsCsv =
+                "Matterhorn viewpoints, Gornergrat railway, Glacier Paradise, alpine dining, spa rituals",
+            GalleryImage1Url = ImgAlps,
+            GalleryImage2Url = ImgTokyo,
+            GalleryImage3Url = ImgPatagonia,
+            GalleryImage4Url = ImgKyoto,
+            MapImageUrl = ImgAlps,
+            IsActive = true,
+            IsVisibleOnListing = true
         },
         new Destination
         {

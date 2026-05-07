@@ -72,7 +72,7 @@ public static class DbInitializer
     {
         foreach (var seed in SeedDestinationsData.All)
         {
-            if (!await ctx.Destinations.AnyAsync(d => d.Title == seed.Title))
+            if (!await ctx.Destinations.AnyAsync(d => d.Slug == seed.Slug || d.Title == seed.Title))
                 ctx.Destinations.Add(seed);
         }
 
@@ -196,6 +196,8 @@ public static class DbInitializer
         await SeedPointsOfInterestAsync(ctx);
 
         await ctx.SaveChangesAsync();
+
+        await DestinationCatalogRepair.ApplyAsync(ctx);
 
         await BackfillDestinationGallerySlotsFromLegacyCsvAsync(ctx);
 

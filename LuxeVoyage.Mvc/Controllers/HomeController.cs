@@ -12,6 +12,13 @@ namespace LuxeVoyage.Mvc.Controllers;
 
 public class HomeController : Controller
 {
+    private static readonly string[] HomeFeaturedSlugPriority =
+    [
+        "amalfi-coast",
+        "tokyo",
+        "zermatt"
+    ];
+
     private readonly ILogger<HomeController> _logger;
     private readonly ApplicationDbContext _db;
 
@@ -61,16 +68,59 @@ public class HomeController : Controller
             };
         }).ToList();
 
+        var priority = HomeFeaturedSlugPriority.ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var featuredRows = HomeFeaturedSlugPriority
+            .Select(slug => destRows.FirstOrDefault(d =>
+                string.Equals(d.Slug, slug, StringComparison.OrdinalIgnoreCase)))
+            .Where(d => d != null)
+            .Cast<Destination>()
+            .Concat(destRows.Where(d => !priority.Contains(d.Slug)).OrderBy(d => d.Title))
+            .Take(3)
+            .ToList();
+
+        var featuredCards = featuredRows
+            .Select((d, i) => MapHomeFeaturedCard(d, i, featuredRows.Count))
+            .ToList();
+
         var vm = new HomeIndexViewModel
         {
             DestinationSuggestionsJson = JsonSerializer.Serialize(suggestions, new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                 DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
-            })
+            }),
+            FeaturedDestinations = featuredCards
         };
 
         return View(vm);
+    }
+
+    private static HomeFeaturedDestinationCard MapHomeFeaturedCard(Destination d, int index, int total)
+    {
+        var badges = new List<string>();
+        var cb = d.CardBadge?.Trim();
+        if (!string.IsNullOrEmpty(cb))
+        {
+            badges.AddRange(cb.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
+                .Select(b => b.ToUpperInvariant()));
+        }
+
+        if (badges.Count == 0)
+            badges.Add(CatalogQueryHelper.CategoryDisplay(d.Category).ToUpperInvariant());
+
+        badges = badges.Where(b => b.Length > 0).Take(2).ToList();
+
+        var img = DestinationDisplayMapper.EffectiveCardImageUrl(d) ?? d.ImageUrl ?? "";
+
+        return new HomeFeaturedDestinationCard
+        {
+            Slug = d.Slug,
+            Title = DestinationDisplayMapper.EffectiveCardTitle(d),
+            Summary = DestinationDisplayMapper.EffectiveCardSummary(d) ?? "",
+            ImageUrl = img,
+            Badges = badges,
+            IsHeroTile = index == 0 && total > 0
+        };
     }
 
     /// <summary>Derives searchable city/country strings from <see cref="Destination"/> breadcrumb and location fields.</summary>

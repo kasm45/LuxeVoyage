@@ -5,8 +5,8 @@
 var statusClass = Model.Status switch
 {
     LuxeVoyage.Mvc.Models.BookingStatus.Pending => "admin-status-pending",
-    LuxeVoyage.Mvc.Models.BookingStatus.Confirmed => "admin-status-confirmed",
-    LuxeVoyage.Mvc.Models.BookingStatus.Cancelled => "admin-status-cancelled",
+    LuxeVoyage.Mvc.Models.BookingStatus.Accepted => "admin-status-confirmed",
+    LuxeVoyage.Mvc.Models.BookingStatus.Rejected => "admin-status-cancelled",
     LuxeVoyage.Mvc.Models.BookingStatus.Completed => "admin-status-completed",
     _ => "admin-status-pending"
 };

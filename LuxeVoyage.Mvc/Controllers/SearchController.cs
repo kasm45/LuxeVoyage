@@ -103,7 +103,7 @@ public class SearchController : Controller
             Title = e.Title,
             Subtitle = string.Join(" · ",
                 new[] { e.LocationLabel, CatalogQueryHelper.RegionDisplay(e.Region) }.Where(s => !string.IsNullOrEmpty(s))),
-            ImageUrl = e.ImageUrl,
+            ImageUrl = string.IsNullOrWhiteSpace(e.CardImageUrl) ? e.ImageUrl : e.CardImageUrl.Trim(),
             DetailUrl = Url.Action(nameof(ExperiencesController.Detail), "Experiences", new { id = e.Slug }) ?? ""
         }).ToList();
 

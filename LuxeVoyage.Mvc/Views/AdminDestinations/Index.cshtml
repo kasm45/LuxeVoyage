@@ -1,4 +1,5 @@
 @using LuxeVoyage.Mvc.Models
+@using LuxeVoyage.Mvc.Mapping
 @model IEnumerable<LuxeVoyage.Mvc.Models.Destination>
 <div class="admin-page-shell font-body-md">
 <div class="admin-page-toolbar">
@@ -32,13 +33,14 @@ Show inactive destinations
 }
 @foreach (var d in Model)
 {
+    var thumbUrl = DestinationDisplayMapper.AdminDestinationListThumbnailUrl(d);
 <tr class="@(d.IsActive ? "" : "opacity-80")">
 <td>
 <div class="admin-title-cell">
 <div class="admin-thumb">
-@if (!string.IsNullOrWhiteSpace(d.ImageUrl))
+@if (!string.IsNullOrWhiteSpace(thumbUrl))
 {
-    <img src="@d.ImageUrl" alt="" />
+    <img src="@thumbUrl" alt="" />
 }
 else
 {
