@@ -124,6 +124,12 @@ namespace LuxeVoyage.Mvc.Data.Migrations
                     b.Property<DateTime>("CreatedAtUtc")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime?>("DecisionedAtUtc")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DecisionedByUserId")
+                        .HasColumnType("TEXT");
+
                     b.Property<int?>("DestinationId")
                         .HasColumnType("INTEGER");
 
@@ -177,6 +183,10 @@ namespace LuxeVoyage.Mvc.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("BestTimeToVisit")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("BreadcrumbCity")
                         .HasMaxLength(80)
                         .HasColumnType("TEXT");
@@ -189,15 +199,98 @@ namespace LuxeVoyage.Mvc.Data.Migrations
                         .HasMaxLength(80)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("CardBadge")
+                        .HasMaxLength(80)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CardImageUrl")
+                        .HasMaxLength(400)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CardPriceHint")
+                        .HasMaxLength(60)
+                        .HasColumnType("TEXT");
+
+                    b.Property<double?>("CardRating")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("CardRegion")
+                        .HasMaxLength(80)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CardSummary")
+                        .HasMaxLength(400)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CardTitle")
+                        .HasMaxLength(120)
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("Category")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("DetailDescription")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DetailTagline")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("GalleryImage1Url")
+                        .HasMaxLength(400)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("GalleryImage2Url")
+                        .HasMaxLength(400)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("GalleryImage3Url")
+                        .HasMaxLength(400)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("GalleryImage4Url")
+                        .HasMaxLength(400)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("GalleryImagesCsv")
+                        .HasMaxLength(4000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("HeroImageUrl")
+                        .HasMaxLength(400)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("HeroSubtitle")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("HeroTitle")
+                        .HasMaxLength(120)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("HighlightsCsv")
+                        .HasMaxLength(4000)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ImageUrl")
                         .HasMaxLength(400)
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsVisibleOnListing")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("LocationLabel")
                         .HasMaxLength(120)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LongDescription")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("MapImageUrl")
+                        .HasMaxLength(600)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PriceHint")
@@ -228,6 +321,14 @@ namespace LuxeVoyage.Mvc.Data.Migrations
                         .HasMaxLength(120)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("WeatherClimate")
+                        .HasMaxLength(2000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("WhereYoullBeText")
+                        .HasMaxLength(4000)
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Slug")
@@ -254,15 +355,107 @@ namespace LuxeVoyage.Mvc.Data.Migrations
                         .HasMaxLength(80)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("CardBadge")
+                        .HasMaxLength(80)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CardImageUrl")
+                        .HasMaxLength(400)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CardPriceHint")
+                        .HasMaxLength(60)
+                        .HasColumnType("TEXT");
+
+                    b.Property<double?>("CardRating")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("CardRegion")
+                        .HasMaxLength(80)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CardSummary")
+                        .HasMaxLength(400)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CardTitle")
+                        .HasMaxLength(120)
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("Category")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("DetailDescription")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DetailTagline")
+                        .HasMaxLength(220)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DurationText")
+                        .HasMaxLength(80)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("GalleryImage1Url")
+                        .HasMaxLength(400)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("GalleryImage2Url")
+                        .HasMaxLength(400)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("GalleryImage3Url")
+                        .HasMaxLength(400)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("GalleryImage4Url")
+                        .HasMaxLength(400)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("GroupSizeText")
+                        .HasMaxLength(80)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("HeroImageUrl")
+                        .HasMaxLength(400)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("HeroSubtitle")
+                        .HasMaxLength(220)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("HeroTitle")
+                        .HasMaxLength(120)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("HighlightsCsv")
+                        .HasMaxLength(4000)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ImageUrl")
                         .HasMaxLength(400)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("IncludedItemsCsv")
+                        .HasMaxLength(4000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsVisibleOnListing")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ItineraryText")
+                        .HasMaxLength(6000)
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("LocationLabel")
                         .HasMaxLength(120)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("MeetingPoint")
+                        .HasMaxLength(160)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PriceHint")
@@ -328,15 +521,105 @@ namespace LuxeVoyage.Mvc.Data.Migrations
                     b.ToTable("Favorites");
                 });
 
+            modelBuilder.Entity("LuxeVoyage.Mvc.Models.Notification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasMaxLength(1200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("ReservationId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(140)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReservationId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Notifications");
+                });
+
             modelBuilder.Entity("LuxeVoyage.Mvc.Models.Stay", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("AddressLabel")
+                        .HasMaxLength(220)
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("AmenitiesCsv")
                         .IsRequired()
                         .HasMaxLength(400)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AmenitiesDetailCsv")
+                        .HasMaxLength(4000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("BedInfo")
+                        .HasMaxLength(120)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CancellationPolicy")
+                        .HasMaxLength(2000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CardBadge")
+                        .HasMaxLength(80)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CardImageUrl")
+                        .HasMaxLength(400)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CardPriceHint")
+                        .HasMaxLength(60)
+                        .HasColumnType("TEXT");
+
+                    b.Property<double?>("CardRating")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("CardRegion")
+                        .HasMaxLength(80)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CardSummary")
+                        .HasMaxLength(400)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CardTitle")
+                        .HasMaxLength(120)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CheckInInfo")
+                        .HasMaxLength(2000)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CityLine")
@@ -344,13 +627,66 @@ namespace LuxeVoyage.Mvc.Data.Migrations
                         .HasMaxLength(120)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("DetailDescription")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DetailTagline")
+                        .HasMaxLength(220)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("GalleryImage1Url")
+                        .HasMaxLength(400)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("GalleryImage2Url")
+                        .HasMaxLength(400)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("GalleryImage3Url")
+                        .HasMaxLength(400)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("GalleryImage4Url")
+                        .HasMaxLength(400)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("GuestCapacity")
+                        .HasMaxLength(80)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("HeroImageUrl")
+                        .HasMaxLength(400)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("HeroSubtitle")
+                        .HasMaxLength(220)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("HeroTitle")
+                        .HasMaxLength(120)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("HighlightsCsv")
+                        .HasMaxLength(4000)
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("ImageUrl")
                         .HasMaxLength(400)
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsVisibleOnListing")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(160)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NearbyAttractionsCsv")
+                        .HasMaxLength(4000)
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("PricePerNight")
@@ -359,6 +695,10 @@ namespace LuxeVoyage.Mvc.Data.Migrations
                     b.Property<int>("Region")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("RoomType")
+                        .HasMaxLength(120)
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Slug")
                         .IsRequired()
                         .HasMaxLength(180)
@@ -366,6 +706,10 @@ namespace LuxeVoyage.Mvc.Data.Migrations
 
                     b.Property<int>("StarRating")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("StayType")
+                        .HasMaxLength(80)
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -381,16 +725,108 @@ namespace LuxeVoyage.Mvc.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("CancellationPolicy")
+                        .HasMaxLength(2000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CardBadge")
+                        .HasMaxLength(80)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CardImageUrl")
+                        .HasMaxLength(400)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CardPriceHint")
+                        .HasMaxLength(60)
+                        .HasColumnType("TEXT");
+
+                    b.Property<double?>("CardRating")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("CardRegion")
+                        .HasMaxLength(80)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CardSummary")
+                        .HasMaxLength(400)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CardTitle")
+                        .HasMaxLength(120)
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("CategoryLabel")
                         .IsRequired()
                         .HasMaxLength(80)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("DestinationLabel")
+                        .HasMaxLength(160)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DetailDescription")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DetailTagline")
+                        .HasMaxLength(220)
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("DurationDays")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("GalleryImage1Url")
+                        .HasMaxLength(400)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("GalleryImage2Url")
+                        .HasMaxLength(400)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("GalleryImage3Url")
+                        .HasMaxLength(400)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("GalleryImage4Url")
+                        .HasMaxLength(400)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("GroupSizeText")
+                        .HasMaxLength(80)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("HeroImageUrl")
+                        .HasMaxLength(400)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("HeroSubtitle")
+                        .HasMaxLength(220)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("HeroTitle")
+                        .HasMaxLength(120)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("HighlightsCsv")
+                        .HasMaxLength(4000)
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("ImageUrl")
                         .HasMaxLength(400)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("IncludedItemsCsv")
+                        .HasMaxLength(4000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsVisibleOnListing")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ItineraryText")
+                        .HasMaxLength(6000)
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("Price")
@@ -398,6 +834,9 @@ namespace LuxeVoyage.Mvc.Data.Migrations
 
                     b.Property<double>("Rating")
                         .HasColumnType("REAL");
+
+                    b.Property<int>("Region")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("ReviewCount")
                         .HasColumnType("INTEGER");
@@ -414,6 +853,10 @@ namespace LuxeVoyage.Mvc.Data.Migrations
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(160)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("WhatToBring")
+                        .HasMaxLength(2000)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -587,6 +1030,24 @@ namespace LuxeVoyage.Mvc.Data.Migrations
                     b.Navigation("Stay");
 
                     b.Navigation("Tour");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("LuxeVoyage.Mvc.Models.Notification", b =>
+                {
+                    b.HasOne("LuxeVoyage.Mvc.Models.Booking", "Reservation")
+                        .WithMany()
+                        .HasForeignKey("ReservationId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("LuxeVoyage.Mvc.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Reservation");
 
                     b.Navigation("User");
                 });

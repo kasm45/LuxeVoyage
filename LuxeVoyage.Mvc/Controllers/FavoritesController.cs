@@ -226,10 +226,10 @@ public class FavoritesController : Controller
     private Task<bool> EntityExistsAsync(FavoriteTargetKind kind, int id) =>
         kind switch
         {
-            FavoriteTargetKind.Experience => _db.Experiences.AsNoTracking().AnyAsync(e => e.Id == id),
+            FavoriteTargetKind.Experience => _db.Experiences.AsNoTracking().AnyAsync(e => e.Id == id && e.IsActive),
             FavoriteTargetKind.Destination => _db.Destinations.AsNoTracking().AnyAsync(d => d.Id == id),
-            FavoriteTargetKind.Stay => _db.Stays.AsNoTracking().AnyAsync(s => s.Id == id),
-            FavoriteTargetKind.Tour => _db.Tours.AsNoTracking().AnyAsync(t => t.Id == id),
+            FavoriteTargetKind.Stay => _db.Stays.AsNoTracking().AnyAsync(s => s.Id == id && s.IsActive),
+            FavoriteTargetKind.Tour => _db.Tours.AsNoTracking().AnyAsync(t => t.Id == id && t.IsActive),
             _ => Task.FromResult(false)
         };
 }

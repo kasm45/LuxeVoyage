@@ -1,15 +1,77 @@
+@using LuxeVoyage.Mvc.Models
 @model LuxeVoyage.Mvc.Models.Destination
-<div class="px-8 py-10 max-w-3xl font-body-md">
-<h1 class="font-h2 text-h2 text-slate-900 dark:text-white mb-6">@Model.Title</h1>
-<dl class="grid grid-cols-1 gap-4 text-sm">
-<dt class="text-slate-500">Slug</dt><dd>@Model.Slug</dd>
+<div class="px-8 py-10 max-w-4xl font-body-md space-y-8">
+<div class="flex flex-wrap justify-between gap-4 items-start">
+<h1 class="font-h2 text-h2 text-slate-900 dark:text-white">@Model.Title</h1>
+<a href="/destinations/@Model.Slug" target="_blank" rel="noopener noreferrer" class="rounded-lg border border-outline-variant px-4 py-2 text-sm hover:border-primary transition-colors shrink-0">Open public page</a>
+</div>
+
+<section class="space-y-2 text-sm">
+<h3 class="font-semibold text-slate-900 dark:text-white">Basics</h3>
+<dl class="grid grid-cols-1 sm:grid-cols-[160px_1fr] gap-x-4 gap-y-2">
+<dt class="text-slate-500">Slug</dt><dd class="font-mono break-all">@Model.Slug</dd>
+<dt class="text-slate-500">Active</dt><dd>@(Model.IsActive ? "Yes" : "No — hidden from catalog")</dd>
+<dt class="text-slate-500">Listing</dt><dd>@(Model.IsVisibleOnListing ? "Shown on /destinations" : "Hidden from listing")</dd>
 <dt class="text-slate-500">Category</dt><dd>@Model.Category</dd>
-<dt class="text-slate-500">Region</dt><dd>@Model.Region</dd>
-<dt class="text-slate-500">Location</dt><dd>@Model.LocationLabel</dd>
-<dt class="text-slate-500">Summary</dt><dd>@Model.Summary</dd>
-<dt class="text-slate-500">Image URL</dt><dd class="break-all">@Model.ImageUrl</dd>
+<dt class="text-slate-500">Region</dt><dd>@CatalogQueryHelper.RegionDisplay(Model.Region)</dd>
 </dl>
-<div class="mt-8 flex gap-4">
+</section>
+
+<section class="space-y-2 text-sm">
+<h3 class="font-semibold text-slate-900 dark:text-white">Copy</h3>
+<dl class="grid grid-cols-1 sm:grid-cols-[160px_1fr] gap-x-4 gap-y-2">
+<dt class="text-slate-500">Summary</dt><dd class="whitespace-pre-wrap">@(Model.Summary ?? "—")</dd>
+<dt class="text-slate-500">Long description</dt><dd class="whitespace-pre-wrap text-slate-700 dark:text-slate-300">@(string.IsNullOrEmpty(Model.LongDescription) ? "—" : Model.LongDescription)</dd>
+<dt class="text-slate-500">Tag line</dt><dd>@(Model.TagLine ?? "—")</dd>
+<dt class="text-slate-500">Highlights</dt><dd class="font-mono text-xs whitespace-pre-wrap break-all">@(Model.HighlightsCsv ?? "—")</dd>
+<dt class="text-slate-500">Breadcrumbs</dt><dd>@Model.BreadcrumbRegion / @Model.BreadcrumbCity / @Model.BreadcrumbCurrent</dd>
+<dt class="text-slate-500">Location label</dt><dd>@(Model.LocationLabel ?? "—")</dd>
+<dt class="text-slate-500">Where you'll be</dt><dd class="whitespace-pre-wrap">@(Model.WhereYoullBeText ?? "—")</dd>
+<dt class="text-slate-500">Best time</dt><dd>@(Model.BestTimeToVisit ?? "—")</dd>
+<dt class="text-slate-500">Climate</dt><dd>@(Model.WeatherClimate ?? "—")</dd>
+<dt class="text-slate-500">Rating</dt><dd>@(Model.Rating?.ToString() ?? "—")</dd>
+<dt class="text-slate-500">Price hint</dt><dd>@(Model.PriceHint ?? "—")</dd>
+</dl>
+</section>
+
+<section class="space-y-2 text-sm">
+<h3 class="font-semibold text-slate-900 dark:text-white">Listing overrides</h3>
+<dl class="grid grid-cols-1 sm:grid-cols-[160px_1fr] gap-x-4 gap-y-2">
+<dt class="text-slate-500">Card title</dt><dd>@(Model.CardTitle ?? "—")</dd>
+<dt class="text-slate-500">Card summary</dt><dd class="whitespace-pre-wrap">@(Model.CardSummary ?? "—")</dd>
+<dt class="text-slate-500">Card image</dt><dd class="break-all font-mono text-xs">@(Model.CardImageUrl ?? "—")</dd>
+<dt class="text-slate-500">Card badge / region / price</dt><dd>@(Model.CardBadge ?? "—") · @(Model.CardRegion ?? "—") · @(Model.CardPriceHint ?? "—")</dd>
+<dt class="text-slate-500">Card rating</dt><dd>@(Model.CardRating?.ToString() ?? "—")</dd>
+</dl>
+</section>
+
+<section class="space-y-2 text-sm">
+<h3 class="font-semibold text-slate-900 dark:text-white">Detail overrides</h3>
+<dl class="grid grid-cols-1 sm:grid-cols-[160px_1fr] gap-x-4 gap-y-2">
+<dt class="text-slate-500">Hero title</dt><dd>@(Model.HeroTitle ?? "—")</dd>
+<dt class="text-slate-500">Hero subtitle</dt><dd>@(Model.HeroSubtitle ?? "—")</dd>
+<dt class="text-slate-500">Detail description</dt><dd class="whitespace-pre-wrap text-slate-700 dark:text-slate-300">@(string.IsNullOrEmpty(Model.DetailDescription) ? "—" : Model.DetailDescription)</dd>
+<dt class="text-slate-500">Detail tagline</dt><dd>@(Model.DetailTagline ?? "—")</dd>
+<dt class="text-slate-500">Gallery 1–4</dt><dd class="break-all font-mono text-xs space-y-1">
+<div>1: @(Model.GalleryImage1Url ?? "—")</div>
+<div>2: @(Model.GalleryImage2Url ?? "—")</div>
+<div>3: @(Model.GalleryImage3Url ?? "—")</div>
+<div>4: @(Model.GalleryImage4Url ?? "—")</div>
+</dd>
+</dl>
+</section>
+
+<section class="space-y-2 text-sm">
+<h3 class="font-semibold text-slate-900 dark:text-white">Legacy media</h3>
+<dl class="grid grid-cols-1 sm:grid-cols-[160px_1fr] gap-x-4 gap-y-2">
+<dt class="text-slate-500">Card image</dt><dd class="break-all font-mono text-xs">@(Model.ImageUrl ?? "—")</dd>
+<dt class="text-slate-500">Hero image</dt><dd class="break-all font-mono text-xs">@(Model.HeroImageUrl ?? "—")</dd>
+<dt class="text-slate-500">Gallery CSV</dt><dd class="break-all font-mono text-xs whitespace-pre-wrap">@(Model.GalleryImagesCsv ?? "—")</dd>
+<dt class="text-slate-500">Map image</dt><dd class="break-all font-mono text-xs">@(Model.MapImageUrl ?? "—")</dd>
+</dl>
+</section>
+
+<div class="flex flex-wrap gap-4 pt-4">
 <a asp-action="Edit" asp-route-id="@Model.Id" class="rounded-lg bg-primary px-4 py-2 text-on-primary">Edit</a>
 <a asp-action="Index" class="rounded-lg border border-outline-variant px-4 py-2">Back</a>
 </div>

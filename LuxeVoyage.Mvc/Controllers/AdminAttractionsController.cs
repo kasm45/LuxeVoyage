@@ -18,7 +18,7 @@ public class AdminAttractionsController : Controller
     public async Task<IActionResult> Index(string? q)
     {
         ViewBag.AdminPage = "Attractions";
-        ViewData["Title"] = "Admin Panel - Attraction Management";
+        ViewData["Title"] = "Admin Panel - Manage Points of Interest";
         ViewBag.SearchQuery = q;
         var query = _db.Attractions.AsNoTracking().AsQueryable();
         if (!string.IsNullOrWhiteSpace(q))
@@ -26,6 +26,33 @@ public class AdminAttractionsController : Controller
         var list = await query
             .OrderBy(a => a.Name)
             .ToListAsync();
+
+        var cityKeys = list
+            .Select(a => a.City?.Trim())
+            .Where(c => !string.IsNullOrWhiteSpace(c))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToList();
+
+        var destinationRows = await _db.Destinations.AsNoTracking()
+            .Where(d => d.IsActive)
+            .Select(d => new { d.Slug, d.Title, d.BreadcrumbCity, d.LocationLabel })
+            .ToListAsync();
+
+        var previewByCity = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        foreach (var city in cityKeys)
+        {
+            var c = city!;
+            var match = destinationRows.FirstOrDefault(d =>
+                (!string.IsNullOrWhiteSpace(d.BreadcrumbCity) && d.BreadcrumbCity.Equals(c, StringComparison.OrdinalIgnoreCase)) ||
+                (!string.IsNullOrWhiteSpace(d.Title) && d.Title.StartsWith(c, StringComparison.OrdinalIgnoreCase)) ||
+                (!string.IsNullOrWhiteSpace(d.LocationLabel) && d.LocationLabel.StartsWith(c, StringComparison.OrdinalIgnoreCase)));
+
+            previewByCity[c] = match != null
+                ? Url.Action("Detail", "Destinations", new { id = match.Slug }) ?? "/destinations"
+                : "/destinations";
+        }
+
+        ViewBag.PreviewByCity = previewByCity;
         return View(list);
     }
 
@@ -33,7 +60,7 @@ public class AdminAttractionsController : Controller
     public IActionResult Create()
     {
         ViewBag.AdminPage = "Attractions";
-        ViewData["Title"] = "New attraction";
+        ViewData["Title"] = "New point of interest";
         return View(new Attraction());
     }
 
@@ -43,7 +70,7 @@ public class AdminAttractionsController : Controller
         var row = await _db.Attractions.AsNoTracking().FirstOrDefaultAsync(a => a.Id == id);
         if (row == null)
         {
-            TempData["Error"] = "Attraction not found.";
+            TempData["Error"] = "Point of interest not found.";
             return RedirectToAction(nameof(Index));
         }
 
@@ -59,13 +86,13 @@ public class AdminAttractionsController : Controller
         if (!ModelState.IsValid)
         {
             ViewBag.AdminPage = "Attractions";
-            ViewData["Title"] = "New attraction";
+            ViewData["Title"] = "New point of interest";
             return View(model);
         }
 
         _db.Attractions.Add(model);
         await _db.SaveChangesAsync();
-        TempData["Message"] = "Attraction created.";
+        TempData["Message"] = "Point of interest created.";
         return RedirectToAction(nameof(Index));
     }
 
@@ -75,12 +102,12 @@ public class AdminAttractionsController : Controller
         var row = await _db.Attractions.AsNoTracking().FirstOrDefaultAsync(a => a.Id == id);
         if (row == null)
         {
-            TempData["Error"] = "Attraction not found.";
+            TempData["Error"] = "Point of interest not found.";
             return RedirectToAction(nameof(Index));
         }
 
         ViewBag.AdminPage = "Attractions";
-        ViewData["Title"] = "Edit attraction";
+        ViewData["Title"] = "Edit point of interest";
         return View(row);
     }
 
@@ -90,21 +117,21 @@ public class AdminAttractionsController : Controller
     {
         if (id != model.Id)
         {
-            TempData["Error"] = "Invalid attraction.";
+            TempData["Error"] = "Invalid point of interest.";
             return RedirectToAction(nameof(Index));
         }
 
         if (!ModelState.IsValid)
         {
             ViewBag.AdminPage = "Attractions";
-            ViewData["Title"] = "Edit attraction";
+            ViewData["Title"] = "Edit point of interest";
             return View(model);
         }
 
         var existing = await _db.Attractions.FindAsync(id);
         if (existing == null)
         {
-            TempData["Error"] = "Attraction not found.";
+            TempData["Error"] = "Point of interest not found.";
             return RedirectToAction(nameof(Index));
         }
 
@@ -113,7 +140,7 @@ public class AdminAttractionsController : Controller
         existing.Category = model.Category;
         existing.ImageUrl = model.ImageUrl;
         await _db.SaveChangesAsync();
-        TempData["Message"] = "Attraction updated.";
+        TempData["Message"] = "Point of interest updated.";
         return RedirectToAction(nameof(Index));
     }
 
@@ -124,13 +151,13 @@ public class AdminAttractionsController : Controller
         var row = await _db.Attractions.FindAsync(id);
         if (row == null)
         {
-            TempData["Error"] = "Attraction not found.";
+            TempData["Error"] = "Point of interest not found.";
             return RedirectToAction(nameof(Index));
         }
 
         _db.Attractions.Remove(row);
         await _db.SaveChangesAsync();
-        TempData["Message"] = "Attraction deleted.";
+        TempData["Message"] = "Point of interest deleted.";
         return RedirectToAction(nameof(Index));
     }
 }

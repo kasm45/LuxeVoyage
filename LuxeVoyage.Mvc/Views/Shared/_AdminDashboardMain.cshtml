@@ -1,4 +1,10 @@
-﻿<!-- TopAppBar -->
+﻿@using LuxeVoyage.Mvc.Data
+@using LuxeVoyage.Mvc.Models
+@inject ApplicationDbContext Db
+@{
+    var pendingReservations = Db.Bookings.Count(b => b.Status == BookingStatus.Pending);
+}
+<!-- TopAppBar -->
 <header class="sticky top-0 w-full z-40 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center px-8 h-16">
 <div class="flex items-center gap-4">
 <h1 class="font-h3 text-h3 text-slate-900 dark:text-white">Dashboard Overview</h1>
@@ -8,9 +14,13 @@
 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">search</span>
 <input class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-sm w-64 focus:ring-2 focus:ring-primary focus:outline-none transition-shadow text-on-surface" placeholder="Search..." type="text"/>
 </div>
-<button type="button" onclick="lvPlaceholder(event)" class="text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-full p-2 opacity-80 active:opacity-100 transition-all">
+<a asp-controller="AdminManageBookings" asp-action="Index" class="relative text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-full p-2 opacity-80 active:opacity-100 transition-all">
 <span class="material-symbols-outlined text-[24px]">notifications</span>
-</button>
+@if (pendingReservations > 0)
+{
+    <span class="absolute -top-1 -right-1 min-w-[18px] h-[18px] rounded-full bg-amber-100 text-amber-700 text-[10px] leading-[18px] text-center px-1 font-semibold">@pendingReservations</span>
+}
+</a>
 <button type="button" onclick="lvPlaceholder(event)" class="text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-full p-2 opacity-80 active:opacity-100 transition-all">
 <span class="material-symbols-outlined text-[24px]">help_outline</span>
 </button>

@@ -1,1 +1,39 @@
-@await Html.PartialAsync("_ContactMain")
+<main class="lv-static-page">
+    <section class="lv-static-hero">
+        <p class="lv-static-kicker">LuxeVoyage Concierge</p>
+        <h1>Contact Us</h1>
+        <p>This contact page is configured for demo usage with sample inbox addresses and response expectations.</p>
+    </section>
+
+    @if (TempData["ContactMessage"] is string contactMsg)
+    {
+        <section class="lv-static-note">@contactMsg</section>
+    }
+
+    <section class="lv-static-section lv-static-card-grid">
+        <article class="lv-static-card">
+            <h3>General Support</h3>
+            <p>For account, navigation, and general platform questions.</p>
+            <p><a href="mailto:support@luxevoyage.local">support@luxevoyage.local</a></p>
+        </article>
+        <article class="lv-static-card">
+            <h3>Reservation Help</h3>
+            <p>For trip request follow-up and booking workflow support.</p>
+            <p><a href="mailto:reservations@luxevoyage.local">reservations@luxevoyage.local</a></p>
+        </article>
+        <article class="lv-static-card">
+            <h3>Partnerships</h3>
+            <p>For integrations, supplier demos, and collaboration requests.</p>
+            <p><a href="mailto:partners@luxevoyage.local">partners@luxevoyage.local</a></p>
+        </article>
+        <article class="lv-static-card">
+            <h3>Media</h3>
+            <p>For press questions and demo asset requests.</p>
+            <p><a href="mailto:press@luxevoyage.local">press@luxevoyage.local</a></p>
+        </article>
+        <article class="lv-static-card">
+            <h3>Response Expectations</h3>
+            <p>This demo is not monitored as a live service. In a production deployment, teams should define support hours, SLAs, and escalation routes.</p>
+        </article>
+    </section>
+</main>

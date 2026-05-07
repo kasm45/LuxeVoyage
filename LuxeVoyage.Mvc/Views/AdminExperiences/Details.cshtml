@@ -1,12 +1,10 @@
 @model LuxeVoyage.Mvc.Models.Experience
-<div class="px-8 py-10 max-w-3xl font-body-md">
-<h1 class="font-h2 text-h2 text-slate-900 dark:text-white mb-6">@Model.Title</h1>
-<dl class="grid gap-4 text-sm">
-<dt class="text-slate-500">Slug</dt><dd>@Model.Slug</dd>
-<dt class="text-slate-500">Summary</dt><dd>@Model.Summary</dd>
-</dl>
-<div class="mt-8 flex gap-4">
-<a asp-action="Edit" asp-route-id="@Model.Id" class="rounded-lg bg-primary px-4 py-2 text-on-primary">Edit</a>
-<a asp-action="Index" class="rounded-lg border px-4 py-2">Back</a>
-</div>
+<div class="px-8 py-10 max-w-4xl font-body-md space-y-8">
+<div class="flex flex-wrap justify-between gap-4 items-start"><h1 class="font-h2 text-h2 text-slate-900 dark:text-white">@Model.Title</h1><a href="/experiences/@Model.Slug" target="_blank" rel="noopener noreferrer" class="rounded-lg border border-outline-variant px-4 py-2 text-sm hover:border-primary transition-colors">Open public page</a></div>
+<section class="space-y-2 text-sm"><h3 class="font-semibold">Status</h3><div>@if (Model.IsActive){<span class="rounded-full bg-emerald-500/15 text-emerald-700 px-2 py-0.5 text-xs font-medium">Active</span>}else{<span class="rounded-full bg-slate-500/15 text-slate-600 px-2 py-0.5 text-xs font-medium">Inactive</span>}</div></section>
+<section class="space-y-2 text-sm"><h3 class="font-semibold">Card content</h3><dl class="grid grid-cols-1 sm:grid-cols-[180px_1fr] gap-x-4 gap-y-2"><dt class="text-slate-500">Slug</dt><dd class="font-mono">@Model.Slug</dd><dt class="text-slate-500">Card title</dt><dd>@(Model.CardTitle ?? "—")</dd><dt class="text-slate-500">Card summary</dt><dd class="whitespace-pre-wrap">@(Model.CardSummary ?? "—")</dd><dt class="text-slate-500">Card badge/region</dt><dd>@(Model.CardBadge ?? "—") / @(Model.CardRegion ?? "—")</dd><dt class="text-slate-500">Card price/rating</dt><dd>@(Model.CardPriceHint ?? "—") / @(Model.CardRating?.ToString("0.0") ?? "—")</dd></dl>@if (!string.IsNullOrWhiteSpace(Model.CardImageUrl)){<img src="@Model.CardImageUrl" class="mt-2 rounded-lg border max-h-48 object-cover" onerror="this.style.display='none'"/>}</section>
+<section class="space-y-2 text-sm"><h3 class="font-semibold">Detail page content</h3><dl class="grid grid-cols-1 sm:grid-cols-[180px_1fr] gap-x-4 gap-y-2"><dt class="text-slate-500">Hero title/subtitle</dt><dd>@(Model.HeroTitle ?? "—") / @(Model.HeroSubtitle ?? "—")</dd><dt class="text-slate-500">Description</dt><dd class="whitespace-pre-wrap">@(Model.DetailDescription ?? "—")</dd><dt class="text-slate-500">Tagline</dt><dd>@(Model.DetailTagline ?? "—")</dd><dt class="text-slate-500">Duration/Group/Meeting</dt><dd>@(Model.DurationText ?? "—") / @(Model.GroupSizeText ?? "—") / @(Model.MeetingPoint ?? "—")</dd><dt class="text-slate-500">Included/Highlights</dt><dd class="whitespace-pre-wrap">@(Model.IncludedItemsCsv ?? "—")
+@(Model.HighlightsCsv ?? "—")</dd><dt class="text-slate-500">Itinerary</dt><dd class="whitespace-pre-wrap">@(Model.ItineraryText ?? "—")</dd></dl>@if (!string.IsNullOrWhiteSpace(Model.HeroImageUrl)){<img src="@Model.HeroImageUrl" class="mt-2 rounded-lg border max-h-56 object-cover" onerror="this.style.display='none'"/>}<div class="grid grid-cols-2 md:grid-cols-4 gap-2 pt-2">@foreach(var u in new[]{Model.GalleryImage1Url,Model.GalleryImage2Url,Model.GalleryImage3Url,Model.GalleryImage4Url}){if(!string.IsNullOrWhiteSpace(u)){<img src="@u" class="rounded-lg border h-24 w-full object-cover" onerror="this.style.display='none'"/>}}</div></section>
+<section class="space-y-2 text-sm"><h3 class="font-semibold">Legacy / fallback</h3><p>Image: @(Model.ImageUrl ?? "—")</p><p>Summary: @(Model.Summary ?? "—")</p><p>Tag line: @(Model.TagLine ?? "—")</p></section>
+<div class="flex gap-4 pt-4"><a asp-action="Edit" asp-route-id="@Model.Id" class="rounded-lg bg-primary px-4 py-2 text-on-primary">Edit</a><a asp-action="Index" class="rounded-lg border border-outline-variant px-4 py-2">Back</a></div>
 </div>

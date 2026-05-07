@@ -39,7 +39,8 @@ public static class SeedDestinationsData
             BreadcrumbRegion = "Europe",
             BreadcrumbCity = "Campania",
             BreadcrumbCurrent = "Amalfi Coast",
-            TagLine = "History"
+            TagLine = "History",
+            IsActive = false
         },
         new Destination
         {
@@ -71,7 +72,8 @@ public static class SeedDestinationsData
             BreadcrumbRegion = "Europe",
             BreadcrumbCity = "Valais",
             BreadcrumbCurrent = "Zermatt",
-            TagLine = "Nature"
+            TagLine = "Nature",
+            IsActive = false
         },
         new Destination
         {
@@ -87,23 +89,25 @@ public static class SeedDestinationsData
             BreadcrumbRegion = "Africa",
             BreadcrumbCity = "Marrakech",
             BreadcrumbCurrent = "Medina",
-            TagLine = "Art & Culture"
+            TagLine = "Art & Culture",
+            IsActive = false
         },
         new Destination
         {
             Title = "Patagonia Wilderness",
             Slug = "patagonia-wild",
             Category = ExperienceCategoryKind.NatureEscapes,
-            Region = RegionKind.Americas,
+            Region = RegionKind.SouthAmerica,
             ImageUrl = ImgPatagonia,
             Summary = "Torres del Paine vistas and gaucho trails.",
             LocationLabel = "Chile",
             Rating = 4.85,
             PriceHint = "$490",
-            BreadcrumbRegion = "Americas",
+            BreadcrumbRegion = "South America",
             BreadcrumbCity = "Patagonia",
             BreadcrumbCurrent = "Wilderness",
-            TagLine = "Nature"
+            TagLine = "Nature",
+            IsActive = false
         },
         new Destination
         {
@@ -199,7 +203,17 @@ public static class SeedDestinationsData
             BreadcrumbRegion = "Middle East",
             BreadcrumbCity = "Antalya",
             BreadcrumbCurrent = "Riviera",
-            TagLine = "Coastal"
+            TagLine = "Coastal",
+            LongDescription =
+                "Antalya anchors Turkey’s sunlit Riviera — where Hadrian’s gate meets yacht harbors and pine-backed beaches." +
+                "\n\nStroll Kaleiçi’s marble lanes by day, sail the Gulf of Antalya at golden hour, then let your concierge pair cliff-side tables with Aegean seafood.",
+            BestTimeToVisit = "Apr–Oct for swimming; May–Jun & Sep for thinner crowds.",
+            WeatherClimate = "Mediterranean — hot dry summers, mild rainy winters; pleasant sea breezes on the coast.",
+            WhereYoullBeText =
+                "Kaleiçi old town, Roman harbor, and Taurus foothill day trips. Meet points and private transfers are confirmed after booking.",
+            HighlightsCsv = "Kaleiçi old town, Turquoise coast, Roman harbor, Taurus day trips"
+            ,
+            IsActive = false
         },
         new Destination
         {
@@ -247,7 +261,8 @@ public static class SeedDestinationsData
             BreadcrumbRegion = "Europe",
             BreadcrumbCity = "Athens",
             BreadcrumbCurrent = "Plaka",
-            TagLine = "Antiquity"
+            TagLine = "Antiquity",
+            IsActive = false
         },
         new Destination
         {
@@ -311,20 +326,21 @@ public static class SeedDestinationsData
             BreadcrumbRegion = "Asia",
             BreadcrumbCity = "Bangkok",
             BreadcrumbCurrent = "Chao Phraya",
-            TagLine = "Culinary"
+            TagLine = "Culinary",
+            IsActive = false
         },
         new Destination
         {
             Title = "New York, USA",
             Slug = "new-york-usa",
             Category = ExperienceCategoryKind.ArtCulture,
-            Region = RegionKind.Americas,
+            Region = RegionKind.NorthAmerica,
             ImageUrl = ImgParis,
             Summary = "Broadway energy, skyline suites, and museum corridors.",
             LocationLabel = "New York, USA",
             Rating = 4.85,
             PriceHint = "$590",
-            BreadcrumbRegion = "Americas",
+            BreadcrumbRegion = "North America",
             BreadcrumbCity = "New York",
             BreadcrumbCurrent = "Manhattan",
             TagLine = "Urban"
@@ -334,29 +350,30 @@ public static class SeedDestinationsData
             Title = "Los Angeles, USA",
             Slug = "los-angeles-usa",
             Category = ExperienceCategoryKind.NatureEscapes,
-            Region = RegionKind.Americas,
+            Region = RegionKind.NorthAmerica,
             ImageUrl = ImgTokyo,
             Summary = "Pacific coast drives, design studios, and hillside escapes.",
             LocationLabel = "Los Angeles, USA",
             Rating = 4.75,
             PriceHint = "$510",
-            BreadcrumbRegion = "Americas",
+            BreadcrumbRegion = "North America",
             BreadcrumbCity = "Los Angeles",
             BreadcrumbCurrent = "Westside",
-            TagLine = "Coastal"
+            TagLine = "Coastal",
+            IsActive = false
         },
         new Destination
         {
             Title = "Rio de Janeiro, Brazil",
             Slug = "rio-de-janeiro-brazil",
             Category = ExperienceCategoryKind.NatureEscapes,
-            Region = RegionKind.Americas,
+            Region = RegionKind.SouthAmerica,
             ImageUrl = ImgBeach,
             Summary = "Sugarloaf views, samba rhythms, and Atlantic shores.",
             LocationLabel = "Rio de Janeiro, Brazil",
             Rating = 4.8,
             PriceHint = "$430",
-            BreadcrumbRegion = "Americas",
+            BreadcrumbRegion = "South America",
             BreadcrumbCity = "Rio de Janeiro",
             BreadcrumbCurrent = "Copacabana",
             TagLine = "Coastal"
@@ -375,7 +392,8 @@ public static class SeedDestinationsData
             BreadcrumbRegion = "Africa",
             BreadcrumbCity = "Cairo",
             BreadcrumbCurrent = "Giza",
-            TagLine = "History"
+            TagLine = "History",
+            IsActive = false
         },
         new Destination
         {
@@ -391,14 +409,15 @@ public static class SeedDestinationsData
             BreadcrumbRegion = "Africa",
             BreadcrumbCity = "Cape Town",
             BreadcrumbCurrent = "Waterfront",
-            TagLine = "Nature"
+            TagLine = "Nature",
+            IsActive = false
         },
         new Destination
         {
             Title = "Sydney, Australia",
             Slug = "sydney-australia",
             Category = ExperienceCategoryKind.NatureEscapes,
-            Region = RegionKind.Asia,
+            Region = RegionKind.Oceania,
             ImageUrl = ImgBeach,
             Summary = "Harbor sails, coastal trails, and refined harborside stays.",
             LocationLabel = "Sydney, Australia",
@@ -414,13 +433,13 @@ public static class SeedDestinationsData
             Title = "Maldives",
             Slug = "maldives",
             Category = ExperienceCategoryKind.NatureEscapes,
-            Region = RegionKind.Asia,
+            Region = RegionKind.PacificIslands,
             ImageUrl = ImgBeach,
             Summary = "Overwater serenity and coral gardens in crystal lagoons.",
             LocationLabel = "Maldives",
             Rating = 4.95,
             PriceHint = "$890",
-            BreadcrumbRegion = "Indian Ocean",
+            BreadcrumbRegion = "Pacific Islands",
             BreadcrumbCity = "Atolls",
             BreadcrumbCurrent = "Resorts",
             TagLine = "Island"
@@ -430,13 +449,13 @@ public static class SeedDestinationsData
             Title = "Bora Bora",
             Slug = "bora-bora",
             Category = ExperienceCategoryKind.NatureEscapes,
-            Region = RegionKind.Asia,
+            Region = RegionKind.PacificIslands,
             ImageUrl = ImgBeach,
             Summary = "Lagoon blues and iconic peak views from private villas.",
             LocationLabel = "French Polynesia",
             Rating = 4.98,
             PriceHint = "$1,200",
-            BreadcrumbRegion = "Pacific",
+            BreadcrumbRegion = "Pacific Islands",
             BreadcrumbCity = "Bora Bora",
             BreadcrumbCurrent = "Lagoon",
             TagLine = "Island"
@@ -487,7 +506,8 @@ public static class SeedDestinationsData
             BreadcrumbRegion = "Europe",
             BreadcrumbCity = "Prague",
             BreadcrumbCurrent = "Old Town",
-            TagLine = "Heritage"
+            TagLine = "Heritage",
+            IsActive = false
         }
     };
 }

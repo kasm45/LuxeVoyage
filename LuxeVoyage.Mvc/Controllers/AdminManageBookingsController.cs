@@ -3,10 +3,11 @@ using LuxeVoyage.Mvc.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace LuxeVoyage.Mvc.Controllers;
 
-[Authorize(Roles = "Admin")]
+[Authorize(Roles = "Admin,Personnel")]
 [Route("admin/reservations")]
 public class AdminManageBookingsController : Controller
 {
@@ -25,74 +26,188 @@ public class AdminManageBookingsController : Controller
             .Include(b => b.Stay)
             .Include(b => b.Experience)
             .Include(b => b.Destination)
+            .Where(b => b.Status == BookingStatus.Pending)
             .OrderByDescending(b => b.CreatedAtUtc)
             .ToListAsync();
         return View(list);
     }
 
-    [HttpGet("details/{id:int}")]
-    public async Task<IActionResult> Details(int id)
+    [HttpGet("history")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> History(string? q, string status = "all")
+    {
+        ViewBag.AdminPage = "BookingsHistory";
+        ViewData["Title"] = "Admin — Reservation History";
+        ViewBag.SearchQuery = q;
+        ViewBag.StatusFilter = status;
+
+        var query = _db.Bookings.AsNoTracking()
+            .Include(b => b.User)
+            .Include(b => b.Tour)
+            .Include(b => b.Stay)
+            .Include(b => b.Experience)
+            .Include(b => b.Destination)
+            .Where(b => b.Status == BookingStatus.Accepted || b.Status == BookingStatus.Rejected);
+
+        if (status.Equals("accepted", StringComparison.OrdinalIgnoreCase))
+            query = query.Where(b => b.Status == BookingStatus.Accepted);
+        else if (status.Equals("rejected", StringComparison.OrdinalIgnoreCase))
+            query = query.Where(b => b.Status == BookingStatus.Rejected);
+
+        if (!string.IsNullOrWhiteSpace(q))
+        {
+            query = query.Where(b =>
+                (b.User != null && b.User.Email != null && b.User.Email.Contains(q)) ||
+                (b.Tour != null && b.Tour.Title.Contains(q)) ||
+                (b.Stay != null && b.Stay.Name.Contains(q)) ||
+                (b.Experience != null && b.Experience.Title.Contains(q)) ||
+                (b.Destination != null && b.Destination.Title.Contains(q)));
+        }
+
+        var list = await query.OrderByDescending(b => b.DecisionedAtUtc ?? b.CreatedAtUtc).ToListAsync();
+
+        var decidedByIds = list
+            .Select(b => b.DecisionedByUserId)
+            .Where(id => !string.IsNullOrWhiteSpace(id))
+            .Distinct()
+            .ToList();
+
+        var deciderDisplayLookup = await _db.Users.AsNoTracking()
+            .Where(u => decidedByIds.Contains(u.Id))
+            .ToDictionaryAsync(
+                u => u.Id,
+                u => !string.IsNullOrWhiteSpace(u.DisplayName)
+                    ? u.DisplayName
+                    : (u.Email ?? "Admin"));
+
+        ViewBag.DeciderDisplayLookup = deciderDisplayLookup;
+        return View(list);
+    }
+
+    [HttpPost("accept/{id:int}")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Accept(int id)
     {
         var row = await _db.Bookings
-            .Include(b => b.User)
             .Include(b => b.Tour)
             .Include(b => b.Stay)
             .Include(b => b.Experience)
             .Include(b => b.Destination)
             .FirstOrDefaultAsync(b => b.Id == id);
         if (row == null) return NotFound();
-        ViewBag.AdminPage = "Bookings";
-        ViewData["Title"] = $"Booking #{row.Id}";
-        return View(row);
+        if (row.Status != BookingStatus.Pending)
+        {
+            TempData["Message"] = "Only pending reservations can be accepted.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        row.Status = BookingStatus.Accepted;
+        row.DecisionedAtUtc = DateTime.UtcNow;
+        row.DecisionedByUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        await _db.SaveChangesAsync();
+
+        await CreateReservationNotificationAsync(
+            row,
+            "Reservation accepted",
+            "ReservationAccepted",
+            "Your reservation request for {0} has been accepted. Our concierge team will contact you shortly with the next steps.");
+
+        TempData["Message"] = "Reservation accepted.";
+        return RedirectToAction(nameof(Index));
+    }
+
+    [HttpPost("reject/{id:int}")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Reject(int id)
+    {
+        var row = await _db.Bookings
+            .Include(b => b.Tour)
+            .Include(b => b.Stay)
+            .Include(b => b.Experience)
+            .Include(b => b.Destination)
+            .FirstOrDefaultAsync(b => b.Id == id);
+        if (row == null) return NotFound();
+        if (row.Status != BookingStatus.Pending)
+        {
+            TempData["Message"] = "Only pending reservations can be rejected.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        row.Status = BookingStatus.Rejected;
+        row.DecisionedAtUtc = DateTime.UtcNow;
+        row.DecisionedByUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        await _db.SaveChangesAsync();
+
+        await CreateReservationNotificationAsync(
+            row,
+            "Reservation rejected",
+            "ReservationRejected",
+            "Your reservation request for {0} could not be accepted for the selected dates. Please choose another date range or contact our concierge team.");
+
+        TempData["Message"] = "Reservation rejected.";
+        return RedirectToAction(nameof(Index));
+    }
+
+    [HttpGet("details/{id:int}")]
+    public IActionResult Details(int id)
+    {
+        TempData["Message"] = "Use Accept/Reject from Reservations to manage requests.";
+        return RedirectToAction(nameof(Index));
     }
 
     [HttpGet("edit/{id:int}")]
-    public async Task<IActionResult> Edit(int id)
+    public IActionResult Edit(int id)
     {
-        var row = await _db.Bookings.FindAsync(id);
-        if (row == null) return NotFound();
-        ViewBag.AdminPage = "Bookings";
-        ViewData["Title"] = "Edit reservation";
-        return View(row);
+        TempData["Message"] = "Use Accept/Reject from Reservations to manage requests.";
+        return RedirectToAction(nameof(Index));
     }
 
     [HttpPost("edit/{id:int}")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, Booking model)
+    public IActionResult Edit(int id, Booking model)
     {
-        if (id != model.Id) return BadRequest();
-        var row = await _db.Bookings.FindAsync(id);
-        if (row == null) return NotFound();
-
-        row.Status = model.Status;
-        row.StartDate = model.StartDate.Date;
-        row.EndDate = model.EndDate.Date;
-        row.Guests = model.Guests;
-        row.Notes = model.Notes;
-        await _db.SaveChangesAsync();
-        TempData["Message"] = "Reservation updated.";
+        TempData["Message"] = "Use Accept/Reject from Reservations to manage requests.";
         return RedirectToAction(nameof(Index));
     }
 
     [HttpGet("delete/{id:int}")]
-    public async Task<IActionResult> Delete(int id)
+    public IActionResult Delete(int id)
     {
-        var row = await _db.Bookings.AsNoTracking().FirstOrDefaultAsync(b => b.Id == id);
-        if (row == null) return NotFound();
-        ViewBag.AdminPage = "Bookings";
-        return View(row);
+        TempData["Message"] = "Use Accept/Reject from Reservations to manage requests.";
+        return RedirectToAction(nameof(Index));
     }
 
     [HttpPost("delete/{id:int}")]
     [ValidateAntiForgeryToken]
     [ActionName("Delete")]
-    public async Task<IActionResult> DeleteConfirmed(int id)
+    public IActionResult DeleteConfirmed(int id)
     {
-        var row = await _db.Bookings.FindAsync(id);
-        if (row == null) return NotFound();
-        _db.Bookings.Remove(row);
-        await _db.SaveChangesAsync();
-        TempData["Message"] = "Reservation deleted.";
+        TempData["Message"] = "Use Accept/Reject from Reservations to manage requests.";
         return RedirectToAction(nameof(Index));
+    }
+
+    private async Task CreateReservationNotificationAsync(
+        Booking booking,
+        string title,
+        string type,
+        string messageTemplate)
+    {
+        var itemName = booking.Tour?.Title
+            ?? booking.Stay?.Name
+            ?? booking.Experience?.Title
+            ?? booking.Destination?.Title
+            ?? "your selected item";
+
+        _db.Notifications.Add(new Notification
+        {
+            UserId = booking.UserId,
+            Title = title,
+            Message = string.Format(messageTemplate, itemName),
+            Type = type,
+            IsRead = false,
+            CreatedAt = DateTime.UtcNow,
+            ReservationId = booking.Id
+        });
+        await _db.SaveChangesAsync();
     }
 }

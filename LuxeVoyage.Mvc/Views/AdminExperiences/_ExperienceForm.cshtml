@@ -1,56 +1,46 @@
 @model LuxeVoyage.Mvc.Models.Experience
-<div class="space-y-4 max-w-xl">
+<div class="space-y-8 max-w-3xl">
 <div asp-validation-summary="All" class="text-red-600 text-sm"></div>
-<div>
-<label class="block text-sm font-medium">Title</label>
-<input asp-for="Title" class="mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900" />
+<section class="space-y-4 border-b border-slate-200 dark:border-slate-700 pb-6">
+<h2 class="font-h3 text-lg font-semibold text-slate-900 dark:text-white">Basics</h2>
+<div><label class="block text-sm font-medium">Title</label><input asp-for="Title" class="mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900" /></div>
+<div><label class="block text-sm font-medium">URL slug</label><input asp-for="Slug" class="mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900 font-mono text-sm" /></div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div><label class="block text-sm font-medium">Category</label><select asp-for="Category" asp-items="Html.GetEnumSelectList<LuxeVoyage.Mvc.Models.ExperienceCategoryKind>()" class="mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900"></select></div><div><label class="block text-sm font-medium">Region</label><select asp-for="Region" asp-items="Html.GetEnumSelectList<LuxeVoyage.Mvc.Models.RegionKind>()" class="mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900"></select></div></div>
+<label class="inline-flex items-center gap-2"><input type="checkbox" asp-for="IsActive" class="rounded border-slate-400" /><span class="text-sm">Active</span></label>
+</section>
+<section class="space-y-4 border-b border-slate-200 dark:border-slate-700 pb-6">
+<h2 class="font-h3 text-lg font-semibold text-slate-900 dark:text-white">Listing Card Settings</h2>
+<label class="inline-flex items-center gap-2"><input type="checkbox" asp-for="IsVisibleOnListing" class="rounded border-slate-400" /><span class="text-sm">Show on listing</span></label>
+<div><label class="block text-sm font-medium">Card title</label><input asp-for="CardTitle" class="mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900" /></div>
+<div><label class="block text-sm font-medium">Card subtitle / summary</label><textarea asp-for="CardSummary" rows="3" class="mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900"></textarea></div>
+<div><label class="block text-sm font-medium">Card image URL</label><input asp-for="CardImageUrl" data-lv-preview="exp-card" class="js-lv-preview mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900 font-mono text-sm" /><img id="exp-card" class="hidden mt-2 max-h-36 rounded-lg border object-cover" /></div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div><label class="block text-sm font-medium">Card badge</label><input asp-for="CardBadge" class="mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900" /></div><div><label class="block text-sm font-medium">Card region display</label><input asp-for="CardRegion" class="mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900" /></div></div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div><label class="block text-sm font-medium">Price hint</label><input asp-for="CardPriceHint" class="mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900" /></div><div><label class="block text-sm font-medium">Rating</label><input asp-for="CardRating" type="number" step="0.1" min="0" max="5" class="mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900" /></div></div>
+</section>
+<section class="space-y-4 border-b border-slate-200 dark:border-slate-700 pb-6">
+<h2 class="font-h3 text-lg font-semibold text-slate-900 dark:text-white">Experience Detail Page</h2>
+<div><label class="block text-sm font-medium">Hero title</label><input asp-for="HeroTitle" class="mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900" /></div>
+<div><label class="block text-sm font-medium">Hero subtitle</label><input asp-for="HeroSubtitle" class="mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900" /></div>
+<div><label class="block text-sm font-medium">Hero image URL</label><input asp-for="HeroImageUrl" data-lv-preview="exp-hero" class="js-lv-preview mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900 font-mono text-sm" /><img id="exp-hero" class="hidden mt-2 max-h-36 rounded-lg border object-cover" /></div>
+<div><label class="block text-sm font-medium">Detail description</label><textarea asp-for="DetailDescription" rows="6" class="mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900"></textarea></div>
+<div><label class="block text-sm font-medium">Detail tagline / chips</label><input asp-for="DetailTagline" class="mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900" /></div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4"><div><label class="block text-sm font-medium">Duration</label><input asp-for="DurationText" class="mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900" /></div><div><label class="block text-sm font-medium">Group size</label><input asp-for="GroupSizeText" class="mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900" /></div><div><label class="block text-sm font-medium">Meeting point / location</label><input asp-for="MeetingPoint" class="mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900" /></div></div>
+<div><label class="block text-sm font-medium">Included items</label><textarea asp-for="IncludedItemsCsv" rows="3" class="mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900"></textarea></div>
+<div><label class="block text-sm font-medium">Highlights</label><textarea asp-for="HighlightsCsv" rows="3" class="mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900"></textarea></div>
+<div><label class="block text-sm font-medium">Itinerary / schedule</label><textarea asp-for="ItineraryText" rows="5" class="mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900"></textarea></div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div><label class="block text-sm font-medium">Gallery image 1 URL</label><input asp-for="GalleryImage1Url" data-lv-preview="exp-g1" class="js-lv-preview mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900 font-mono text-sm" /><img id="exp-g1" class="hidden mt-2 max-h-32 rounded-lg border object-cover" /></div>
+<div><label class="block text-sm font-medium">Gallery image 2 URL</label><input asp-for="GalleryImage2Url" data-lv-preview="exp-g2" class="js-lv-preview mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900 font-mono text-sm" /><img id="exp-g2" class="hidden mt-2 max-h-32 rounded-lg border object-cover" /></div>
+<div><label class="block text-sm font-medium">Gallery image 3 URL</label><input asp-for="GalleryImage3Url" data-lv-preview="exp-g3" class="js-lv-preview mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900 font-mono text-sm" /><img id="exp-g3" class="hidden mt-2 max-h-32 rounded-lg border object-cover" /></div>
+<div><label class="block text-sm font-medium">Gallery image 4 URL</label><input asp-for="GalleryImage4Url" data-lv-preview="exp-g4" class="js-lv-preview mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900 font-mono text-sm" /><img id="exp-g4" class="hidden mt-2 max-h-32 rounded-lg border object-cover" /></div>
 </div>
-<div>
-<label class="block text-sm font-medium">Slug</label>
-<input asp-for="Slug" class="mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900" />
+</section>
+<section class="space-y-4 pb-6">
+<h2 class="font-h3 text-lg font-semibold text-slate-900 dark:text-white">Legacy / fallback fields</h2>
+<div><label class="block text-sm font-medium">Legacy image URL</label><input asp-for="ImageUrl" class="mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900 font-mono text-sm" /></div>
+<div><label class="block text-sm font-medium">Legacy summary</label><textarea asp-for="Summary" rows="3" class="mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900"></textarea></div>
+<div><label class="block text-sm font-medium">Legacy price hint</label><input asp-for="PriceHint" class="mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900" /></div>
+<div><label class="block text-sm font-medium">Legacy tag line</label><input asp-for="TagLine" class="mt-1 w-full rounded border border-slate-300 px-3 py-2 dark:bg-slate-900" /></div>
+</section>
 </div>
-<div>
-<label class="block text-sm font-medium">Category</label>
-<select asp-for="Category" asp-items="Html.GetEnumSelectList<LuxeVoyage.Mvc.Models.ExperienceCategoryKind>()" class="mt-1 w-full rounded border px-3 py-2 dark:bg-slate-900"></select>
-</div>
-<div>
-<label class="block text-sm font-medium">Region</label>
-<select asp-for="Region" asp-items="Html.GetEnumSelectList<LuxeVoyage.Mvc.Models.RegionKind>()" class="mt-1 w-full rounded border px-3 py-2 dark:bg-slate-900"></select>
-</div>
-<div>
-<label class="block text-sm font-medium">Image URL</label>
-<input asp-for="ImageUrl" class="mt-1 w-full rounded border px-3 py-2 dark:bg-slate-900" />
-</div>
-<div>
-<label class="block text-sm font-medium">Summary</label>
-<textarea asp-for="Summary" rows="3" class="mt-1 w-full rounded border px-3 py-2 dark:bg-slate-900"></textarea>
-</div>
-<div>
-<label class="block text-sm font-medium">Location label</label>
-<input asp-for="LocationLabel" class="mt-1 w-full rounded border px-3 py-2 dark:bg-slate-900" />
-</div>
-<div>
-<label class="block text-sm font-medium">Rating</label>
-<input asp-for="Rating" type="number" step="0.1" class="mt-1 w-full rounded border px-3 py-2 dark:bg-slate-900" />
-</div>
-<div>
-<label class="block text-sm font-medium">Price hint</label>
-<input asp-for="PriceHint" class="mt-1 w-full rounded border px-3 py-2 dark:bg-slate-900" />
-</div>
-<div>
-<label class="block text-sm font-medium">Breadcrumb region</label>
-<input asp-for="BreadcrumbRegion" class="mt-1 w-full rounded border px-3 py-2 dark:bg-slate-900" />
-</div>
-<div>
-<label class="block text-sm font-medium">Breadcrumb city</label>
-<input asp-for="BreadcrumbCity" class="mt-1 w-full rounded border px-3 py-2 dark:bg-slate-900" />
-</div>
-<div>
-<label class="block text-sm font-medium">Breadcrumb current</label>
-<input asp-for="BreadcrumbCurrent" class="mt-1 w-full rounded border px-3 py-2 dark:bg-slate-900" />
-</div>
-<div>
-<label class="block text-sm font-medium">Tag line</label>
-<input asp-for="TagLine" class="mt-1 w-full rounded border px-3 py-2 dark:bg-slate-900" />
-</div>
-</div>
+<script>document.querySelectorAll('.js-lv-preview').forEach(i=>{const id=i.getAttribute('data-lv-preview');const img=document.getElementById(id);const sync=()=>{const v=(i.value||'').trim();if(!img)return;if(!v){img.classList.add('hidden');img.removeAttribute('src');return;}img.src=v;img.classList.remove('hidden');};i.addEventListener('input',sync);sync();});</script>

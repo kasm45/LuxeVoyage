@@ -1,0 +1,51 @@
+@model IReadOnlyList<LuxeVoyage.Mvc.Models.Notification>
+<main class="pt-[104px] pb-xl max-w-container-max mx-auto px-gutter md:px-xl">
+    <section class="flex flex-wrap items-center justify-between gap-4 mb-6">
+        <div>
+            <h1 class="font-h2 text-h2 text-on-surface">Notifications</h1>
+            <p class="text-sm text-on-surface-variant mt-1">Updates about your reservations and concierge requests.</p>
+        </div>
+        <form asp-action="MarkAllRead" method="post">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="rounded-full border border-outline-variant px-4 py-2 text-sm font-semibold text-on-surface hover:bg-surface-container-low transition-colors">
+                Mark all as read
+            </button>
+        </form>
+    </section>
+
+    <section class="space-y-3">
+        @if (!Model.Any())
+        {
+            <div class="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 text-on-surface-variant">
+                No notifications yet.
+            </div>
+        }
+        @foreach (var n in Model)
+        {
+            var typeClass = n.Type switch
+            {
+                "ReservationAccepted" => "bg-emerald-50 text-emerald-700 border-emerald-200",
+                "ReservationRejected" => "bg-rose-50 text-rose-700 border-rose-200",
+                _ => "bg-slate-50 text-slate-700 border-slate-200"
+            };
+            <article class="rounded-2xl border @(n.IsRead ? "border-outline-variant bg-surface-container-lowest" : "border-primary/30 bg-primary-container/10") p-5">
+                <div class="flex flex-wrap items-start justify-between gap-3">
+                    <div class="space-y-2 max-w-3xl">
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <h2 class="font-semibold text-on-surface">@n.Title</h2>
+                            <span class="rounded-full border px-2 py-0.5 text-[11px] font-semibold @typeClass">@n.Type</span>
+                            @if (!n.IsRead)
+                            {
+                                <span class="rounded-full bg-primary/15 px-2 py-0.5 text-[11px] font-semibold text-primary">Unread</span>
+                            }
+                        </div>
+                        <p class="text-sm text-on-surface-variant leading-relaxed">@n.Message</p>
+                    </div>
+                    <div class="text-xs text-on-surface-variant whitespace-nowrap">
+                        @n.CreatedAt.ToLocalTime().ToString("MMM d, yyyy HH:mm")
+                    </div>
+                </div>
+            </article>
+        }
+    </section>
+</main>

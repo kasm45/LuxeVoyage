@@ -27,9 +27,14 @@ else if (!string.IsNullOrEmpty(Model.DestinationTitle))
 {
 <span class="block mt-2">Reference price from $@ph.ToString("0") — final fare confirmed by concierge.</span>
 }
+@if (Model.MinGuests is int minGuests && Model.MaxGuests is int maxGuests)
+{
+    var rangeLabel = minGuests == maxGuests ? $"{minGuests}" : $"{minGuests}-{maxGuests}";
+<span class="block mt-2">Capacity: @rangeLabel guests.</span>
+}
 </p>
 
-<form asp-controller="Bookings" asp-action="Create" method="post" class="space-y-5">
+<form asp-controller="Bookings" asp-action="Create" method="post" class="space-y-5" data-booking-capacity-form>
 @Html.AntiForgeryToken()
 <input type="hidden" asp-for="TourId" />
 <input type="hidden" asp-for="StayId" />
@@ -48,8 +53,17 @@ else if (!string.IsNullOrEmpty(Model.DestinationTitle))
 </div>
 <div>
 <label asp-for="Guests" class="font-label-sm text-label-sm text-on-surface block mb-1"></label>
-<input asp-for="Guests" class="w-full rounded-xl border border-outline-variant bg-surface-container-low px-4 py-3 min-h-[48px]" type="number" min="1" max="20" autocomplete="off" />
+<input asp-for="Guests"
+       class="w-full rounded-xl border border-outline-variant bg-surface-container-low px-4 py-3 min-h-[48px]"
+       type="number"
+       min="@(Model.MinGuests ?? 1)"
+       max="@(Model.MaxGuests ?? 20)"
+       data-min-guests="@(Model.MinGuests?.ToString() ?? "")"
+       data-max-guests="@(Model.MaxGuests?.ToString() ?? "")"
+       data-kind="@(Model.BookingKind ?? "")"
+       autocomplete="off" />
 <span asp-validation-for="Guests" class="text-error text-sm"></span>
+<p class="text-error text-sm mt-1 hidden" data-capacity-inline-message></p>
 </div>
 <div>
 <label asp-for="Notes" class="font-label-sm text-label-sm text-on-surface block mb-1"></label>
@@ -57,7 +71,7 @@ else if (!string.IsNullOrEmpty(Model.DestinationTitle))
 <span asp-validation-for="Notes" class="text-error text-sm"></span>
 </div>
 
-<button type="submit" class="w-full bg-primary text-on-primary font-button py-3 rounded-[16px] hover:opacity-90 transition-opacity">Submit request</button>
+<button type="submit" class="w-full bg-primary text-on-primary font-button py-3 rounded-[16px] hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed" data-booking-submit>Submit request</button>
 </form>
 <div class="mt-8 font-body-md text-body-md text-on-surface-variant">
 <a asp-controller="Home" asp-action="Index" class="text-primary hover:underline">← Back to home</a>

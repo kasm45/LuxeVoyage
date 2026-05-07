@@ -34,5 +34,8 @@ public class Booking
 
     public BookingStatus Status { get; set; } = BookingStatus.Pending;
 
+    public DateTime? DecisionedAtUtc { get; set; }
+    public string? DecisionedByUserId { get; set; }
+
     public DateTime CreatedAtUtc { get; set; } = DateTime.UtcNow;
 }

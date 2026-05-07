@@ -9,7 +9,7 @@ namespace LuxeVoyage.Mvc.Controllers;
 
 public class AccountController : Controller
 {
-    private const string NoAdminAccessMessage = "This account does not have admin access.";
+    private const string NoAdminAccessMessage = "This account does not have admin or personnel access.";
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly UserManager<ApplicationUser> _userManager;
 
@@ -53,7 +53,9 @@ public class AccountController : Controller
             {
                 if (model.AdminLogin)
                 {
-                    if (!await _userManager.IsInRoleAsync(user, "Admin"))
+                    var canStaffArea = await _userManager.IsInRoleAsync(user, "Admin") ||
+                                       await _userManager.IsInRoleAsync(user, "Personnel");
+                    if (!canStaffArea)
                     {
                         await _signInManager.SignOutAsync();
                         await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
@@ -62,7 +64,9 @@ public class AccountController : Controller
                     }
 
                     TempData["Message"] = $"Welcome back{(string.IsNullOrEmpty(user.DisplayName) ? "" : ", " + user.DisplayName)}.";
-                    return RedirectToAction(nameof(AdminController.Dashboard), "Admin");
+                    if (await _userManager.IsInRoleAsync(user, "Admin"))
+                        return RedirectToAction(nameof(AdminController.Dashboard), "Admin");
+                    return RedirectToAction(nameof(AdminManageBookingsController.Index), "AdminManageBookings");
                 }
 
                 TempData["Message"] = $"Welcome back{(string.IsNullOrEmpty(user.DisplayName) ? "" : ", " + user.DisplayName)}.";

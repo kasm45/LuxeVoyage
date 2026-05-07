@@ -1,4 +1,5 @@
 using LuxeVoyage.Mvc.Data;
+using LuxeVoyage.Mvc.Mapping;
 using LuxeVoyage.Mvc.Models;
 using LuxeVoyage.Mvc.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -29,7 +30,8 @@ public class SearchController : Controller
 
         Destination? picked = null;
         if (destinationId is > 0)
-            picked = await _db.Destinations.AsNoTracking().FirstOrDefaultAsync(d => d.Id == destinationId.Value);
+            picked = await _db.Destinations.AsNoTracking()
+                .FirstOrDefaultAsync(d => d.Id == destinationId.Value && d.IsActive);
 
         // -------- Destinations
         List<SearchHitVm> destinations;
@@ -39,7 +41,7 @@ public class SearchController : Controller
             if (hasText)
             {
                 var extraRows = await _db.Destinations.AsNoTracking()
-                    .Where(d => d.Id != picked.Id &&
+                    .Where(d => d.IsActive && d.IsVisibleOnListing && d.Id != picked.Id &&
                                 (d.Title.ToLower().Contains(qLower) ||
                                  d.Slug.ToLower().Contains(qLower) ||
                                  (d.LocationLabel != null && d.LocationLabel.ToLower().Contains(qLower))))
@@ -55,11 +57,13 @@ public class SearchController : Controller
         else if (hasText)
         {
             var destRows = await _db.Destinations.AsNoTracking()
-                .Where(d =>
-                    d.Title.ToLower().Contains(qLower) ||
+                .Where(d => d.IsActive && d.IsVisibleOnListing &&
+                    (d.Title.ToLower().Contains(qLower) ||
                     d.Slug.ToLower().Contains(qLower) ||
                     (d.LocationLabel != null && d.LocationLabel.ToLower().Contains(qLower)) ||
-                    (d.Summary != null && d.Summary.ToLower().Contains(qLower)))
+                    (d.Summary != null && d.Summary.ToLower().Contains(qLower)) ||
+                    (d.CardTitle != null && d.CardTitle.ToLower().Contains(qLower)) ||
+                    (d.CardSummary != null && d.CardSummary.ToLower().Contains(qLower))))
                 .OrderBy(d => d.Title)
                 .Take(24)
                 .ToListAsync();
@@ -71,7 +75,7 @@ public class SearchController : Controller
         }
 
         // -------- Experiences
-        IQueryable<Experience> expQ = _db.Experiences.AsNoTracking();
+        IQueryable<Experience> expQ = _db.Experiences.AsNoTracking().Where(e => e.IsActive);
         if (picked != null)
         {
             expQ = expQ.Where(e => e.Region == picked.Region);
@@ -107,7 +111,7 @@ public class SearchController : Controller
         List<SearchHitVm> tours;
         if (hasText)
         {
-            var tourRows = await _db.Tours.AsNoTracking()
+            var tourRows = await _db.Tours.AsNoTracking().Where(t => t.IsActive)
                 .Where(t =>
                     t.Title.ToLower().Contains(qLower) ||
                     t.Slug.ToLower().Contains(qLower) ||
@@ -120,7 +124,7 @@ public class SearchController : Controller
         }
         else if (picked != null)
         {
-            var feat = await _db.Tours.AsNoTracking()
+            var feat = await _db.Tours.AsNoTracking().Where(t => t.IsActive)
                 .OrderByDescending(t => t.ReviewCount)
                 .Take(8)
                 .ToListAsync();
@@ -132,7 +136,7 @@ public class SearchController : Controller
         }
 
         // -------- Stays
-        IQueryable<Stay> stayQ = _db.Stays.AsNoTracking();
+        IQueryable<Stay> stayQ = _db.Stays.AsNoTracking().Where(s => s.IsActive);
         if (picked != null)
         {
             stayQ = stayQ.Where(s => s.Region == picked.Region);
@@ -189,10 +193,10 @@ public class SearchController : Controller
 
     private SearchHitVm ToDestinationHit(Destination d) => new()
     {
-        Title = d.Title,
+        Title = DestinationDisplayMapper.EffectiveCardTitle(d),
         Subtitle = string.Join(" · ",
-            new[] { d.LocationLabel, CatalogQueryHelper.RegionDisplay(d.Region) }.Where(s => !string.IsNullOrEmpty(s))),
-        ImageUrl = d.ImageUrl,
+            new[] { d.LocationLabel, DestinationDisplayMapper.EffectiveCardRegionDisplay(d) }.Where(s => !string.IsNullOrEmpty(s))),
+        ImageUrl = DestinationDisplayMapper.EffectiveCardImageUrl(d),
         DetailUrl = Url.Action(nameof(DestinationsController.Detail), "Destinations", new { id = d.Slug }) ?? ""
     };
 
@@ -201,6 +205,6 @@ public class SearchController : Controller
         Title = t.Title,
         Subtitle = $"{t.CategoryLabel} · From ${t.Price:0}",
         ImageUrl = t.ImageUrl,
-        DetailUrl = Url.Action(nameof(BookingsController.Create), "Bookings", new { tourId = t.Id }) ?? ""
+        DetailUrl = Url.Action(nameof(ToursController.Detail), "Tours", new { slug = t.Slug }) ?? ""
     };
 }

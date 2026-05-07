@@ -1,3 +1,4 @@
+using LuxeVoyage.Mvc.Helpers;
 using LuxeVoyage.Mvc.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -8,6 +9,8 @@ namespace LuxeVoyage.Mvc.Data;
 public static class DbInitializer
 {
     private const string AdminRole = "Admin";
+    private const string StaffRole = "Staff";
+    private const string PersonnelRole = "Personnel";
 
     public static async Task SeedAsync(IServiceProvider services)
     {
@@ -23,6 +26,12 @@ public static class DbInitializer
 
         if (!await roleManager.RoleExistsAsync(AdminRole))
             await roleManager.CreateAsync(new IdentityRole(AdminRole));
+
+        if (!await roleManager.RoleExistsAsync(StaffRole))
+            await roleManager.CreateAsync(new IdentityRole(StaffRole));
+
+        if (!await roleManager.RoleExistsAsync(PersonnelRole))
+            await roleManager.CreateAsync(new IdentityRole(PersonnelRole));
 
         await SeedUsers(userManager);
         await SeedCatalog(ctx);
@@ -154,13 +163,13 @@ public static class DbInitializer
                 Title = "MoMA After Hours",
                 Slug = "nyc-moma-after",
                 Category = ExperienceCategoryKind.ArtCulture,
-                Region = RegionKind.Americas,
+                Region = RegionKind.NorthAmerica,
                 ImageUrl = "https://lh3.googleusercontent.com/aida-public/AB6AXuDYp_DJyD6Q5PrMRhxdoAVkmloppOgfHcNyvnOqYbIsqQxCcgqlfi-pyvzPGSQmOfLqVKlRFi5YiCfUZg1iUCLrOEjdU5ZS2DlD9G2zHSbb_IqXJFRXVAeWng9n-KjuicBdmsk2YgzPAl7PyMsdkUaNW29123kdRQwpizfDifVqdjn2ShMZVKWvDzjZYbb0RClkNZMomtLVqJ-3nc9e3uf8c256ddTgEjmDmdmoWr6r6tP0ORNvymec15FrxazZLhpcaxxT0XHz1HU",
                 Summary = "Private curator walkthrough and skyline rooftop caps the evening.",
                 LocationLabel = "New York, USA",
                 Rating = 4.8,
                 PriceHint = "$540",
-                BreadcrumbRegion = "Americas",
+                BreadcrumbRegion = "North America",
                 BreadcrumbCity = "New York",
                 BreadcrumbCurrent = "MoMA",
                 TagLine = "Art & Culture"
@@ -168,7 +177,7 @@ public static class DbInitializer
 
         if (!await ctx.Tours.AnyAsync())
             ctx.Tours.AddRange(
-            new Tour { Title = "Grand Canyon Expedition", Slug = "grand-canyon-expedition", Price = 1299, DurationDays = 5, CategoryLabel = "Adventure", ImageUrl = "https://lh3.googleusercontent.com/aida-public/AB6AXuAAMJP5QjiSuZ_PAaGkhEVC1VehoywPT9HArsjiKJ8lM3W_FPT6-yLFgoMzsZX4mvGv-9DsbyWLHHNlppDDR50HtmgU40xxSofaSo0ej8i1CzjVgTep15PsKYaV1OvdbAfqXYxO90imUTQpiP0YvMnw4chdHLqlREEEjrXadRXw5roKl9_HCfSgftKZvPrSelTM5rFKs-6LUV0KnhZX4XmLa6oN_QKNNDGxDUw_Pc9k9YnmBEtHnDreA1tQH2njyRCoFQt2wVjMkS4", Summary = "Expert-led canyon trails and scenic vistas.", Rating = 4.9, ReviewCount = 128 },
+            new Tour { Title = "Grand Canyon Expedition", Slug = "grand-canyon-expedition", Price = 1299, DurationDays = 5, CategoryLabel = "Adventure", ImageUrl = "https://lh3.googleusercontent.com/aida-public/AB6AXuAAMJP5QjiSuZ_PAaGkhEVC1VehoywPT9HArsjiKJ8lM3W_FPT6-yLFgoMzsZX4mvGv-9DsbyWLHHNlppDDR50HtmgU40xxSofaSo0ej8i1CzjVgTep15PsKYaV1OvdbAfqXYxO90imUTQpiP0YvMnw4chdHLqlREEEjrXadRXw5roKl9_HCfSgftKZvPrSelTM5rFKs-6LUV0KnhZX4XmLa6oN_QKNNDGxDUw_Pc9k9YnmBEtHnDreA1tQH2njyRCoFQt2wVjMkS4", Summary = "Expert-led canyon trails and scenic vistas.", Rating = 4.9, ReviewCount = 128, IsActive = false },
             new Tour { Title = "Kyoto Heritage Walk", Slug = "kyoto-heritage-walk", Price = 850, DurationDays = 3, CategoryLabel = "Cultural", ImageUrl = "https://lh3.googleusercontent.com/aida-public/AB6AXuAMEw_cYbTeAKBSDRFeCtJtK8TtX1mlk8hQrQBU7_Y3YVvEJgEpaLCMsw16yjkgewaXGv3PF58ppstAohdmzYr7EpIEuOtpVCQylmt2bq_K1qFCDSYejNjd2t7AscMtNtlnfp5isBXRlb_k2aCiUauHyFBLp7vkcBcD8duzNOGZcu2EXE3OdwUngG2hS2rV6CNTMw52hdzCInG_eSXwM9Ui4kyRXAut4wt99vlao195uz4EXdkF6jOS0dCGuzNStR9xNKvQVhpTDe4", Summary = "Shrines, gardens, and tea ceremony in Gion.", Rating = 4.8, ReviewCount = 94 },
             new Tour { Title = "Maldives Retreat", Slug = "maldives-retreat", Price = 2450, DurationDays = 7, CategoryLabel = "Luxury", ImageUrl = "https://lh3.googleusercontent.com/aida-public/AB6AXuCNXxIIMkoa-scGap_NvRfRuuX9LUvlAHrDSJsK1XwxpwyBt8FbMwV5LOFrrImZcIBUsqCA5VBxcG6Uu5grHeO3b8NbF99fZnP2UVlojqlSM2krj-vvAcRmOD8uVmcPh35kZB8_N8YmoEdQvQiT_L6HeyLKtZbtccsLBhfJLHgZCcZG6ItWOj9-I3Jv3bO9hJNdNEnZNbPGj_-qJ8NWBB6a2DkBCd-r_QdIBPDQdUWEhhAZpf2y7NW_uvBXz2-BJTedKno08LvYegQ", Summary = "Overwater villas and coral snorkeling.", Rating = 5.0, ReviewCount = 215 },
             new Tour { Title = "Parisian Romance", Slug = "parisian-romance", Price = 1100, DurationDays = 4, CategoryLabel = "City Break", ImageUrl = "https://lh3.googleusercontent.com/aida-public/AB6AXuDYp_DJyD6Q5PrMRhxdoAVkmloppOgfHcNyvnOqYbIsqQxCcgqlfi-pyvzPGSQmOfLqVKlRFi5YiCfUZg1iUCLrOEjdU5ZS2DlD9G2zHSbb_IqXJFRXVAeWng9n-KjuicBdmsk2YgzPAl7PyMsdkUaNW29123kdRQwpizfDifVqdjn2ShMZVKWvDzjZYbb0RClkNZMomtLVqJ-3nc9e3uf8c256ddTgEjmDmdmoWr6r6tP0ORNvymec15FrxazZLhpcaxxT0XHz1HU", Summary = "Museums, culinary masterclasses, and Seine evenings.", Rating = 4.7, ReviewCount = 182 },
@@ -181,44 +190,153 @@ public static class DbInitializer
             new Stay { Name = "The Metropolis Suites", Slug = "metropolis-suites", PricePerNight = 180, StarRating = 4, Region = RegionKind.Asia, CityLine = "Tokyo, Japan", ImageUrl = "https://lh3.googleusercontent.com/aida-public/AB6AXuCJ-8PW2KpxsSkp3pvFyouKUDnLU2IBRSOllgJh4OKkzEinFnJPMTNEb2mx8sKiZKLcEfkP_VcSbCDYMSBEejGZCceY097AatBGQq3z2YVuS8XgajAmnSKxAFmlefONgiT9R_oif2s9gIMyJKgTk1P5rqN5AjD-wohpVVpgMy-aJtEguR4Qu1U6kBtYAAH0t7ODIkbQTMbtF5fX6Yx4OFEPIBZ93C-jvd_crTBz5PrGYNKENnk2m1UvRZc37j9O1OTmz3V4U8czzgE", AmenitiesCsv = "wifi,gym,cafe" },
             new Stay { Name = "Emerald Cove Villas", Slug = "emerald-cove-villas", PricePerNight = 550, StarRating = 5, Region = RegionKind.Asia, CityLine = "Bora Bora, French Polynesia", ImageUrl = "https://lh3.googleusercontent.com/aida-public/AB6AXuBCX_y4PXoBjbcPZ6rK3lSQG0f13P9N1m6mh9rFjYfarVx1b7k9kZ-ATscOp4JEJTuKHoKzFeBad9LUyOcjO2iD0Ef8GGez6Rdt5KVQP5oddrR2sfvdcpyg7MSeZB25c9jQe9MEcESIA6L3I2tFBnNMDUQ36s8CLaR9pqJlArXvNCJYLvOgjNS2aQcE73aX9NksauHTvENMLoT37HHhSIJBgL6GWTKwVMOOwYbZlGJrbDr52H0L0e4ciU7T_Tt-AGsjdlgPd9PS1bM", AmenitiesCsv = "wifi,spa,pool" },
             new Stay { Name = "The Grand Imperial", Slug = "grand-imperial", PricePerNight = 320, StarRating = 5, Region = RegionKind.Europe, CityLine = "Vienna, Austria", ImageUrl = "https://lh3.googleusercontent.com/aida-public/AB6AXuCspA9nivE7Z5w9HT4yw17NY_OYB2xEhGWU5lDtKzvG5pPIQpRPr_3c6kS193am78kpQ9D5kvm8Snwiwyn8fQ9hWa1schihorZqkIOe8GiVP0_6WWB5HXA6NQME73nsIiChrrprV6drGJoLWVL8K1eLuuN98TvRv1RlvmS07VY5YKES2_ryVVVUTdGunmgX63Ka6EtKrXOd_1ezKZtYjXM4ymGzf9QN-RJwzura65X7lkzpH9W_X6bRR4HJSRnV8bA0NbOE8AmsG7k", AmenitiesCsv = "wifi,dining,bar" },
-            new Stay { Name = "Alpine Ridge Lodge", Slug = "alpine-ridge-lodge", PricePerNight = 290, StarRating = 4, Region = RegionKind.Americas, CityLine = "Whistler, Canada", ImageUrl = "https://lh3.googleusercontent.com/aida-public/AB6AXuCpdLN_wxJ8Nuw8lA2zTCP1B9PdSYP9VC8y-CPaEROjghfco2poY-msDcRJahrRW4O70K1N1Wnikol7nK8UxnlE2UQ6ACxHxeqEbIXDsHucgCIE2I-20fGAVP0FdxjTXYB1_ECOwO2TlQ5fzTkjLYoQMWc5ulHP9lvfe--Ow73nZbAYakwfvpKXh4YHSnhxpVyUs9xL8-xU19UF-MnDcyeQEDof_c_BDXxJyFvf8TKEFFlY8V0_KsprxQO62jG_jwR9C3Bpfdnr7sI", AmenitiesCsv = "wifi,spa,gym" },
+            new Stay { Name = "Alpine Ridge Lodge", Slug = "alpine-ridge-lodge", PricePerNight = 290, StarRating = 4, Region = RegionKind.NorthAmerica, CityLine = "Whistler, Canada", ImageUrl = "https://lh3.googleusercontent.com/aida-public/AB6AXuCpdLN_wxJ8Nuw8lA2zTCP1B9PdSYP9VC8y-CPaEROjghfco2poY-msDcRJahrRW4O70K1N1Wnikol7nK8UxnlE2UQ6ACxHxeqEbIXDsHucgCIE2I-20fGAVP0FdxjTXYB1_ECOwO2TlQ5fzTkjLYoQMWc5ulHP9lvfe--Ow73nZbAYakwfvpKXh4YHSnhxpVyUs9xL8-xU19UF-MnDcyeQEDof_c_BDXxJyFvf8TKEFFlY8V0_KsprxQO62jG_jwR9C3Bpfdnr7sI", AmenitiesCsv = "wifi,spa,gym", IsActive = false },
             new Stay { Name = "Jungle Canopy Retreat", Slug = "jungle-canopy-retreat", PricePerNight = 210, StarRating = 4, Region = RegionKind.Asia, CityLine = "Ubud, Bali", ImageUrl = "https://lh3.googleusercontent.com/aida-public/AB6AXuBkRLQ6PWu4Hoecl6OtMu1OsiWZv1mcvHVBuicR4EMODonkjHT0tvM3KdNyoLUIfZL91KMa0b1g7tMz11WqAxdXrbNYptNXDsG4jQjqtkwtymHbo1ONCyt2p9BjGKGIq0KHD53Hys-nElgCj8Upwblz0bbNFdGmLsF9v7VQ4XkBcGejhl-RpLNKKCxRxQfAwBoQjr9uprNTTRekj2CxCulm_NUuLCi582I-6rGhyCJSYhhVgHefrHP8gTtKwopbq0d0ZlNEsK3PBVM", AmenitiesCsv = "spa,yoga,eco" });
 
-        if (!await ctx.Attractions.AnyAsync())
-        {
-            ctx.Attractions.AddRange(
-                new Attraction
-                {
-                    Name = "Eiffel Tower",
-                    City = "Paris",
-                    Category = "Landmark",
-                    ImageUrl = "https://lh3.googleusercontent.com/aida-public/AB6AXuCpeAkgq_-ebuCKW2L0CKwBJg8_y5EeriFpo9WUFj8srWgZjzKd_sa9HiaDidaWUHmkwzjX1DpwwBJ5ot2K5EQo--jpjLdMfkjh5iYTnFd1L4td9Fgm6i-lIbbQKpljUB3vJfHG8rYj00Z0A8j1IaVgaoK6kZeuXjXPuaHNdY8wnnfJu644SE-xQlyZqhAGcsdSRhn6xPRiPpEpyAK7v6MTRPUPgYHmobIrijKNWjn9PjzhcCNzVpA3x01LZEnZCR-nPQJoo5YwWzk"
-                },
-                new Attraction
-                {
-                    Name = "Colosseum",
-                    City = "Rome",
-                    Category = "Historical",
-                    ImageUrl = "https://lh3.googleusercontent.com/aida-public/AB6AXuBH39_lRZe2DJE9WWQcGWP3gcx-8-GoHdxrL2thlartCd869m9aZBIC_nfyvcG2_A0EsDOpa_UOZtiJFi2aIPT-NsFVXbZivL0J1XSMpo_9vnHepzVzTmux9iZJD7wsDT9Jc9j_zlEJHrSIxYzlaG0WKanmcSwGYzGKPU8g5kwgwMTD8F5mBgHe_Fi_KFMHdSKrdab558Rukau_vF-FxIonVndfmbcU4Rtcqpz20XVMjaUwntOCtQQONbtov1EiayPiLsWrRmALlORc"
-                },
-                new Attraction
-                {
-                    Name = "Louvre Museum",
-                    City = "Paris",
-                    Category = "Museum",
-                    ImageUrl = "https://lh3.googleusercontent.com/aida-public/AB6AXuDqNxX9udBDTYh_AvfJJMTq3DBTqMBLYBEZeWk5s3rhO-xNaQKqJ0_scdhN_Izt1FZ1I5uq79MxxwHTSuHT2NkceYumVDBfl8yvUG0L7DgQjM1euufAuxSUJFjzR2HnH4MOema6oJxncrugucBV5uw73ggJ4UyaZMawNBzOZCA10APLLsL0vpHf-s8zMa67BMzKMgKCEPpibVm8Spa6t_UciI-LdFxnuUnZ5fugyk_4mx8bNm6Ezzu9QQrj1uYLd_EjXPv_vrItchs"
-                },
-                new Attraction
-                {
-                    Name = "Central Park",
-                    City = "New York",
-                    Category = "Nature",
-                    ImageUrl = null
-                });
-        }
+        await SeedPointsOfInterestAsync(ctx);
 
         await ctx.SaveChangesAsync();
 
+        await BackfillDestinationGallerySlotsFromLegacyCsvAsync(ctx);
+
         await ExperienceCatalogRepair.ApplyAsync(ctx);
+    }
+
+    private static async Task SeedPointsOfInterestAsync(ApplicationDbContext ctx)
+    {
+        var seeds = new[]
+        {
+            new Attraction { Name = "Rijksmuseum", City = "Amsterdam", Category = "Museum" },
+            new Attraction { Name = "Van Gogh Museum", City = "Amsterdam", Category = "Museum" },
+            new Attraction { Name = "Canal Ring", City = "Amsterdam", Category = "Landmark" },
+            new Attraction { Name = "Vondelpark", City = "Amsterdam", Category = "Nature" },
+
+            new Attraction { Name = "Ubud Monkey Forest", City = "Bali", Category = "Nature" },
+            new Attraction { Name = "Tegallalang Rice Terraces", City = "Bali", Category = "Nature" },
+            new Attraction { Name = "Tanah Lot Temple", City = "Bali", Category = "Historical" },
+            new Attraction { Name = "Uluwatu Temple", City = "Bali", Category = "Historical" },
+
+            new Attraction { Name = "Sagrada Família", City = "Barcelona", Category = "Landmark" },
+            new Attraction { Name = "Park Güell", City = "Barcelona", Category = "Landmark" },
+            new Attraction { Name = "Casa Batlló", City = "Barcelona", Category = "Historical" },
+            new Attraction { Name = "Gothic Quarter", City = "Barcelona", Category = "Historical" },
+
+            new Attraction { Name = "Mount Otemanu", City = "Bora Bora", Category = "Nature" },
+            new Attraction { Name = "Matira Beach", City = "Bora Bora", Category = "Nature" },
+            new Attraction { Name = "Bora Bora Lagoonarium", City = "Bora Bora", Category = "Nature" },
+            new Attraction { Name = "Coral Gardens", City = "Bora Bora", Category = "Nature" },
+
+            new Attraction { Name = "Table Mountain", City = "Cape Town", Category = "Nature" },
+            new Attraction { Name = "Robben Island", City = "Cape Town", Category = "Historical" },
+            new Attraction { Name = "V&A Waterfront", City = "Cape Town", Category = "Landmark" },
+            new Attraction { Name = "Kirstenbosch Botanical Garden", City = "Cape Town", Category = "Nature" },
+
+            new Attraction { Name = "Göreme Open-Air Museum", City = "Cappadocia", Category = "Historical" },
+            new Attraction { Name = "Uçhisar Castle", City = "Cappadocia", Category = "Historical" },
+            new Attraction { Name = "Love Valley", City = "Cappadocia", Category = "Nature" },
+            new Attraction { Name = "Pasabag Valley", City = "Cappadocia", Category = "Nature" },
+
+            new Attraction { Name = "Burj Khalifa", City = "Dubai", Category = "Landmark" },
+            new Attraction { Name = "Dubai Marina", City = "Dubai", Category = "Landmark" },
+            new Attraction { Name = "Museum of the Future", City = "Dubai", Category = "Museum" },
+            new Attraction { Name = "Al Fahidi Historical District", City = "Dubai", Category = "Historical" },
+
+            new Attraction { Name = "Hagia Sophia", City = "Istanbul", Category = "Historical" },
+            new Attraction { Name = "Topkapi Palace", City = "Istanbul", Category = "Historical" },
+            new Attraction { Name = "Galata Tower", City = "Istanbul", Category = "Landmark" },
+            new Attraction { Name = "Grand Bazaar", City = "Istanbul", Category = "Landmark" },
+
+            new Attraction { Name = "Fushimi Inari Taisha", City = "Kyoto", Category = "Historical" },
+            new Attraction { Name = "Kinkaku-ji", City = "Kyoto", Category = "Historical" },
+            new Attraction { Name = "Arashiyama Bamboo Grove", City = "Kyoto", Category = "Nature" },
+            new Attraction { Name = "Kiyomizu-dera", City = "Kyoto", Category = "Historical" },
+
+            new Attraction { Name = "Tower of London", City = "London", Category = "Historical" },
+            new Attraction { Name = "British Museum", City = "London", Category = "Museum" },
+            new Attraction { Name = "Buckingham Palace", City = "London", Category = "Landmark" },
+            new Attraction { Name = "Hyde Park", City = "London", Category = "Nature" },
+
+            new Attraction { Name = "Central Park", City = "New York", Category = "Nature" },
+            new Attraction { Name = "Empire State Building", City = "New York", Category = "Landmark" },
+            new Attraction { Name = "Metropolitan Museum of Art", City = "New York", Category = "Museum" },
+            new Attraction { Name = "Statue of Liberty", City = "New York", Category = "Landmark" },
+
+            new Attraction { Name = "Eiffel Tower", City = "Paris", Category = "Landmark" },
+            new Attraction { Name = "Louvre Museum", City = "Paris", Category = "Museum" },
+            new Attraction { Name = "Notre-Dame Cathedral", City = "Paris", Category = "Historical" },
+            new Attraction { Name = "Luxembourg Gardens", City = "Paris", Category = "Nature" },
+
+            new Attraction { Name = "Colosseum", City = "Rome", Category = "Historical" },
+            new Attraction { Name = "Roman Forum", City = "Rome", Category = "Historical" },
+            new Attraction { Name = "Trevi Fountain", City = "Rome", Category = "Landmark" },
+            new Attraction { Name = "Pantheon", City = "Rome", Category = "Historical" }
+        };
+
+        var existing = await ctx.Attractions.ToListAsync();
+        var changed = false;
+
+        foreach (var seed in seeds)
+        {
+            var match = existing.FirstOrDefault(a =>
+                a.Name.Equals(seed.Name, StringComparison.OrdinalIgnoreCase) &&
+                a.City.Equals(seed.City, StringComparison.OrdinalIgnoreCase));
+
+            if (match == null)
+            {
+                ctx.Attractions.Add(new Attraction
+                {
+                    Name = seed.Name,
+                    City = seed.City,
+                    Category = seed.Category,
+                    ImageUrl = seed.ImageUrl
+                });
+                changed = true;
+                continue;
+            }
+
+            if (string.IsNullOrWhiteSpace(match.ImageUrl) && !string.IsNullOrWhiteSpace(seed.ImageUrl))
+            {
+                match.ImageUrl = seed.ImageUrl;
+                changed = true;
+            }
+        }
+
+        if (changed)
+            await ctx.SaveChangesAsync();
+    }
+
+    /// <summary>Fills explicit gallery slots 2–4 from legacy comma-separated URLs when those slots are still empty.</summary>
+    private static async Task BackfillDestinationGallerySlotsFromLegacyCsvAsync(ApplicationDbContext ctx)
+    {
+        var rows = await ctx.Destinations
+            .Where(d => d.GalleryImagesCsv != null && d.GalleryImagesCsv != "")
+            .ToListAsync();
+        var touched = false;
+        foreach (var d in rows)
+        {
+            var extras = CatalogTextHelper.SplitList(d.GalleryImagesCsv);
+            if (extras.Count == 0)
+                continue;
+            if (string.IsNullOrWhiteSpace(d.GalleryImage2Url) && extras.Count > 0)
+            {
+                d.GalleryImage2Url = extras[0];
+                touched = true;
+            }
+
+            if (string.IsNullOrWhiteSpace(d.GalleryImage3Url) && extras.Count > 1)
+            {
+                d.GalleryImage3Url = extras[1];
+                touched = true;
+            }
+
+            if (string.IsNullOrWhiteSpace(d.GalleryImage4Url) && extras.Count > 2)
+            {
+                d.GalleryImage4Url = extras[2];
+                touched = true;
+            }
+        }
+
+        if (touched)
+            await ctx.SaveChangesAsync();
     }
 }

@@ -11,6 +11,9 @@ public sealed class AdminUserRowViewModel
     public bool EmailConfirmed { get; init; }
     public int ReservationsCount { get; init; }
     public int FavoritesCount { get; init; }
+    public bool IsAdmin { get; init; }
+    public bool IsPersonnel { get; init; }
+    public bool HasRelatedRecords { get; init; }
 }
 
 public sealed class AdminAnalyticsViewModel

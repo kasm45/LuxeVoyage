@@ -1,5 +1,14 @@
+@using System.Security.Claims
+@using LuxeVoyage.Mvc.Data
+@inject ApplicationDbContext Db
 @{
     var nav = ViewBag.NavSection as string ?? "";
+    var uid = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var unreadNotifications = 0;
+    if (!string.IsNullOrEmpty(uid))
+    {
+        unreadNotifications = Db.Notifications.Count(n => n.UserId == uid && !n.IsRead);
+    }
     string DestinationsNavClass() => nav == "Destinations"
         ? "text-orange-600 font-semibold relative after:block after:w-1 after:h-1 after:bg-orange-600 after:rounded-full after:mx-auto after:mt-1 hover:text-orange-500 transition-colors duration-200 font-body-md text-body-md"
         : "text-slate-700 dark:text-slate-300 font-medium hover:text-orange-500 transition-colors duration-200 font-body-md text-body-md";
@@ -17,25 +26,34 @@
         : "text-slate-700 dark:text-slate-300 font-medium hover:text-orange-500 transition-colors duration-200 font-body-md text-body-md";
 }
 <!-- TopNavBar (LuxeVoyage — ana_sayfa_yeni_nesil) -->
-<nav class="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-xl dark:bg-slate-900/70 border-b border-white/20 dark:border-slate-800/50 shadow-sm backdrop-blur-md">
-<div class="flex justify-between items-center px-12 py-4 w-full max-w-[1280px] mx-auto">
+<nav class="fixed top-0 w-full z-50 bg-white/75 backdrop-blur-xl dark:bg-slate-900/75 border-b border-white/30 dark:border-slate-800/60 shadow-[0_8px_28px_rgba(15,23,42,0.08)]">
+<div class="flex justify-between items-center px-8 lg:px-12 py-3.5 w-full max-w-[1280px] mx-auto">
 <a asp-controller="Home" asp-action="Index" class="text-2xl font-bold text-slate-900 dark:text-white font-h3 text-h3 tracking-tight">
                 LuxeVoyage
             </a>
-<div class="hidden md:flex items-center gap-8">
+<div class="hidden md:flex items-center gap-7">
 <a class="@DestinationsNavClass()" asp-controller="Destinations" asp-action="Index">Destinations</a>
 <a class="@ExperiencesNavClass()" asp-controller="Experiences" asp-action="Index">Experiences</a>
 <a class="@ToursNavClass()" asp-controller="Tours" asp-action="Index">Tours</a>
 <a class="@HotelsNavClass()" asp-controller="Hotels" asp-action="Index">Stays</a>
 <a class="@AboutNavClass()" asp-controller="Pages" asp-action="About">Journal</a>
 </div>
-<div class="flex items-center gap-3 md:gap-4">
+<div class="flex items-center gap-2.5 md:gap-3.5">
 @if (User.Identity != null && User.Identity.IsAuthenticated)
 {
+<a asp-controller="Notifications" asp-action="Index" class="relative inline-flex items-center gap-1.5 text-slate-700 dark:text-slate-200 hover:text-orange-600 font-body-md text-sm font-medium px-2.5 py-1.5 rounded-full hover:bg-orange-50/80 dark:hover:bg-orange-900/20 transition-all">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="hidden md:inline">Notifications</span>
+@if (unreadNotifications > 0)
+{
+    <span class="absolute -top-1 -right-1 min-w-[18px] h-[18px] rounded-full bg-orange-600 text-white text-[10px] leading-[18px] text-center px-1 animate-pulse">@unreadNotifications</span>
+}
+</a>
 <form asp-controller="Account" asp-action="Logout" method="post" class="flex items-center gap-2 md:gap-3">
 @Html.AntiForgeryToken()
-<span class="hidden sm:inline text-sm text-slate-600 dark:text-slate-300 max-w-[160px] truncate" title="@User.Identity?.Name">@User.Identity?.Name</span>
-<button type="submit" class="scale-95 active:scale-100 transition-transform text-slate-700 dark:text-slate-200 hover:text-orange-500 font-body-md text-sm font-medium bg-transparent border-0 cursor-pointer px-2 py-1 rounded-md">
+<span class="hidden sm:inline-flex items-center justify-center w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-semibold">@((User.Identity?.Name ?? "U").Substring(0, 1).ToUpperInvariant())</span>
+<span class="hidden sm:inline text-sm text-slate-600 dark:text-slate-300 max-w-[140px] truncate" title="@User.Identity?.Name">@User.Identity?.Name</span>
+<button type="submit" class="scale-95 active:scale-100 transition-transform text-slate-700 dark:text-slate-200 hover:text-orange-600 font-body-md text-sm font-medium bg-transparent border-0 cursor-pointer px-2 py-1 rounded-md">
                 Logout
             </button>
 </form>
@@ -47,7 +65,7 @@ else
 </a>
 <a asp-controller="Account" asp-action="Register" class="hidden sm:inline font-body-md text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-orange-500 transition-colors">Register</a>
 }
-<a asp-controller="Pages" asp-action="Contact" class="bg-primary text-on-primary font-button text-button px-6 py-3 rounded-[16px] scale-95 active:scale-100 transition-transform shadow-[0px_4px_20px_rgba(15,23,42,0.05)] bg-gradient-to-r from-primary to-surface-tint inline-flex items-center">
+<a asp-controller="Pages" asp-action="Contact" class="bg-primary text-on-primary font-button text-button px-5 py-2.5 rounded-xl scale-95 active:scale-100 transition-all hover:-translate-y-0.5 hover:shadow-[0_10px_22px_rgba(122,75,49,0.24)] bg-gradient-to-r from-primary to-[#A56B4A] inline-flex items-center">
                 Book Now
             </a>
 </div>

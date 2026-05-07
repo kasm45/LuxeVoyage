@@ -1,11 +1,14 @@
 @model LuxeVoyage.Mvc.Models.Destination
 <div class="px-8 py-10 font-body-md max-w-xl">
-<h1 class="font-h2 text-h2 text-slate-900 dark:text-white mb-4">Delete destination</h1>
-<p class="text-slate-600 dark:text-slate-400 mb-6">Delete <strong>@Model.Title</strong>? This cannot be undone.</p>
+<h1 class="font-h2 text-h2 text-slate-900 dark:text-white mb-4">Deactivate destination</h1>
+<p class="text-slate-600 dark:text-slate-400 mb-2">
+        Deactivate <strong>@Model.Title</strong>? It will disappear from the public destinations list and search, and direct URLs will show “not found.” Existing bookings are preserved.
+    </p>
+<p class="text-sm text-slate-500 mb-6">You can turn it back on later by editing the destination and checking “Active on public site.”</p>
 <form asp-action="Delete" method="post">
 @Html.AntiForgeryToken()
 <input type="hidden" asp-for="Id" />
-<button type="submit" class="rounded-lg bg-error text-white px-6 py-2 mr-4">Delete</button>
+<button type="submit" class="rounded-lg bg-error text-white px-6 py-2 mr-4">Deactivate</button>
 <a asp-action="Index" class="rounded-lg border px-6 py-2">Cancel</a>
 </form>
 </div>

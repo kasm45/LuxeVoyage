@@ -21,4 +21,6 @@ public class TourCardVm
     public double Rating { get; set; }
     public int ReviewCount { get; set; }
     public bool IsFavorite { get; set; }
+    public string? PriceHint { get; set; }
+    public string? RegionDisplay { get; set; }
 }

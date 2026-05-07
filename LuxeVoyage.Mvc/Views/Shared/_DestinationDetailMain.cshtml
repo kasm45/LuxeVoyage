@@ -1,0 +1,311 @@
+@model LuxeVoyage.Mvc.Models.ExperienceDetailViewModel
+@{
+    var g1 = Model.GalleryImage1Url;
+    var g2 = Model.GalleryImage2Url;
+    var g3 = Model.GalleryImage3Url;
+    var g4 = Model.GalleryImage4Url;
+    var galleryCount = new[] { g1, g2, g3, g4 }.Count(u => !string.IsNullOrWhiteSpace(u));
+    IEnumerable<string> chips = Model.HighlightLines.Count > 0
+        ? Model.HighlightLines
+        : (string.IsNullOrWhiteSpace(Model.HighlightTagline)
+            ? Enumerable.Empty<string>()
+            : Model.HighlightTagline.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries));
+}
+<style>
+  .lv-booking-card { background: #fff; border: 1px solid rgba(148, 106, 74, 0.18); border-radius: 18px; box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08); padding: 1.1rem; display: flex; flex-direction: column; gap: 0.85rem; }
+  .lv-booking-eyebrow { font-size: 0.73rem; text-transform: uppercase; letter-spacing: .08em; color: #9A6442; font-weight: 700; }
+  .lv-booking-price { font-size: 2rem; line-height: 1.1; font-weight: 700; color: #1f2937; }
+  .lv-booking-subcopy { font-size: 0.93rem; line-height: 1.45; color: #475569; border: 1px solid rgba(148, 106, 74, 0.18); background: #fffaf5; border-radius: 14px; padding: .7rem .8rem; }
+  .lv-booking-cta { width: 100%; display: block; text-align: center; border-radius: 9999px; padding: .78rem 1rem; font-weight: 700; color: #fff; background: linear-gradient(180deg, #9A6442 0%, #7A4B31 100%); box-shadow: 0 8px 18px rgba(122, 75, 49, .25); transition: transform .15s ease, box-shadow .15s ease; }
+  .lv-booking-cta:hover { transform: translateY(-1px); box-shadow: 0 11px 20px rgba(122, 75, 49, .32); }
+  .lv-booking-meta { display: flex; flex-wrap: wrap; gap: .4rem; }
+  .lv-booking-note { font-size: .74rem; border-radius: 9999px; padding: .28rem .56rem; background: #f8efe7; color: #7A4B31; }
+  .lv-booking-rows { border-top: 1px solid rgba(148, 163, 184, .35); padding-top: .65rem; display: flex; flex-direction: column; gap: .46rem; }
+  .lv-booking-row { display: flex; justify-content: space-between; gap: .8rem; font-size: .86rem; color: #334155; }
+  .lv-booking-row span:last-child { font-weight: 600; color: #0f172a; text-align: right; }
+</style>
+<main class="pt-[104px] pb-xl max-w-container-max mx-auto px-gutter md:px-xl">
+<nav class="flex flex-wrap items-center gap-2 mb-md text-on-surface-variant font-label-caps text-label-caps uppercase">
+<a class="hover:text-primary transition-colors" asp-controller="Destinations" asp-action="Index">Destinations</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-on-surface/80">@Model.BreadcrumbRegion</span>
+@if (!string.IsNullOrWhiteSpace(Model.BreadcrumbCity))
+{
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-on-surface/80">@Model.BreadcrumbCity</span>
+}
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-on-surface">@Model.BreadcrumbCurrent</span>
+</nav>
+
+<header class="mb-lg">
+<h1 class="font-h1 text-h1 text-on-surface mb-sm">@Model.Title</h1>
+@if (!string.IsNullOrWhiteSpace(Model.HeroSubtitle))
+{
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-sm max-w-3xl">@Model.HeroSubtitle</p>
+}
+<div class="flex flex-wrap items-center gap-md text-on-surface-variant font-body-md text-body-md">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-semibold text-on-surface">@(Model.Rating?.ToString("0.0") ?? "—")</span>
+<span>(guest favorites)</span>
+</div>
+<span>•</span>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[20px]">location_on</span>
+<span>@Model.Location</span>
+</div>
+@if (chips.Any())
+{
+<span>•</span>
+<div class="flex flex-wrap gap-2">
+@foreach (var chip in chips.Take(6))
+{
+<span class="bg-secondary-container/30 text-on-secondary-container px-3 py-1 rounded-full font-label-caps text-label-caps uppercase">@chip</span>
+}
+</div>
+}
+</div>
+</header>
+
+@if (galleryCount > 0)
+{
+<section id="lv-gallery" class="mb-xxl rounded-[16px] overflow-hidden shadow-[0_4px_20px_rgba(15,23,42,0.05)] border-[0.5px] border-white/10">
+<div class="flex flex-col md:flex-row gap-unit md:gap-sm md:min-h-[400px] md:max-h-[600px]">
+@if (!string.IsNullOrWhiteSpace(g1))
+{
+<div class="relative group overflow-hidden md:flex-[1.1] md:min-h-[280px] md:max-h-[600px] shrink-0" data-lv-g-slot>
+<img class="w-full h-full min-h-[220px] md:min-h-0 object-cover transition-transform duration-700 group-hover:scale-105" alt="" src="@g1" onerror="this.closest('[data-lv-g-slot]')?.classList.add('hidden')" />
+<div class="absolute inset-0 border-[0.5px] border-white/10 pointer-events-none rounded-[16px]"></div>
+</div>
+}
+@if (!string.IsNullOrWhiteSpace(g2) || !string.IsNullOrWhiteSpace(g3) || !string.IsNullOrWhiteSpace(g4))
+{
+<div class="flex flex-col gap-unit md:gap-sm md:flex-1 md:min-w-0 md:max-h-[600px]">
+@if (!string.IsNullOrWhiteSpace(g2))
+{
+<div class="relative group overflow-hidden flex-1 min-h-[180px] md:min-h-0 md:max-h-[50%]" data-lv-g-slot>
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="" src="@g2" onerror="this.closest('[data-lv-g-slot]')?.classList.add('hidden')" />
+<div class="absolute inset-0 border-[0.5px] border-white/10 pointer-events-none rounded-[16px]"></div>
+</div>
+}
+@if (!string.IsNullOrWhiteSpace(g3) || !string.IsNullOrWhiteSpace(g4))
+{
+<div class="grid grid-cols-2 gap-unit md:gap-sm flex-1 min-h-[160px] md:min-h-0 md:max-h-[50%]">
+@if (!string.IsNullOrWhiteSpace(g3))
+{
+<div class="relative group overflow-hidden min-h-[140px]" data-lv-g-slot>
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="" src="@g3" onerror="this.closest('[data-lv-g-slot]')?.classList.add('hidden')" />
+<div class="absolute inset-0 border-[0.5px] border-white/10 pointer-events-none rounded-[16px]"></div>
+</div>
+}
+else
+{
+<div class="hidden md:block"></div>
+}
+@if (!string.IsNullOrWhiteSpace(g4))
+{
+<div class="relative group overflow-hidden min-h-[140px]" data-lv-g-slot>
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="" src="@g4" onerror="this.closest('[data-lv-g-slot]')?.classList.add('hidden')" />
+<div class="absolute inset-0 border-[0.5px] border-white/10 pointer-events-none rounded-[16px]"></div>
+<a href="#lv-gallery" class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer border-0 w-full h-full p-0 no-underline">
+<span class="text-white font-button text-button flex items-center gap-2 pointer-events-none">
+<span class="material-symbols-outlined">grid_view</span> Gallery
+</span>
+</a>
+</div>
+}
+</div>
+}
+</div>
+}
+</div>
+</section>
+}
+
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-xl">
+<div class="lg:col-span-8 flex flex-col gap-xxl">
+<section>
+<h2 class="font-h2 text-h2 text-on-surface mb-lg">About this destination</h2>
+@if (!string.IsNullOrWhiteSpace(Model.LongDescription))
+{
+<div class="font-body-lg text-body-lg text-on-surface-variant space-y-md whitespace-pre-line">
+@Model.LongDescription
+</div>
+}
+@if (!string.IsNullOrWhiteSpace(Model.Summary))
+{
+<p class="font-body-lg text-body-lg text-on-surface-variant @(string.IsNullOrWhiteSpace(Model.LongDescription) ? "" : "mt-lg pt-lg border-t border-surface-variant")">
+@Model.Summary
+</p>
+}
+@if (string.IsNullOrWhiteSpace(Model.LongDescription) && string.IsNullOrWhiteSpace(Model.Summary))
+{
+<p class="font-body-lg text-body-lg text-on-surface-variant">Explore curated stays, experiences, and concierge-planned itineraries for this destination.</p>
+}
+<div class="mt-lg grid grid-cols-2 md:grid-cols-4 gap-md">
+<div class="flex flex-col gap-xs">
+<span class="material-symbols-outlined text-primary text-[28px]">calendar_month</span>
+<span class="font-button text-button text-on-surface line-clamp-3">@(string.IsNullOrWhiteSpace(Model.BestTimeToVisit) ? "Year-round" : Model.BestTimeToVisit)</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Best time</span>
+</div>
+<div class="flex flex-col gap-xs">
+<span class="material-symbols-outlined text-primary text-[28px]">wb_sunny</span>
+<span class="font-button text-button text-on-surface line-clamp-3">@(string.IsNullOrWhiteSpace(Model.WeatherClimate) ? "Varies by season" : Model.WeatherClimate)</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Climate</span>
+</div>
+<div class="flex flex-col gap-xs">
+<span class="material-symbols-outlined text-primary text-[28px]">public</span>
+<span class="font-button text-button text-on-surface line-clamp-3">@Model.BreadcrumbRegion</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Region</span>
+</div>
+<div class="flex flex-col gap-xs">
+<span class="material-symbols-outlined text-primary text-[28px]">verified</span>
+<span class="font-button text-button text-on-surface line-clamp-3">LuxeVoyage vetted</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Quality</span>
+</div>
+</div>
+</section>
+
+@if (Model.HighlightLines.Count > 0)
+{
+<hr class="border-surface-variant"/>
+<section>
+<h2 class="font-h2 text-h2 text-on-surface mb-lg">Highlights &amp; included experiences</h2>
+<ul class="list-disc pl-6 font-body-lg text-body-lg text-on-surface-variant space-y-sm">
+@foreach (var line in Model.HighlightLines)
+{
+<li>@line</li>
+}
+</ul>
+</section>
+}
+
+<hr class="border-surface-variant"/>
+<section>
+<h2 class="font-h2 text-h2 text-on-surface mb-lg">Where you'll be</h2>
+@if (!string.IsNullOrWhiteSpace(Model.WhereYoullBeText))
+{
+<p class="font-body-md text-body-md text-on-surface-variant mb-md whitespace-pre-line">@Model.WhereYoullBeText</p>
+}
+else if (!string.IsNullOrWhiteSpace(Model.Location))
+{
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">@Model.Location — detailed routing is shared after you reserve.</p>
+}
+else
+{
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">Meeting points and timing are coordinated by your concierge after booking.</p>
+}
+<div class="rounded-[16px] overflow-hidden shadow-[0_4px_20px_rgba(15,23,42,0.05)] h-[300px] border border-surface-variant bg-surface-container-low">
+@if (!string.IsNullOrWhiteSpace(Model.MapImageUrl))
+{
+<img class="w-full h-full object-cover grayscale opacity-90 mix-blend-multiply" alt="" src="@Model.MapImageUrl" onerror="this.style.display='none'" />
+}
+else
+{
+<div class="w-full h-full flex items-center justify-center font-body-md text-on-surface-variant bg-gradient-to-br from-primary/10 via-surface-container-lowest to-secondary/10">
+<span class="material-symbols-outlined text-5xl text-primary mr-2">map</span>
+<span>@Model.Location</span>
+</div>
+}
+</div>
+</section>
+
+<hr class="border-surface-variant"/>
+<section id="lv-reviews">
+<div class="flex items-center justify-between mb-lg">
+<h2 class="font-h2 text-h2 text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-[36px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                            @(Model.Rating?.ToString("0.0") ?? "—") • traveler notes
+                        </h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-xl">
+<div class="flex flex-col gap-sm">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-h3 text-h3">LV</div>
+<div>
+<h4 class="font-button text-button text-on-surface">Curated guest feedback</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Recent seasons</p>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-4">
+                                “Seamless planning and thoughtful pacing — exactly the balance of exploration and downtime we wanted.”
+                            </p>
+</div>
+<div class="flex flex-col gap-sm">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center text-on-surface-variant font-h3 text-h3">GV</div>
+<div>
+<h4 class="font-button text-button text-on-surface">Concierge notes</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Verified partner stays</p>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-4">
+                                “Local insights elevated the trip beyond anything we could have charted alone.”
+                            </p>
+</div>
+</div>
+</section>
+
+@if (Model.TopAttractions.Count > 0)
+{
+<hr class="border-surface-variant"/>
+<section>
+<div class="mb-lg">
+<h2 class="font-h2 text-h2 text-on-surface">Top Attractions</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Must-see places selected for this destination.</p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
+@foreach (var attraction in Model.TopAttractions)
+{
+<article class="rounded-[14px] border border-surface-variant bg-surface-container-lowest overflow-hidden">
+<div class="h-36 bg-surface-container-low">
+@if (!string.IsNullOrWhiteSpace(attraction.ImageUrl))
+{
+<img src="@attraction.ImageUrl" alt="@attraction.Name" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.classList.add('flex','items-center','justify-center'); this.parentElement.innerHTML = '<span class=&quot;material-symbols-outlined text-outline text-4xl&quot;>image</span>';" />
+}
+else
+{
+<div class="w-full h-full flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-4xl">image</span>
+</div>
+}
+</div>
+<div class="p-3">
+<div class="flex items-center justify-between gap-2">
+<h3 class="font-button text-button text-on-surface">@attraction.Name</h3>
+<span class="inline-flex items-center rounded-full bg-secondary-container/35 px-2.5 py-1 text-[11px] font-semibold text-on-secondary-container">@attraction.Category</span>
+</div>
+<p class="font-body-md text-[13px] text-on-surface-variant mt-1">@attraction.City</p>
+</div>
+</article>
+}
+</div>
+</section>
+}
+</div>
+
+<div class="lg:col-span-4 relative">
+<div id="lv-booking-panel" class="sticky top-[120px]">
+<div class="lv-booking-card">
+<div class="lv-booking-eyebrow">Planning from</div>
+<div class="lv-booking-price">@Model.PriceDisplay</div>
+<div class="lv-booking-subcopy">Tell us your dates and party size — we’ll tailor stays, transfers, and signature experiences.</div>
+@if (Model.NumericId is int nid)
+{
+<a asp-controller="Bookings" asp-action="Create" asp-route-destinationId="@nid" class="lv-booking-cta">Start planning</a>
+}
+<div class="lv-booking-meta">
+<span class="lv-booking-note">No charge today</span>
+<span class="lv-booking-note">Secure request</span>
+<span class="lv-booking-note">Concierge support included</span>
+</div>
+<div class="lv-booking-rows">
+<div class="lv-booking-row"><span>Planning from</span><span>@Model.PriceDisplay</span></div>
+<div class="lv-booking-row"><span>Guide price</span><span>@Model.PriceDisplay</span></div>
+<div class="lv-booking-row"><span>Tailored quote</span><span>Available</span></div>
+</div>
+</div>
+</div>
+</div>
+</main>

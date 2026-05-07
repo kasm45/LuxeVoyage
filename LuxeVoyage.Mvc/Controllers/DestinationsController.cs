@@ -1,4 +1,5 @@
 using LuxeVoyage.Mvc.Data;
+using LuxeVoyage.Mvc.Mapping;
 using LuxeVoyage.Mvc.Models;
 using LuxeVoyage.Mvc.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,8 @@ public class DestinationsController : Controller
         ViewBag.NavSection = "Destinations";
         ViewData["Title"] = "LuxeVoyage - Destinations";
 
-        var q = _db.Destinations.AsNoTracking().AsQueryable();
+        var q = _db.Destinations.AsNoTracking()
+            .Where(d => d.IsActive && d.IsVisibleOnListing).AsQueryable();
         var cat = CatalogQueryHelper.ParseCategory(category);
         var reg = CatalogQueryHelper.ParseRegion(region);
         if (cat != null)
@@ -45,18 +47,7 @@ public class DestinationsController : Controller
             fav = favList.ToHashSet();
         }
 
-        var cards = rows.Select(d => new AttractionCardVm
-        {
-            Id = d.Id,
-            Slug = d.Slug,
-            Title = d.Title,
-            CategoryLabel = CatalogQueryHelper.CategoryDisplay(d.Category),
-            RegionDisplay = CatalogQueryHelper.RegionDisplay(d.Region),
-            ImageUrl = d.ImageUrl,
-            Rating = d.Rating,
-            Summary = d.Summary,
-            IsFavorite = fav.Contains(d.Id)
-        }).ToList();
+        var cards = rows.Select(d => DestinationDisplayMapper.ToListingCard(d, fav.Contains(d.Id))).ToList();
 
         var vm = new AttractionsIndexViewModel
         {
@@ -91,33 +82,60 @@ public class DestinationsController : Controller
                 System.Globalization.CultureInfo.InvariantCulture, out var numericId))
             d = await _db.Destinations.AsNoTracking().FirstOrDefaultAsync(x => x.Id == numericId);
 
-        if (d == null)
-        {
-            TempData["Error"] = "That destination could not be found.";
-            return RedirectToAction(nameof(Index));
-        }
+        if (d == null || !d.IsActive)
+            return DestinationNotFound();
 
         ViewBag.NavSection = "Destinations";
-        ViewData["Title"] = $"LuxeVoyage - {d.Title}";
+        ViewData["Title"] = $"LuxeVoyage - {DestinationDisplayMapper.EffectiveHeroTitle(d)}";
 
-        var model = new ExperienceDetailViewModel
+        var model = DestinationDisplayMapper.ToDetail(d);
+        var destinationCity = ResolveDestinationCity(d);
+        if (!string.IsNullOrWhiteSpace(destinationCity))
         {
-            Id = d.Slug,
-            NumericId = d.Id,
-            Title = d.Title,
-            BreadcrumbRegion = d.BreadcrumbRegion ?? CatalogQueryHelper.RegionDisplay(d.Region),
-            BreadcrumbCity = d.BreadcrumbCity ?? "",
-            BreadcrumbCurrent = d.BreadcrumbCurrent ?? d.Title,
-            Location = d.LocationLabel ?? "",
-            PriceDisplay = d.PriceHint ?? "",
-            Summary = d.Summary,
-            Rating = d.Rating,
-            DetailKind = "destination"
-        };
+            var topAttractions = await _db.Attractions.AsNoTracking()
+                .Where(a => a.City == destinationCity)
+                .OrderBy(a => a.Name)
+                .Take(4)
+                .Select(a => new DestinationAttractionViewModel
+                {
+                    Id = a.Id,
+                    Name = a.Name,
+                    City = a.City,
+                    Category = a.Category,
+                    ImageUrl = a.ImageUrl
+                })
+                .ToListAsync();
+            model.TopAttractions = topAttractions;
+        }
 
         return View(model);
     }
 
+    private IActionResult DestinationNotFound()
+    {
+        Response.StatusCode = 404;
+        ViewBag.NavSection = "Destinations";
+        ViewData["Title"] = "Destination not found | LuxeVoyage";
+        return View("NotFound");
+    }
+
     private string? GetUserId() =>
         User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+    private static string? ResolveDestinationCity(Destination destination)
+    {
+        var fromBreadcrumb = destination.BreadcrumbCity?.Trim();
+        if (!string.IsNullOrWhiteSpace(fromBreadcrumb))
+            return fromBreadcrumb;
+
+        var fromLocation = destination.LocationLabel?.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
+        if (!string.IsNullOrWhiteSpace(fromLocation))
+            return fromLocation;
+
+        var fromTitle = destination.Title.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
+        if (!string.IsNullOrWhiteSpace(fromTitle))
+            return fromTitle;
+
+        return null;
+    }
 }

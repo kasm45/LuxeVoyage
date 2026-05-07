@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using LuxeVoyage.Mvc.Data;
+using LuxeVoyage.Mvc.Mapping;
 using LuxeVoyage.Mvc.Models;
 using LuxeVoyage.Mvc.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -29,15 +30,17 @@ public class HomeController : Controller
         ViewData["Title"] = "LuxeVoyage";
 
         var destRows = await _db.Destinations.AsNoTracking()
+            .Where(d => d.IsActive && d.IsVisibleOnListing)
             .OrderBy(d => d.Title)
             .ToListAsync();
         var suggestions = destRows.Select(d =>
         {
             var (city, country) = CityCountryLabels(d);
             var region = CatalogQueryHelper.RegionDisplay(d.Region);
+            var listTitle = DestinationDisplayMapper.EffectiveCardTitle(d);
             var parts = new[]
             {
-                d.Title,
+                listTitle,
                 d.LocationLabel,
                 d.BreadcrumbCity,
                 d.BreadcrumbCurrent,
@@ -49,7 +52,7 @@ public class HomeController : Controller
             return new DestinationSuggestionClient
             {
                 Id = d.Id,
-                Title = d.Title,
+                Title = listTitle,
                 LocationLabel = d.LocationLabel,
                 RegionLabel = region,
                 City = city,

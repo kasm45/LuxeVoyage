@@ -22,9 +22,17 @@ public static class CatalogQueryHelper
         {
             "europe" => RegionKind.Europe,
             "asia" => RegionKind.Asia,
-            "americas" => RegionKind.Americas,
+            "americas" => RegionKind.NorthAmerica,
+            "north-america" => RegionKind.NorthAmerica,
+            "northamerica" => RegionKind.NorthAmerica,
+            "south-america" => RegionKind.SouthAmerica,
+            "southamerica" => RegionKind.SouthAmerica,
             "africa" => RegionKind.Africa,
             "middleeast" => RegionKind.MiddleEast,
+            "middle-east" => RegionKind.MiddleEast,
+            "oceania" => RegionKind.Oceania,
+            "pacific-islands" => RegionKind.PacificIslands,
+            "pacificislands" => RegionKind.PacificIslands,
             _ => null
         };
     }
@@ -42,9 +50,12 @@ public static class CatalogQueryHelper
     {
         RegionKind.Europe => "europe",
         RegionKind.Asia => "asia",
-        RegionKind.Americas => "americas",
+        RegionKind.NorthAmerica => "north-america",
         RegionKind.Africa => "africa",
         RegionKind.MiddleEast => "middleeast",
+        RegionKind.SouthAmerica => "south-america",
+        RegionKind.Oceania => "oceania",
+        RegionKind.PacificIslands => "pacific-islands",
         _ => ""
     };
 
@@ -61,9 +72,12 @@ public static class CatalogQueryHelper
     {
         RegionKind.Europe => "Europe",
         RegionKind.Asia => "Asia",
-        RegionKind.Americas => "Americas",
+        RegionKind.NorthAmerica => "North America",
         RegionKind.Africa => "Africa",
         RegionKind.MiddleEast => "Middle East",
+        RegionKind.SouthAmerica => "South America",
+        RegionKind.Oceania => "Oceania",
+        RegionKind.PacificIslands => "Pacific Islands",
         _ => ""
     };
 

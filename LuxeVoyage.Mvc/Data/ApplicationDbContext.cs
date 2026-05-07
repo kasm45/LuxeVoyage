@@ -16,6 +16,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<Tour> Tours => Set<Tour>();
     public DbSet<Stay> Stays => Set<Stay>();
     public DbSet<Booking> Bookings => Set<Booking>();
+    public DbSet<Notification> Notifications => Set<Notification>();
     public DbSet<Favorite> Favorites => Set<Favorite>();
     public DbSet<Attraction> Attractions => Set<Attraction>();
 
@@ -71,6 +72,18 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             .HasOne(b => b.Destination)
             .WithMany()
             .HasForeignKey(b => b.DestinationId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.Entity<Notification>()
+            .HasOne(n => n.User)
+            .WithMany()
+            .HasForeignKey(n => n.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.Entity<Notification>()
+            .HasOne(n => n.Reservation)
+            .WithMany()
+            .HasForeignKey(n => n.ReservationId)
             .OnDelete(DeleteBehavior.SetNull);
     }
 }

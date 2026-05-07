@@ -1,11 +1,22 @@
 ﻿@model IReadOnlyList<LuxeVoyage.Mvc.Models.Attraction>
+@using LuxeVoyage.Mvc.Data
+@using LuxeVoyage.Mvc.Models
+@inject ApplicationDbContext Db
+@{
+    var pendingReservations = Db.Bookings.Count(b => b.Status == BookingStatus.Pending);
+    var previewByCity = ViewBag.PreviewByCity as IReadOnlyDictionary<string, string>;
+}
 <!-- TopAppBar -->
 <header class="bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm text-slate-900 dark:text-white font-serif text-lg font-semibold fixed top-0 right-0 left-64 z-40 border-b border-slate-100 dark:border-slate-800 shadow-none flex justify-between items-center px-8 h-16">
-<h2 class="font-h3 text-h3 text-primary">Attraction Management</h2>
+<h2 class="font-h3 text-h3 text-primary">Points of Interest</h2>
 <div class="flex items-center gap-4">
-<button type="button" onclick="lvPlaceholder(event)" class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full p-2 opacity-90 hover:opacity-100 transition-all" title="Notifications (coming soon)" aria-label="Notifications coming soon">
+<a asp-controller="AdminManageBookings" asp-action="Index" class="relative text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full p-2 opacity-90 hover:opacity-100 transition-all" title="Pending reservations" aria-label="Pending reservations">
 <span class="material-symbols-outlined">notifications</span>
-</button>
+@if (pendingReservations > 0)
+{
+    <span class="absolute -top-1 -right-1 min-w-[18px] h-[18px] rounded-full bg-amber-100 text-amber-700 text-[10px] leading-[18px] text-center px-1 font-semibold">@pendingReservations</span>
+}
+</a>
 <button type="button" onclick="lvPlaceholder(event)" class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full p-2 opacity-90 hover:opacity-100 transition-all" title="Help (coming soon)" aria-label="Help coming soon">
 <span class="material-symbols-outlined">help_outline</span>
 </button>
@@ -20,12 +31,20 @@
 </header>
 <!-- Main Content Area -->
 <main class="flex-1 pt-24 px-md pb-xl">
+<div class="admin-page-header">
+<h1 class="admin-page-title">Manage Points of Interest</h1>
+<p class="admin-page-subtitle">Create and maintain non-bookable places shown inside destination pages.</p>
+</div>
+<div class="rounded-xl border border-amber-200 bg-amber-50 px-4 py-2 text-xs text-amber-800 mb-4">
+    Points of Interest are non-bookable places that appear inside destination detail pages as Top Attractions. Example: Eiffel Tower appears on Paris; Central Park appears on New York.
+</div>
+@* Admin label is Points of Interest; underlying model remains Attraction for compatibility. *@
 <!-- Page Header Actions -->
-<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-5">
 <div class="relative w-full sm:w-96">
 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
 <form method="get">
-<input type="search" name="q" value="@((string?)ViewBag.SearchQuery ?? "")" class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-primary focus:border-primary focus:ring-1 focus:ring-primary transition-all font-body-md text-body-md h-[48px]" placeholder="Search attractions..." />
+<input type="search" name="q" value="@((string?)ViewBag.SearchQuery ?? "")" class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-primary focus:border-primary focus:ring-1 focus:ring-primary transition-all font-body-md text-body-md h-[48px]" placeholder="Search points of interest..." />
 </form>
 </div>
 @if (!string.IsNullOrWhiteSpace((string?)ViewBag.SearchQuery))
@@ -34,7 +53,7 @@
 }
 <a asp-controller="AdminAttractions" asp-action="Create" class="bg-primary text-on-primary font-label-sm text-label-sm px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors flex items-center gap-2 whitespace-nowrap shadow-sm">
 <span class="material-symbols-outlined text-[20px]">add</span>
-                    Add New Attraction
+                    Add Point of Interest
                 </a>
 </div>
 <!-- Data Table Container -->
@@ -45,6 +64,7 @@
 <tr class="bg-surface-container-low border-b border-outline-variant">
 <th class="py-4 px-6 font-label-sm text-label-sm text-on-surface-variant font-semibold tracking-wider w-1/3">Name</th>
 <th class="py-4 px-6 font-label-sm text-label-sm text-on-surface-variant font-semibold tracking-wider">City</th>
+<th class="py-4 px-6 font-label-sm text-label-sm text-on-surface-variant font-semibold tracking-wider">Used In Destination</th>
 <th class="py-4 px-6 font-label-sm text-label-sm text-on-surface-variant font-semibold tracking-wider">Category</th>
 <th class="py-4 px-6 font-label-sm text-label-sm text-on-surface-variant font-semibold tracking-wider text-right">Actions</th>
 </tr>
@@ -53,11 +73,26 @@
 @if (Model.Count == 0)
 {
 <tr>
-<td colspan="4" class="py-6 px-6"><div class="admin-empty-state"><h3>No results found</h3><p>Try adjusting your search term or clear the search.</p></div></td>
+<td colspan="5" class="py-6 px-6"><div class="admin-empty-state"><h3>No results found</h3><p>Try adjusting your search term or clear the search.</p></div></td>
 </tr>
 }
 @foreach (var item in Model)
 {
+    var city = item.City?.Trim() ?? "";
+    var hasCity = !string.IsNullOrWhiteSpace(city);
+    var previewUrl = hasCity && previewByCity != null && previewByCity.TryGetValue(city, out var mapped)
+        ? mapped
+        : "/destinations";
+    var categoryLabel = item.Category.Trim();
+    var categoryWithIcon = categoryLabel.Equals("Landmark", StringComparison.OrdinalIgnoreCase)
+        ? "🏛 " + categoryLabel
+        : categoryLabel.Equals("Museum", StringComparison.OrdinalIgnoreCase)
+            ? "🖼 " + categoryLabel
+            : categoryLabel.Equals("Nature", StringComparison.OrdinalIgnoreCase)
+                ? "🌿 " + categoryLabel
+                : categoryLabel.Equals("Historical", StringComparison.OrdinalIgnoreCase)
+                    ? "🏛 " + categoryLabel
+                    : categoryLabel;
 <tr class="hover:bg-surface-container/50 transition-colors group">
 <td class="py-4 px-6">
 <div class="flex items-center gap-4">
@@ -81,12 +116,24 @@ else
 </td>
 <td class="py-4 px-6 font-body-md text-body-md text-on-surface">@item.City</td>
 <td class="py-4 px-6">
+    @if (hasCity)
+    {
+        <p class="font-body-md text-body-md text-on-surface">@city</p>
+        <p class="text-[11px] text-slate-500">Matched by city</p>
+    }
+    else
+    {
+        <p class="font-body-md text-body-md text-slate-500">Not matched yet</p>
+    }
+</td>
+<td class="py-4 px-6">
 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-surface-container-high text-on-surface-variant border border-outline-variant/50">
-                                        @item.Category
+                                        @categoryWithIcon
                                     </span>
 </td>
 <td class="py-4 px-6 text-right">
 <div class="admin-row-actions">
+<a href="@previewUrl" class="admin-action-link admin-action-preview">Preview</a>
 <a asp-controller="AdminAttractions" asp-action="Details" asp-route-id="@item.Id" class="admin-action-link">Details</a>
 <a asp-controller="AdminAttractions" asp-action="Edit" asp-route-id="@item.Id" class="admin-action-link">Edit</a>
 <form asp-controller="AdminAttractions" asp-action="Delete" asp-route-id="@item.Id" method="post" class="inline-flex m-0" onsubmit="return confirm('Delete this attraction? This cannot be undone.');">
@@ -103,7 +150,7 @@ else
 <!-- Footer count -->
 <div class="bg-surface-container-lowest px-6 py-4 border-t border-outline-variant flex items-center justify-between">
 <p class="text-sm text-on-surface-variant">
-                        <span class="font-medium text-primary">@Model.Count</span> attraction@(Model.Count == 1 ? "" : "s")
+                        <span class="font-medium text-primary">@Model.Count</span> point@(Model.Count == 1 ? " of interest" : "s of interest")
                     </p>
 </div>
 </div>

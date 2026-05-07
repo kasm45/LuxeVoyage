@@ -31,17 +31,18 @@ public static class ExperienceCatalogRepair
             Title = "Aerial Canyon Tour",
             Slug = "aerial-canyon",
             Category = ExperienceCategoryKind.NatureEscapes,
-            Region = RegionKind.Americas,
+            Region = RegionKind.NorthAmerica,
             ImageUrl =
                 "https://lh3.googleusercontent.com/aida-public/AB6AXuBfLmPPvRhBGcmEobeHhHO2a_7h3knpyF4eiuW5aZdkCyYcsB0Z-qb17FEXLnEeYuUqBeH0vl690tP127JT9xggNqhPlFLMHU0ClCvTtSBIkduweCdWpBHiq63KiXPP2ul1psaTeQQR-U4alttTY_BS2h_ek1d_EGIzLc0awsNarTDMvXgqcMcgogxod07JTOuubpA3042YuMsHetKdqjEy8HYCw1lwhS_SdnXrYrPwaYFQpjcjbtYFjy5TWRpp4kRh3AVKgUObTRY",
             Summary = "Soar above majestic landscapes in a luxury chopper.",
             LocationLabel = "Southwest USA",
             Rating = 4.85,
             PriceHint = "$890",
-            BreadcrumbRegion = "Americas",
+            BreadcrumbRegion = "North America",
             BreadcrumbCity = "Grand Canyon",
             BreadcrumbCurrent = "Aerial",
-            TagLine = "Adventure"
+            TagLine = "Adventure",
+            IsActive = false
         }
     ];
 

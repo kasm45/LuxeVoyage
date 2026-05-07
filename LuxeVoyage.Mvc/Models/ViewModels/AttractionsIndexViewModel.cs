@@ -30,4 +30,10 @@ public class AttractionCardVm
     public double? Rating { get; set; }
     public string? Summary { get; set; }
     public bool IsFavorite { get; set; }
+
+    /// <summary>Listing-card badge override (destinations); falls back to <see cref="CategoryLabel"/>.</summary>
+    public string? ListingBadge { get; set; }
+
+    /// <summary>Optional “from $…” line on destination listing cards.</summary>
+    public string? ListingPriceHint { get; set; }
 }

@@ -159,8 +159,8 @@
                         var statusClass = b.Status switch
                         {
                             LuxeVoyage.Mvc.Models.BookingStatus.Pending => "admin-status-pending",
-                            LuxeVoyage.Mvc.Models.BookingStatus.Confirmed => "admin-status-confirmed",
-                            LuxeVoyage.Mvc.Models.BookingStatus.Cancelled => "admin-status-cancelled",
+                            LuxeVoyage.Mvc.Models.BookingStatus.Accepted => "admin-status-confirmed",
+                            LuxeVoyage.Mvc.Models.BookingStatus.Rejected => "admin-status-cancelled",
                             LuxeVoyage.Mvc.Models.BookingStatus.Completed => "admin-status-completed",
                             _ => "admin-status-pending"
                         };
@@ -171,9 +171,7 @@
                             <td class="py-3 px-6 whitespace-nowrap">@b.StartDate.ToString("MMM d") – @b.EndDate.ToString("MMM d")</td>
                             <td class="py-3 px-6"><span class="admin-status-badge @statusClass">@b.Status</span></td>
                             <td class="py-3 px-6 whitespace-nowrap text-slate-500 dark:text-slate-400">@b.CreatedAtUtc.ToString("MMM d, yyyy HH:mm") UTC</td>
-                            <td class="py-3 px-6 whitespace-nowrap">
-                                <a asp-controller="AdminManageBookings" asp-action="Details" asp-route-id="@b.Id" class="admin-action-link">Details</a>
-                            </td>
+                            <td class="py-3 px-6 whitespace-nowrap text-slate-400">—</td>
                         </tr>
                     }
                 </tbody>

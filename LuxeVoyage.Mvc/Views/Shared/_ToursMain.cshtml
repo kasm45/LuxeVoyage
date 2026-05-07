@@ -1,4 +1,4 @@
-﻿@model LuxeVoyage.Mvc.Models.ViewModels.ToursIndexViewModel
+@model LuxeVoyage.Mvc.Models.ViewModels.ToursIndexViewModel
 @{
     var returnUrl = $"{Context.Request.Path}{Context.Request.QueryString}";
 }
@@ -38,7 +38,7 @@ else
 @foreach (var t in Model.Tours)
 {
 <article class="relative bg-surface-container-lowest border border-surface-dim rounded-xl overflow-hidden flex flex-col group cursor-pointer transition-[box-shadow,border-color] duration-300 hover:shadow-[0px_12px_24px_-6px_rgba(15,23,42,0.12)] hover:border-primary/25">
-<a asp-controller="Bookings" asp-action="Create" asp-route-tourId="@t.Id" class="absolute inset-0 z-[1] rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset" aria-label="Book @t.Title"></a>
+<a asp-controller="Tours" asp-action="Detail" asp-route-slug="@t.Slug" class="absolute inset-0 z-[1] rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset" aria-label="View details for @t.Title"></a>
 <div class="relative z-[2] pointer-events-none flex flex-col flex-grow min-h-0">
 <div class="relative h-[240px] w-full overflow-hidden bg-surface-container-low shrink-0">
 @if (!string.IsNullOrEmpty(t.ImageUrl))
@@ -46,10 +46,10 @@ else
 <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" alt="" src="@t.ImageUrl" onerror="this.onerror=null;this.src='/images/placeholders/lv-placeholder.svg';" />
 }
 <div class="absolute top-margin-mobile right-margin-mobile bg-on-tertiary-container text-on-tertiary px-sm py-[6px] rounded-full font-label-sm text-label-sm shadow-md backdrop-blur-sm">
-                        $@t.Price.ToString("0")
+                        @(string.IsNullOrWhiteSpace(t.PriceHint) ? "$" + t.Price.ToString("0") : t.PriceHint)
                     </div>
 <div class="absolute top-margin-mobile left-margin-mobile bg-surface-container-lowest/90 text-on-surface-variant px-sm py-[4px] rounded-full font-label-sm text-[12px] uppercase tracking-wider backdrop-blur-md">
-                        @t.CategoryLabel
+                        @(string.IsNullOrWhiteSpace(t.CategoryLabel) ? "Tour" : t.CategoryLabel)
                     </div>
 </div>
 <div class="p-margin-mobile flex flex-col flex-grow">
@@ -65,7 +65,7 @@ else
 </button>
 </form>
 </div>
-<p class="font-body-md text-body-md text-on-surface-variant mb-md line-clamp-2 flex-grow">@t.Summary</p>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md line-clamp-2 flex-grow">@(string.IsNullOrWhiteSpace(t.Summary) ? "Curated itinerary with premium pacing and concierge support." : t.Summary)</p>
 <div class="flex items-center justify-between mb-md border-t border-surface-container pt-md">
 <div class="flex items-center gap-xs text-on-surface-variant">
 <span class="material-symbols-outlined text-[20px]">schedule</span>
@@ -77,8 +77,8 @@ else
 <span class="text-[12px]">(@t.ReviewCount)</span>
 </div>
 </div>
-<a asp-controller="Bookings" asp-action="Create" asp-route-tourId="@t.Id" class="relative z-10 pointer-events-auto w-full font-label-sm text-label-sm bg-secondary-container text-on-secondary-container py-sm rounded-lg hover:brightness-110 transition-all flex justify-center items-center gap-xs">
-                        Book Now
+<a asp-controller="Tours" asp-action="Detail" asp-route-slug="@t.Slug" class="relative z-10 pointer-events-auto w-full font-label-sm text-label-sm bg-secondary-container text-on-secondary-container py-sm rounded-lg hover:brightness-110 transition-all flex justify-center items-center gap-xs">
+                        View itinerary
                         <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
 </a>
 </div>

@@ -14,6 +14,10 @@ public class BookingCreateViewModel
     public string? ExperienceTitle { get; set; }
     public string? DestinationTitle { get; set; }
     public decimal? PriceHint { get; set; }
+    public string? CapacityLabel { get; set; }
+    public string? BookingKind { get; set; }
+    public int? MinGuests { get; set; }
+    public int? MaxGuests { get; set; }
 
     [Required]
     [DataType(DataType.Date)]

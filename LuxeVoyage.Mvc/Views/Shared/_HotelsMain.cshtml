@@ -1,4 +1,4 @@
-ï»¿@model LuxeVoyage.Mvc.Models.ViewModels.HotelsIndexViewModel
+@model LuxeVoyage.Mvc.Models.ViewModels.HotelsIndexViewModel
 @{
     var returnUrl = $"{Context.Request.Path}{Context.Request.QueryString}";
 }
@@ -26,7 +26,7 @@
 <input type="hidden" name="view" value="@Model.ViewMode" />
 <div class="lv-filter-select-wrap relative">
 <select name="price" onchange="this.form.submit()" class="lv-filter-select bg-surface-container border border-surface-dim cursor-pointer hover:border-outline transition-colors font-label-sm text-label-sm text-on-surface">
-@foreach (var opt in new[] { ("any", "Price: Any"), ("budget", "Under $200"), ("mid", "$200 â€“ $400"), ("luxury", "Luxury ($400+)") })
+@foreach (var opt in new[] { ("any", "Price: Any"), ("budget", "Under $200"), ("mid", "$200 – $400"), ("luxury", "Luxury ($400+)") })
 {
 if (Model.PriceFilter == opt.Item1)
 { <option value="@opt.Item1" selected>@opt.Item2</option> }
@@ -50,7 +50,7 @@ else
 </div>
 <div class="lv-filter-select-wrap relative">
 <select name="amenity" onchange="this.form.submit()" class="lv-filter-select bg-surface-container border border-surface-dim cursor-pointer hover:border-outline transition-colors font-label-sm text-label-sm text-on-surface">
-@foreach (var opt in new[] { ("any", "Amenities: Any"), ("wifi", "Wiâ€‘Fi"), ("pool", "Pool"), ("spa", "Spa"), ("gym", "Gym"), ("dining", "Dining"), ("eco", "Eco"), ("yoga", "Yoga") })
+@foreach (var opt in new[] { ("any", "Amenities: Any"), ("wifi", "Wi-Fi"), ("pool", "Pool"), ("spa", "Spa"), ("gym", "Gym"), ("dining", "Dining"), ("eco", "Eco"), ("yoga", "Yoga") })
 {
 if (Model.AmenityFilter == opt.Item1)
 { <option value="@opt.Item1" selected>@opt.Item2</option> }
@@ -70,14 +70,17 @@ else
 <section class="mb-lg rounded-xl border border-surface-dim overflow-hidden bg-surface-container-low">
 <div class="h-72 bg-gradient-to-br from-primary/15 via-surface-container-lowest to-secondary/10 flex flex-col items-center justify-center gap-3 px-6 text-center">
 <span class="material-symbols-outlined text-6xl text-primary">map</span>
-<p class="font-body-md text-on-surface-variant max-w-lg">Map preview â€” pins reflect filtered stays. Switch back to Grid for full cards.</p>
+<p class="font-body-md text-on-surface-variant max-w-lg">Map preview — pins reflect filtered stays. Switch back to Grid for full cards.</p>
 </div>
 <div class="p-6 border-t border-surface-dim">
 <h3 class="font-h3 text-h3 text-on-surface mb-4">Locations in this list</h3>
 <ul class="space-y-3 font-body-md text-body-md text-on-surface-variant">
 @foreach (var s in Model.Stays)
 {
-<li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary text-[20px]">location_on</span><span><span class="text-on-surface font-medium">@s.Name</span> â€” @s.CityLine</span></li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0">location_on</span>
+<a class="text-left hover:text-primary transition-colors" asp-controller="Hotels" asp-action="Detail" asp-route-id="@s.Slug"><span class="text-on-surface font-medium">@s.Name</span> — @s.CityLine</a>
+</li>
 }
 </ul>
 </div>
@@ -105,7 +108,7 @@ else if (Model.ViewMode == "grid")
 <img alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="@h.ImageUrl" onerror="this.onerror=null;this.src='/images/placeholders/lv-placeholder.svg';" />
 }
 <div class="absolute top-4 right-4 bg-tertiary-container text-on-tertiary-container font-label-sm text-label-sm px-3 py-1 rounded-full shadow-sm">
-                        $@h.PricePerNight.ToString("0") / night
+                        @(string.IsNullOrWhiteSpace(h.PriceHint) ? "$" + h.PricePerNight.ToString("0") + " / night" : h.PriceHint)
                     </div>
 <div class="absolute bottom-4 left-4 flex gap-2">
 <span class="bg-surface/90 backdrop-blur-sm text-on-surface font-label-sm text-label-sm px-2 py-1 rounded shadow-sm flex items-center gap-1">

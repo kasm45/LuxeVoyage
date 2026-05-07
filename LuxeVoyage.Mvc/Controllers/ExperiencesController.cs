@@ -1,4 +1,5 @@
 using LuxeVoyage.Mvc.Data;
+using LuxeVoyage.Mvc.Mapping;
 using LuxeVoyage.Mvc.Models;
 using LuxeVoyage.Mvc.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,7 @@ public class ExperiencesController : Controller
         ViewBag.NavSection = "Experiences";
         ViewData["Title"] = "LuxeVoyage - Experiences";
 
-        var q = _db.Experiences.AsNoTracking().AsQueryable();
+        var q = _db.Experiences.AsNoTracking().Where(e => e.IsActive && e.IsVisibleOnListing).AsQueryable();
         var cat = CatalogQueryHelper.ParseCategory(category);
         var reg = CatalogQueryHelper.ParseRegion(region);
         if (cat != null)
@@ -38,25 +39,13 @@ public class ExperiencesController : Controller
         {
             var ids = rows.Select(r => r.Id).ToList();
             var favList = await _db.Favorites.AsNoTracking()
-                .Where(f => f.UserId == uid && f.TargetKind == FavoriteTargetKind.Experience &&
-                            ids.Contains(f.TargetId))
+                .Where(f => f.UserId == uid && f.TargetKind == FavoriteTargetKind.Experience && ids.Contains(f.TargetId))
                 .Select(f => f.TargetId)
                 .ToListAsync();
             fav = favList.ToHashSet();
         }
 
-        var cards = rows.Select(e => new AttractionCardVm
-        {
-            Id = e.Id,
-            Slug = e.Slug,
-            Title = e.Title,
-            CategoryLabel = CatalogQueryHelper.CategoryDisplay(e.Category),
-            RegionDisplay = CatalogQueryHelper.RegionDisplay(e.Region),
-            ImageUrl = e.ImageUrl,
-            Rating = e.Rating,
-            Summary = e.Summary,
-            IsFavorite = fav.Contains(e.Id)
-        }).ToList();
+        var cards = rows.Select(e => CatalogDisplayMapper.ToExperienceCard(e, fav.Contains(e.Id))).ToList();
 
         var vm = new AttractionsIndexViewModel
         {
@@ -75,7 +64,6 @@ public class ExperiencesController : Controller
         return View(vm);
     }
 
-    /// <summary>Must be registered before <see cref="Detail"/> so "filter" is not captured as a slug.</summary>
     [HttpGet("filter")]
     public IActionResult Filter(string? category, string? region)
     {
@@ -85,39 +73,25 @@ public class ExperiencesController : Controller
     [HttpGet("{id}")]
     public async Task<IActionResult> Detail(string id)
     {
-        var e = await _db.Experiences.AsNoTracking()
-            .FirstOrDefaultAsync(x => x.Slug == id);
-        if (e == null && int.TryParse(id, System.Globalization.NumberStyles.Integer,
-                System.Globalization.CultureInfo.InvariantCulture, out var numericId))
+        var e = await _db.Experiences.AsNoTracking().FirstOrDefaultAsync(x => x.Slug == id);
+        if (e == null && int.TryParse(id, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var numericId))
             e = await _db.Experiences.AsNoTracking().FirstOrDefaultAsync(x => x.Id == numericId);
 
-        if (e == null)
-        {
-            TempData["Error"] = "That experience could not be found.";
-            return RedirectToAction(nameof(Index));
-        }
+        if (e == null || !e.IsActive)
+            return ExperienceNotFound();
 
         ViewBag.NavSection = "Experiences";
         ViewData["Title"] = $"LuxeVoyage - {e.Title}";
-
-        var model = new ExperienceDetailViewModel
-        {
-            Id = e.Slug,
-            NumericId = e.Id,
-            Title = e.Title,
-            BreadcrumbRegion = e.BreadcrumbRegion ?? CatalogQueryHelper.RegionDisplay(e.Region),
-            BreadcrumbCity = e.BreadcrumbCity ?? "",
-            BreadcrumbCurrent = e.BreadcrumbCurrent ?? e.Title,
-            Location = e.LocationLabel ?? "",
-            PriceDisplay = e.PriceHint ?? "",
-            Summary = e.Summary,
-            Rating = e.Rating,
-            DetailKind = "experience"
-        };
-
-        return View(model);
+        return View(CatalogDisplayMapper.ToExperienceDetail(e));
     }
 
-    private string? GetUserId() =>
-        User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+    private IActionResult ExperienceNotFound()
+    {
+        Response.StatusCode = 404;
+        ViewBag.NavSection = "Experiences";
+        ViewData["Title"] = "Experience not found | LuxeVoyage";
+        return View("NotFound");
+    }
+
+    private string? GetUserId() => User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
 }

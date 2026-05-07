@@ -29,4 +29,7 @@ public class StayCardVm
     public string? ImageUrl { get; set; }
     public IReadOnlyList<string> AmenityTags { get; set; } = Array.Empty<string>();
     public bool IsFavorite { get; set; }
+    public string? Summary { get; set; }
+    public string? Badge { get; set; }
+    public string? PriceHint { get; set; }
 }
