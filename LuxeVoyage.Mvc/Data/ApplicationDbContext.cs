@@ -19,6 +19,8 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<Notification> Notifications => Set<Notification>();
     public DbSet<Favorite> Favorites => Set<Favorite>();
     public DbSet<Attraction> Attractions => Set<Attraction>();
+    public DbSet<CartItem> CartItems => Set<CartItem>();
+    public DbSet<Payment> Payments => Set<Payment>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -85,5 +87,32 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             .WithMany()
             .HasForeignKey(n => n.ReservationId)
             .OnDelete(DeleteBehavior.SetNull);
+
+        builder.Entity<CartItem>()
+            .HasOne<ApplicationUser>()
+            .WithMany()
+            .HasForeignKey(c => c.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.Entity<CartItem>()
+            .HasIndex(c => new { c.UserId, c.ItemType, c.ItemId });
+
+        builder.Entity<Payment>()
+            .HasOne(p => p.Booking)
+            .WithMany(b => b.Payments)
+            .HasForeignKey(p => p.BookingId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.Entity<Payment>()
+            .HasOne(p => p.User)
+            .WithMany()
+            .HasForeignKey(p => p.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.Entity<Payment>()
+            .HasIndex(p => p.BookingId);
+
+        builder.Entity<Payment>()
+            .HasIndex(p => new { p.BookingId, p.Status });
     }
 }

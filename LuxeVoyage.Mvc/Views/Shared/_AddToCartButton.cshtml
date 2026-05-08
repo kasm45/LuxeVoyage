@@ -1,0 +1,10 @@
+@model LuxeVoyage.Mvc.Models.ViewModels.AddToCartButtonModel
+<form asp-controller="Cart" asp-action="Add" method="post" class="shrink-0 relative z-10 lv-add-cart-form pointer-events-auto inline-flex items-center">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="itemType" value="@Model.ItemType" />
+    <input type="hidden" name="itemId" value="@Model.ItemId" />
+    <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+    <button type="submit" class="lv-add-cart-btn inline-flex items-center justify-center w-10 h-10 rounded-full border border-[#c4b5a8]/60 bg-white/95 text-[#1e3a5f] shadow-sm hover:border-[#9A6442] hover:text-[#9A6442] transition-colors cursor-pointer" title="Add to basket" aria-label="Add to basket">
+        <span class="material-symbols-outlined text-[22px]">shopping_basket</span>
+    </button>
+</form>

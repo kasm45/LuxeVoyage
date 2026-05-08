@@ -2,12 +2,27 @@
 <div class="px-8 py-10 font-body-md">
     <h1 class="font-h2 text-h2 mb-2 text-slate-900 dark:text-white">Users &amp; Personnel</h1>
     <p class="text-slate-600 dark:text-slate-400 mb-4 text-sm max-w-2xl">Manage registered travelers, staff members, and admin access.</p>
-    <div class="mb-6 flex flex-wrap gap-3 text-xs">
-        <span class="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-slate-700">Total users: @ViewBag.TotalUsers</span>
+    <div class="mb-3 flex flex-wrap gap-3 text-xs">
+        <span class="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-slate-700">Visible users: @ViewBag.VisibleUsers</span>
+        <span class="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-emerald-800">Active users: @ViewBag.ActiveUsers</span>
         <span class="rounded-full border border-orange-200 bg-orange-50 px-3 py-1.5 text-orange-700">Admin users: @ViewBag.AdminUsers</span>
         <span class="rounded-full border border-violet-200 bg-violet-50 px-3 py-1.5 text-violet-700">Personnel: @ViewBag.PersonnelUsers</span>
         <span class="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-slate-700">Travelers: @ViewBag.TravelerUsers</span>
+        <span class="rounded-full border border-slate-300 bg-slate-100 px-3 py-1.5 text-slate-600">Removed accounts: @ViewBag.RemovedAccounts</span>
     </div>
+    @{
+        var showRemoved = ViewBag.ShowRemovedAccounts as bool? ?? false;
+        var removedHidden = (int)(ViewBag.RemovedAccounts ?? 0);
+    }
+    <p class="mb-6 text-xs text-slate-600 dark:text-slate-400">
+        <a asp-controller="Admin" asp-action="Users" asp-route-showRemoved="@(!showRemoved)" class="font-semibold text-[#9A6442] hover:underline underline-offset-2">
+            @(showRemoved ? "Hide removed accounts" : "Show removed accounts")
+        </a>
+        @if (!showRemoved && removedHidden > 0)
+        {
+            <span class="ml-2 text-slate-500">(@removedHidden not shown in the table)</span>
+        }
+    </p>
     @if (!string.IsNullOrWhiteSpace((string?)TempData["UsersMessage"]))
     {
         var isSuccess = string.Equals((string?)TempData["UsersMessageType"], "success", StringComparison.OrdinalIgnoreCase);
@@ -38,20 +53,36 @@
                     @foreach (var u in Model)
                     {
                         var currentUserId = (string?)ViewBag.CurrentUserId ?? "";
-                        var disableRemoveAdmin = u.IsAdmin && u.Id == currentUserId && (int)(ViewBag.AdminUsers ?? 0) <= 1;
+                        var activeAdminCount = (int)(ViewBag.ActiveAdminCount ?? 0);
+                        var disableRemoveAdmin = u.IsAdmin && u.Id == currentUserId && activeAdminCount <= 1;
+                        var disableRemoveAccount = u.Id == currentUserId || (u.IsAdmin && !u.IsRemoved && activeAdminCount <= 1);
                         <tr class="border-b border-slate-100 dark:border-slate-800">
-                            <td class="py-3 px-6 text-on-surface">@u.Email</td>
+                            <td class="py-3 px-6 text-on-surface">
+                                <span class="break-all">@u.Email</span>
+                                @if (u.IsRemoved)
+                                {
+                                    <span class="ml-2 inline-flex items-center rounded-full border border-slate-400 bg-slate-200 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-slate-800 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200">Removed</span>
+                                }
+                                else if (u.IsDisabled)
+                                {
+                                    <span class="ml-2 inline-flex items-center rounded-full border border-slate-300 bg-slate-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-slate-600 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-300">Disabled</span>
+                                }
+                            </td>
                             <td class="py-3 px-6 text-on-surface">@u.DisplayName</td>
                             <td class="py-3 px-6 text-on-surface">
-                                @if (u.IsAdmin)
+                                @if (u.IsRemoved)
+                                {
+                                    <span class="inline-flex items-center rounded-full border border-slate-300 bg-slate-100 px-2.5 py-1 text-[11px] font-semibold text-slate-600">Archived</span>
+                                }
+                                else if (u.IsAdmin)
                                 {
                                     <span class="inline-flex items-center rounded-full bg-slate-900 px-2.5 py-1 text-[11px] font-semibold text-white">Admin</span>
                                 }
-                                @if (u.IsPersonnel)
+                                @if (!u.IsRemoved && u.IsPersonnel)
                                 {
-                                    <span class="ml-2 inline-flex items-center rounded-full border border-violet-200 bg-violet-50 px-2 py-0.5 text-[10px] font-semibold text-violet-700">Personnel</span>
+                                    <span class="inline-flex items-center rounded-full border border-violet-200 bg-violet-50 px-2 py-0.5 text-[10px] font-semibold text-violet-700 @(u.IsAdmin ? "ml-2" : "")">Personnel</span>
                                 }
-                                @if (!u.IsAdmin && !u.IsPersonnel)
+                                @if (!u.IsRemoved && !u.IsAdmin && !u.IsPersonnel)
                                 {
                                     <span class="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-[11px] font-semibold text-slate-600">Traveler</span>
                                 }
@@ -61,38 +92,52 @@
                             <td class="py-3 px-6 text-on-surface">@u.FavoritesCount</td>
                             <td class="py-3 px-6">
                                 <div class="flex flex-wrap items-center justify-end gap-2 max-w-[420px] ml-auto">
-                                @if (!u.IsAdmin)
+                                @if (u.IsRemoved)
                                 {
-                                    <form asp-controller="Admin" asp-action="MakeAdmin" asp-route-id="@u.Id" method="post" class="inline">
+                                    <span class="text-xs text-slate-500 dark:text-slate-400">—</span>
+                                }
+                                else if (u.CanReactivate)
+                                {
+                                    <form asp-controller="Admin" asp-action="ReactivateUser" asp-route-id="@u.Id" method="post" class="inline">
                                         @Html.AntiForgeryToken()
-                                        <button type="submit" class="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700 transition-colors hover:bg-emerald-100">Make Admin</button>
+                                        <button type="submit" class="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-800 transition-colors hover:bg-emerald-100 dark:border-emerald-900/40 dark:bg-emerald-950/50 dark:text-emerald-200 dark:hover:bg-emerald-900/40">Reactivate</button>
                                     </form>
                                 }
                                 else
                                 {
-                                    <form asp-controller="Admin" asp-action="RemoveAdmin" asp-route-id="@u.Id" method="post" class="inline">
+                                    @if (!u.IsAdmin)
+                                    {
+                                        <form asp-controller="Admin" asp-action="MakeAdmin" asp-route-id="@u.Id" method="post" class="inline">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700 transition-colors hover:bg-emerald-100">Make Admin</button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <form asp-controller="Admin" asp-action="RemoveAdmin" asp-route-id="@u.Id" method="post" class="inline">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="inline-flex items-center rounded-full border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-700 transition-colors hover:bg-amber-100 @(disableRemoveAdmin ? "opacity-50 cursor-not-allowed" : "")" @(disableRemoveAdmin ? "disabled" : null)>Remove Admin</button>
+                                        </form>
+                                    }
+                                    @if (!u.IsPersonnel)
+                                    {
+                                        <form asp-controller="Admin" asp-action="MakePersonnel" asp-route-id="@u.Id" method="post" class="inline">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="inline-flex items-center rounded-full border border-violet-200 bg-violet-50 px-3 py-1.5 text-xs font-semibold text-violet-700 transition-colors hover:bg-violet-100">Make Personnel</button>
+                                        </form>
+                                    }
+                                    else if (u.Id != currentUserId)
+                                    {
+                                        <form asp-controller="Admin" asp-action="RemovePersonnel" asp-route-id="@u.Id" method="post" class="inline">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="inline-flex items-center rounded-full border border-violet-200 bg-violet-50 px-3 py-1.5 text-xs font-semibold text-violet-700 transition-colors hover:bg-violet-100">Remove Personnel</button>
+                                        </form>
+                                    }
+                                    <form asp-controller="Admin" asp-action="RemoveUserAccount" asp-route-id="@u.Id" method="post" class="inline" onsubmit="return confirm('This removes the login account and anonymizes the profile, while preserving reservations, payments, and audit history.');">
                                         @Html.AntiForgeryToken()
-                                        <button type="submit" class="inline-flex items-center rounded-full border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-700 transition-colors hover:bg-amber-100 @(disableRemoveAdmin ? "opacity-50 cursor-not-allowed" : "")" @(disableRemoveAdmin ? "disabled" : null)>Remove Admin</button>
+                                        <button type="submit" class="inline-flex items-center rounded-full border border-rose-200 bg-rose-50 px-3 py-1.5 text-xs font-semibold text-rose-700 transition-colors hover:bg-rose-100 @(disableRemoveAccount ? "opacity-50 cursor-not-allowed" : "") dark:border-rose-900/40 dark:bg-rose-950/40 dark:text-rose-200 dark:hover:bg-rose-900/30" @(disableRemoveAccount ? "disabled" : null)>Remove account</button>
                                     </form>
                                 }
-                                @if (!u.IsPersonnel)
-                                {
-                                    <form asp-controller="Admin" asp-action="MakePersonnel" asp-route-id="@u.Id" method="post" class="inline">
-                                        @Html.AntiForgeryToken()
-                                        <button type="submit" class="inline-flex items-center rounded-full border border-violet-200 bg-violet-50 px-3 py-1.5 text-xs font-semibold text-violet-700 transition-colors hover:bg-violet-100">Make Personnel</button>
-                                    </form>
-                                }
-                                else if (u.Id != currentUserId)
-                                {
-                                    <form asp-controller="Admin" asp-action="RemovePersonnel" asp-route-id="@u.Id" method="post" class="inline">
-                                        @Html.AntiForgeryToken()
-                                        <button type="submit" class="inline-flex items-center rounded-full border border-violet-200 bg-violet-50 px-3 py-1.5 text-xs font-semibold text-violet-700 transition-colors hover:bg-violet-100">Remove Personnel</button>
-                                    </form>
-                                }
-                                <form asp-controller="Admin" asp-action="DeleteUser" asp-route-id="@u.Id" method="post" class="inline" onsubmit="return confirm('Delete this user? This action cannot be undone.');">
-                                    @Html.AntiForgeryToken()
-                                    <button type="submit" class="inline-flex items-center rounded-full border border-rose-200 bg-rose-50 px-3 py-1.5 text-xs font-semibold text-rose-700 transition-colors hover:bg-rose-100 @(u.Id == currentUserId ? "opacity-50 cursor-not-allowed" : "")" @(u.Id == currentUserId ? "disabled" : null)>Delete</button>
-                                </form>
                                 </div>
                             </td>
                         </tr>

@@ -1,0 +1,212 @@
+@using LuxeVoyage.Mvc.Helpers
+@using LuxeVoyage.Mvc.Models
+@using LuxeVoyage.Mvc.Models.ViewModels
+@model AccountReservationsPageVm
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.NavSection = "Account";
+    ViewData["Title"] = "My reservations";
+    var hasAny = Model.AwaitingReview.Count + Model.PaymentDue.Count + Model.UpcomingPaidTrips.Count + Model.PastTrips.Count > 0;
+}
+
+<main class="pt-[104px] pb-20 px-gutter md:px-xl max-w-[960px] mx-auto min-h-[60vh]">
+    <header class="mb-10">
+        <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-[0.14em] mb-2">Account</p>
+        <h1 class="font-h1 text-h1 text-[#0f172a] dark:text-[#faf8f5]">My trips</h1>
+        <p class="mt-2 font-body-md text-body-md text-on-surface-variant">Track requests, complete payment after approval, and review secured journeys.</p>
+    </header>
+
+    @if (!string.IsNullOrWhiteSpace((string?)TempData["Message"]))
+    {
+        <div class="mb-6 rounded-2xl border border-primary/25 bg-[#faf8f5] dark:bg-slate-800/80 px-5 py-4 text-sm text-on-surface shadow-sm">
+            @TempData["Message"]
+        </div>
+    }
+    @if (!string.IsNullOrWhiteSpace((string?)TempData["Error"]))
+    {
+        <div class="mb-6 rounded-2xl border border-red-200 bg-red-50 px-5 py-4 text-sm text-red-900">
+            @TempData["Error"]
+        </div>
+    }
+
+    @if (!hasAny)
+    {
+        <div class="rounded-[22px] border border-[#e7ddd4] bg-gradient-to-br from-[#fdfbf7] to-white px-8 py-12 text-center shadow-inner">
+            <p class="font-body-lg text-on-surface-variant mb-6">You do not have any reservation requests yet.</p>
+            <div class="flex flex-wrap justify-center gap-3">
+                <a asp-controller="Experiences" asp-action="Index" class="inline-flex rounded-full px-5 py-2.5 font-label-sm bg-[#1e3a5f] text-[#faf8f5]">Explore experiences</a>
+                <a asp-controller="Cart" asp-action="Index" class="inline-flex rounded-full px-5 py-2.5 font-label-sm border border-[#1e3a5f]/30 text-[#1e3a5f]">Open basket</a>
+            </div>
+        </div>
+    }
+    else
+    {
+        @if (Model.AwaitingReview.Count > 0)
+        {
+            <section class="mb-12">
+                <h2 class="font-h3 text-h3 text-[#0f172a] dark:text-[#faf8f5] mb-2">Waiting for concierge review</h2>
+                <p class="font-body-md text-on-surface-variant mb-6 text-sm">Payment opens after approval.</p>
+                <ul class="space-y-5">
+                    @foreach (var r in Model.AwaitingReview)
+                    {
+                        var b = r.Booking;
+                        var title = b.Tour?.Title ?? b.Stay?.Name ?? b.Experience?.Title ?? b.Destination?.Title ?? "Reservation";
+                        <li class="rounded-[20px] border border-[#e8dfd6] bg-white dark:bg-slate-900/50 p-6 md:p-8 shadow-[0_10px_28px_-8px_rgba(15,23,42,0.08)]">
+                            <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                                <div class="min-w-0">
+                                    <div class="flex flex-wrap items-center gap-2 mb-2">
+                                        <span class="inline-flex items-center rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-900">Waiting for concierge review</span>
+                                        <span class="text-xs text-on-surface-variant">#@b.Id</span>
+                                    </div>
+                                    <h3 class="font-h3 text-h3 text-[#0f172a] dark:text-[#faf8f5] truncate">@title</h3>
+                                    <dl class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 font-body-md text-sm text-on-surface-variant">
+                                        <div class="flex gap-2"><dt class="text-on-surface-variant/80">Dates</dt><dd class="text-on-surface">@b.StartDate.ToString("MMM d, yyyy") – @b.EndDate.ToString("MMM d, yyyy")</dd></div>
+                                        <div class="flex gap-2"><dt class="text-on-surface-variant/80">Guests</dt><dd class="text-on-surface">@b.Guests</dd></div>
+                                    </dl>
+                                </div>
+                                <div class="flex flex-wrap gap-2 shrink-0">
+                                    <a href="@r.ConfirmationUrl" class="inline-flex rounded-full px-4 py-2 text-sm font-semibold bg-[#1e3a5f] text-[#faf8f5]">View details</a>
+                                    <form asp-controller="Account" asp-action="CancelReservation" asp-route-id="@b.Id" method="post" onsubmit="return confirm('Cancel this pending request?');">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="inline-flex rounded-full border border-red-200 bg-red-50 px-4 py-2 text-sm font-semibold text-red-800 hover:bg-red-100">Cancel request</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </section>
+        }
+
+        @if (Model.PaymentDue.Count > 0)
+        {
+            <section class="mb-12">
+                <h2 class="font-h3 text-h3 text-[#0f172a] dark:text-[#faf8f5] mb-2">Approved — payment available</h2>
+                <p class="font-body-md text-on-surface-variant mb-6 text-sm">Complete payment to secure your trip.</p>
+                <ul class="space-y-5">
+                    @foreach (var r in Model.PaymentDue)
+                    {
+                        var b = r.Booking;
+                        var title = b.Tour?.Title ?? b.Stay?.Name ?? b.Experience?.Title ?? b.Destination?.Title ?? "Reservation";
+                        <li class="rounded-[20px] border border-emerald-200/70 bg-emerald-50/30 dark:bg-slate-900/50 p-6 md:p-8 shadow-[0_10px_28px_-8px_rgba(15,23,42,0.08)]">
+                            <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                                <div class="min-w-0">
+                                    <div class="flex flex-wrap items-center gap-2 mb-2">
+                                        <span class="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-900">Confirmed</span>
+                                        <span class="text-xs text-on-surface-variant">#@b.Id</span>
+                                        @if (r.HasFailedPaymentAttempt)
+                                        {
+                                            <span class="inline-flex items-center rounded-full border border-rose-200 bg-rose-50 px-2 py-0.5 text-[11px] font-semibold text-rose-800">Last demo attempt failed</span>
+                                        }
+                                    </div>
+                                    <h3 class="font-h3 text-h3 text-[#0f172a] dark:text-[#faf8f5] truncate">@title</h3>
+                                    <dl class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 font-body-md text-sm text-on-surface-variant">
+                                        <div class="flex gap-2"><dt class="text-on-surface-variant/80">Dates</dt><dd class="text-on-surface">@b.StartDate.ToString("MMM d, yyyy") – @b.EndDate.ToString("MMM d, yyyy")</dd></div>
+                                        <div class="flex gap-2"><dt class="text-on-surface-variant/80">Guests</dt><dd class="text-on-surface">@b.Guests</dd></div>
+                                        @if (r.CanPayDemo && r.AmountDueUsd is { } due)
+                                        {
+                                            <div class="flex gap-2 sm:col-span-2"><dt class="text-on-surface-variant/80 shrink-0">Amount due (est.)</dt><dd class="text-on-surface font-semibold">$@due.ToString("0.00") USD</dd></div>
+                                        }
+                                    </dl>
+                                </div>
+                                <div class="flex flex-col gap-2 shrink-0">
+                                    @if (r.CanPayDemo)
+                                    {
+                                        <a href="@r.CheckoutUrl" class="inline-flex justify-center rounded-full px-5 py-2.5 text-sm font-semibold bg-[#1e3a5f] text-[#faf8f5] shadow-sm hover:brightness-110">Pay now</a>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-xs text-amber-900 rounded-full border border-amber-200 bg-amber-50 px-3 py-2">Awaiting concierge quote</span>
+                                    }
+                                    <a href="@r.ConfirmationUrl" class="text-center text-sm font-semibold text-[#9A6442] hover:underline">View request summary</a>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </section>
+        }
+
+        @if (Model.UpcomingPaidTrips.Count > 0)
+        {
+            <section class="mb-12">
+                <h2 class="font-h3 text-h3 text-[#0f172a] dark:text-[#faf8f5] mb-2">Upcoming paid trips</h2>
+                <p class="font-body-md text-on-surface-variant mb-6 text-sm">Confirmed and paid — travel dates are still ahead.</p>
+                <ul class="space-y-5">
+                    @foreach (var r in Model.UpcomingPaidTrips)
+                    {
+                        var b = r.Booking;
+                        var pay = r.PaidPayment;
+                        var title = b.Tour?.Title ?? b.Stay?.Name ?? b.Experience?.Title ?? b.Destination?.Title ?? "Reservation";
+                        <li class="rounded-[20px] border border-[#e8dfd6] bg-white dark:bg-slate-900/50 p-6 md:p-8 shadow-[0_10px_28px_-8px_rgba(15,23,42,0.08)]">
+                            <div class="flex flex-wrap items-center gap-2 mb-2">
+                                <span class="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-900">Paid</span>
+                                <span class="inline-flex items-center rounded-full border border-emerald-200/80 bg-white px-3 py-1 text-xs font-semibold text-emerald-900">Confirmed</span>
+                                <span class="text-xs text-on-surface-variant">#@b.Id</span>
+                            </div>
+                            <h3 class="font-h3 text-h3 text-[#0f172a] dark:text-[#faf8f5]">@title</h3>
+                            <dl class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 font-body-md text-sm text-on-surface-variant">
+                                <div class="flex gap-2"><dt class="text-on-surface-variant/80">Dates</dt><dd class="text-on-surface">@b.StartDate.ToString("MMM d, yyyy") – @b.EndDate.ToString("MMM d, yyyy")</dd></div>
+                                <div class="flex gap-2"><dt class="text-on-surface-variant/80">Guests</dt><dd class="text-on-surface">@b.Guests</dd></div>
+                                @if (pay != null)
+                                {
+                                    <div class="flex gap-2"><dt class="text-on-surface-variant/80">Paid</dt><dd class="text-on-surface font-semibold">@pay.Currency $@pay.Amount.ToString("0.00")</dd></div>
+                                    <div class="flex gap-2 sm:col-span-2"><dt class="text-on-surface-variant/80 shrink-0">Reference</dt><dd class="font-mono text-xs text-on-surface break-all">@pay.TransactionReference</dd></div>
+                                    <div class="flex gap-2 sm:col-span-2"><dt class="text-on-surface-variant/80 shrink-0">Paid at</dt><dd class="text-on-surface">@(pay.PaidAtUtc.HasValue ? pay.PaidAtUtc.Value.ToString("MMM d, yyyy HH:mm") + " UTC" : "—")</dd></div>
+                                }
+                            </dl>
+                            <p class="mt-4 text-sm text-on-surface-variant">Your trip is secured.</p>
+                        </li>
+                    }
+                </ul>
+            </section>
+        }
+
+        @if (Model.PastTrips.Count > 0)
+        {
+            <section>
+                <h2 class="font-h3 text-h3 text-[#0f172a] dark:text-[#faf8f5] mb-2">Past trips &amp; closed requests</h2>
+                <p class="font-body-md text-on-surface-variant mb-6 text-sm">Ended journeys, declined windows, or cancelled reservations.</p>
+                <ul class="space-y-5">
+                    @foreach (var r in Model.PastTrips)
+                    {
+                        var b = r.Booking;
+                        var pay = r.PaidPayment;
+                        var title = b.Tour?.Title ?? b.Stay?.Name ?? b.Experience?.Title ?? b.Destination?.Title ?? "Reservation";
+                        var badgeClass = b.Status switch
+                        {
+                            BookingStatus.Rejected => "bg-rose-50 text-rose-900 border-rose-200",
+                            BookingStatus.Cancelled => "bg-slate-100 text-slate-800 border-slate-200",
+                            BookingStatus.Completed => "bg-blue-50 text-blue-900 border-blue-200",
+                            _ => "bg-slate-50 text-slate-800 border-slate-200"
+                        };
+                        <li class="rounded-[20px] border border-[#e8dfd6] bg-white dark:bg-slate-900/50 p-6 md:p-8 shadow-[0_10px_28px_-8px_rgba(15,23,42,0.08)] opacity-95">
+                            <div class="flex flex-wrap items-center gap-2 mb-2">
+                                <span class="inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold @badgeClass">@BookingStatusDisplay.TravelerLabel(b.Status)</span>
+                                @if (pay != null)
+                                {
+                                    <span class="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-900">Paid @pay.Currency $@pay.Amount.ToString("0.00")</span>
+                                }
+                                <span class="text-xs text-on-surface-variant">#@b.Id</span>
+                            </div>
+                            <h3 class="font-h3 text-h3 text-[#0f172a] dark:text-[#faf8f5] truncate">@title</h3>
+                            <dl class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 font-body-md text-sm text-on-surface-variant">
+                                <div class="flex gap-2"><dt class="text-on-surface-variant/80">Dates</dt><dd class="text-on-surface">@b.StartDate.ToString("MMM d, yyyy") – @b.EndDate.ToString("MMM d, yyyy")</dd></div>
+                                <div class="flex gap-2"><dt class="text-on-surface-variant/80">Guests</dt><dd class="text-on-surface">@b.Guests</dd></div>
+                                @if (pay != null)
+                                {
+                                    <div class="flex gap-2 sm:col-span-2"><dt class="text-on-surface-variant/80 shrink-0">Reference</dt><dd class="font-mono text-xs break-all">@pay.TransactionReference</dd></div>
+                                }
+                                @if (b.Status == BookingStatus.Rejected)
+                                {
+                                    <div class="flex gap-2 sm:col-span-2"><dt class="text-on-surface-variant/80 shrink-0">Note</dt><dd class="text-on-surface text-sm">This request was not available for the selected dates.</dd></div>
+                                }
+                            </dl>
+                        </li>
+                    }
+                </ul>
+            </section>
+        }
+    }
+</main>
+

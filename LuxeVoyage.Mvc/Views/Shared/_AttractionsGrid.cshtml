@@ -86,6 +86,7 @@ var detailController = Model.CardKind == "destination" ? "Destinations" : "Exper
 <div class="p-5 flex flex-col flex-grow">
 <div class="flex justify-between items-start gap-3 mb-2">
 <h3 class="font-h3 text-h3 text-on-surface leading-tight"><span class="group-hover:text-primary transition-colors">@item.Title</span></h3>
+<div class="flex items-center gap-1 shrink-0">
 <form asp-controller="Favorites" asp-action="Toggle" method="post" class="shrink-0 relative z-10 lv-favorite-form pointer-events-auto">
 @Html.AntiForgeryToken()
 <input type="hidden" name="itemType" value="@itemType" />
@@ -95,6 +96,8 @@ var detailController = Model.CardKind == "destination" ? "Destinations" : "Exper
 <span class="material-symbols-outlined lv-favorite-icon" style="font-variation-settings: 'FILL' @(item.IsFavorite ? "1" : "0");">@(item.IsFavorite ? "favorite" : "favorite_border")</span>
 </button>
 </form>
+<partial name="_AddToCartButton" model="new LuxeVoyage.Mvc.Models.ViewModels.AddToCartButtonModel { ItemType = LuxeVoyage.Mvc.Helpers.CartItemTypes.Experience, ItemId = item.Id, ReturnUrl = returnUrl }" />
+</div>
 </div>
 <p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-1 mb-3">
 <span class="material-symbols-outlined text-[18px]">location_on</span> @item.RegionDisplay

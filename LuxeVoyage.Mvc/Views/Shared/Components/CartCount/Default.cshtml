@@ -1,0 +1,6 @@
+@model int
+@if (Model > 0)
+{
+    @* Inline pill — grows with digit count; no absolute positioning *@
+    <span class="inline-flex min-h-[1.125rem] min-w-[1.125rem] shrink-0 items-center justify-center rounded-full bg-[#1e3a5f] px-1 py-0.5 text-[10px] font-semibold tabular-nums leading-none text-[#faf8f5] sm:text-[11px]">@Model</span>
+}

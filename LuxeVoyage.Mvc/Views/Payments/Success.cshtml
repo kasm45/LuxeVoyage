@@ -1,0 +1,72 @@
+@using LuxeVoyage.Mvc.Models
+@model LuxeVoyage.Mvc.Models.ViewModels.PaymentSuccessViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.NavSection = "Book";
+    ViewData["Title"] = "Payment received";
+    var itemName = Model.Booking.Tour?.Title ?? Model.Booking.Stay?.Name ?? Model.Booking.Experience?.Title ?? Model.Booking.Destination?.Title ?? "Your trip";
+}
+<main class="pt-[104px] pb-20 px-gutter md:px-xl max-w-[720px] mx-auto min-h-[60vh]">
+    @if (!string.IsNullOrWhiteSpace((string?)TempData["Message"]))
+    {
+        <div class="mb-8 rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-4 text-sm text-emerald-900">
+            @TempData["Message"]
+        </div>
+    }
+
+    <div class="rounded-[22px] border border-[#e8dfd6] bg-white dark:bg-slate-900/60 shadow-[0_12px_32px_-8px_rgba(15,23,42,0.1)] overflow-hidden">
+        <div class="px-8 py-10 text-center border-b border-[#f1e9e2] bg-[#fdfbf7] dark:bg-slate-900/80">
+            <span class="material-symbols-outlined text-5xl text-emerald-600 mb-3">check_circle</span>
+            <h1 class="font-h2 text-h2 text-[#0f172a] dark:text-[#faf8f5] mb-2">Payment received</h1>
+            <p class="font-body-md text-on-surface-variant">
+                Thank you — your demo payment is recorded as credited to the LuxeVoyage portfolio account. Your booking is <strong class="text-on-surface">confirmed</strong> and your trip is secured.
+            </p>
+        </div>
+        <div class="px-8 py-8 space-y-6">
+            <dl class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                <div>
+                    <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-1">Trip</dt>
+                    <dd class="font-semibold text-on-surface">@itemName</dd>
+                </div>
+                <div>
+                    <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-1">Booking status</dt>
+                    <dd>
+                        @if (Model.Booking.Status == BookingStatus.Accepted)
+                        {
+                            <span class="admin-status-badge admin-status-confirmed">Confirmed</span>
+                        }
+                        else
+                        {
+                            <span class="admin-status-badge admin-status-pending">@Model.Booking.Status</span>
+                        }
+                    </dd>
+                </div>
+                @if (Model.Payment != null)
+                {
+                    <div>
+                        <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-1">Amount</dt>
+                        <dd class="font-semibold text-on-surface">@Model.Payment.Currency $@Model.Payment.Amount.ToString("0.00")</dd>
+                    </div>
+                    <div>
+                        <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-1">Reference</dt>
+                        <dd class="font-mono text-xs text-on-surface break-all">@Model.Payment.TransactionReference</dd>
+                    </div>
+                    <div class="sm:col-span-2">
+                        <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-1">Card</dt>
+                        <dd class="text-on-surface">@Model.Payment.PaymentMethodBrand ·••• @Model.Payment.Last4</dd>
+                    </div>
+                }
+            </dl>
+
+            <div class="rounded-xl border border-[#e7ddd4] bg-[#faf8f5]/80 dark:bg-slate-800/50 px-5 py-4 text-xs text-on-surface-variant leading-relaxed">
+                This is a simulated transaction for portfolio demonstration only. No funds are collected from a real payment provider.
+            </div>
+
+            <div class="flex flex-wrap gap-3 pt-2">
+                <a asp-controller="Cart" asp-action="Index" class="rounded-xl bg-primary text-on-primary px-5 py-3 font-label-sm text-label-sm shadow-sm hover:brightness-105 transition-all">View basket</a>
+                <a asp-controller="Account" asp-action="Reservations" class="rounded-xl border border-outline-variant text-on-surface px-5 py-3 font-label-sm text-label-sm hover:bg-surface-container-low transition-colors">View My trips</a>
+                <a asp-controller="Home" asp-action="Index" class="rounded-xl border border-outline-variant text-on-surface-variant px-5 py-3 font-label-sm text-label-sm hover:bg-surface-container-low transition-colors">Continue exploring</a>
+            </div>
+        </div>
+    </div>
+</main>

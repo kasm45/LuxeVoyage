@@ -1,0 +1,19 @@
+@model bool
+@{
+    var stacked = Model;
+    var nav = ViewBag.NavSection as string ?? "";
+
+    string NavLinkClass(string match) => nav == match
+        ? "relative whitespace-nowrap pb-1 font-medium tracking-wide text-slate-900 after:pointer-events-none after:absolute after:-bottom-px after:left-1/2 after:h-0.5 after:w-6 after:-translate-x-1/2 after:rounded-full after:bg-gradient-to-r after:from-[#9A6442] after:to-[#A56B4A] dark:text-white"
+        : "whitespace-nowrap font-normal tracking-wide text-slate-600 transition-colors duration-300 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100";
+
+    string LayoutModifiers() => stacked
+        ? "flex w-full items-center rounded-xl px-3 py-3 text-[0.9375rem] leading-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A6442]/35 focus-visible:ring-offset-2"
+        : "inline-flex shrink-0 items-center whitespace-nowrap py-2 text-[0.9375rem] leading-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A6442]/35 focus-visible:ring-offset-2 rounded-md px-1";
+}
+
+<a class="@NavLinkClass("Destinations") @LayoutModifiers()" asp-controller="Destinations" asp-action="Index">Destinations</a>
+<a class="@NavLinkClass("Experiences") @LayoutModifiers()" asp-controller="Experiences" asp-action="Index">Experiences</a>
+<a class="@NavLinkClass("Tours") @LayoutModifiers()" asp-controller="Tours" asp-action="Index">Tours</a>
+<a class="@NavLinkClass("Hotels") @LayoutModifiers()" asp-controller="Hotels" asp-action="Index">Stays</a>
+<a class="@NavLinkClass("About") @LayoutModifiers()" asp-controller="Pages" asp-action="About">Journal</a>

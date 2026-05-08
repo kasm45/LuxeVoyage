@@ -1,73 +1,161 @@
-@using System.Security.Claims
-@using LuxeVoyage.Mvc.Data
-@inject ApplicationDbContext Db
-@{
-    var nav = ViewBag.NavSection as string ?? "";
-    var uid = User.FindFirstValue(ClaimTypes.NameIdentifier);
-    var unreadNotifications = 0;
-    if (!string.IsNullOrEmpty(uid))
-    {
-        unreadNotifications = Db.Notifications.Count(n => n.UserId == uid && !n.IsRead);
-    }
-    string DestinationsNavClass() => nav == "Destinations"
-        ? "text-orange-600 font-semibold relative after:block after:w-1 after:h-1 after:bg-orange-600 after:rounded-full after:mx-auto after:mt-1 hover:text-orange-500 transition-colors duration-200 font-body-md text-body-md"
-        : "text-slate-700 dark:text-slate-300 font-medium hover:text-orange-500 transition-colors duration-200 font-body-md text-body-md";
-    string ExperiencesNavClass() => nav == "Experiences"
-        ? "text-orange-600 font-semibold relative after:block after:w-1 after:h-1 after:bg-orange-600 after:rounded-full after:mx-auto after:mt-1 hover:text-orange-500 transition-colors duration-200 font-body-md text-body-md"
-        : "text-slate-700 dark:text-slate-300 font-medium hover:text-orange-500 transition-colors duration-200 font-body-md text-body-md";
-    string HotelsNavClass() => nav == "Hotels"
-        ? "text-orange-600 font-semibold relative after:block after:w-1 after:h-1 after:bg-orange-600 after:rounded-full after:mx-auto after:mt-1 hover:text-orange-500 transition-colors duration-200 font-body-md text-body-md"
-        : "text-slate-700 dark:text-slate-300 font-medium hover:text-orange-500 transition-colors duration-200 font-body-md text-body-md";
-    string ToursNavClass() => nav == "Tours"
-        ? "text-orange-600 font-semibold relative after:block after:w-1 after:h-1 after:bg-orange-600 after:rounded-full after:mx-auto after:mt-1 hover:text-orange-500 transition-colors duration-200 font-body-md text-body-md"
-        : "text-slate-700 dark:text-slate-300 font-medium hover:text-orange-500 transition-colors duration-200 font-body-md text-body-md";
-    string AboutNavClass() => nav == "About"
-        ? "text-orange-600 font-semibold relative after:block after:w-1 after:h-1 after:bg-orange-600 after:rounded-full after:mx-auto after:mt-1 hover:text-orange-500 transition-colors duration-200 font-body-md text-body-md"
-        : "text-slate-700 dark:text-slate-300 font-medium hover:text-orange-500 transition-colors duration-200 font-body-md text-body-md";
-}
-<!-- TopNavBar (LuxeVoyage — ana_sayfa_yeni_nesil) -->
-<nav class="fixed top-0 w-full z-50 bg-white/75 backdrop-blur-xl dark:bg-slate-900/75 border-b border-white/30 dark:border-slate-800/60 shadow-[0_8px_28px_rgba(15,23,42,0.08)]">
-<div class="flex justify-between items-center px-8 lg:px-12 py-3.5 w-full max-w-[1280px] mx-auto">
-<a asp-controller="Home" asp-action="Index" class="text-2xl font-bold text-slate-900 dark:text-white font-h3 text-h3 tracking-tight">
-                LuxeVoyage
-            </a>
-<div class="hidden md:flex items-center gap-7">
-<a class="@DestinationsNavClass()" asp-controller="Destinations" asp-action="Index">Destinations</a>
-<a class="@ExperiencesNavClass()" asp-controller="Experiences" asp-action="Index">Experiences</a>
-<a class="@ToursNavClass()" asp-controller="Tours" asp-action="Index">Tours</a>
-<a class="@HotelsNavClass()" asp-controller="Hotels" asp-action="Index">Stays</a>
-<a class="@AboutNavClass()" asp-controller="Pages" asp-action="About">Journal</a>
-</div>
-<div class="flex items-center gap-2.5 md:gap-3.5">
-@if (User.Identity != null && User.Identity.IsAuthenticated)
-{
-<a asp-controller="Notifications" asp-action="Index" class="relative inline-flex items-center gap-1.5 text-slate-700 dark:text-slate-200 hover:text-orange-600 font-body-md text-sm font-medium px-2.5 py-1.5 rounded-full hover:bg-orange-50/80 dark:hover:bg-orange-900/20 transition-all">
-<span class="material-symbols-outlined text-[20px]">notifications</span>
-<span class="hidden md:inline">Notifications</span>
-@if (unreadNotifications > 0)
-{
-    <span class="absolute -top-1 -right-1 min-w-[18px] h-[18px] rounded-full bg-orange-600 text-white text-[10px] leading-[18px] text-center px-1 animate-pulse">@unreadNotifications</span>
-}
-</a>
-<form asp-controller="Account" asp-action="Logout" method="post" class="flex items-center gap-2 md:gap-3">
-@Html.AntiForgeryToken()
-<span class="hidden sm:inline-flex items-center justify-center w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-semibold">@((User.Identity?.Name ?? "U").Substring(0, 1).ToUpperInvariant())</span>
-<span class="hidden sm:inline text-sm text-slate-600 dark:text-slate-300 max-w-[140px] truncate" title="@User.Identity?.Name">@User.Identity?.Name</span>
-<button type="submit" class="scale-95 active:scale-100 transition-transform text-slate-700 dark:text-slate-200 hover:text-orange-600 font-body-md text-sm font-medium bg-transparent border-0 cursor-pointer px-2 py-1 rounded-md">
-                Logout
-            </button>
-</form>
-}
-else
-{
-<a asp-controller="Account" asp-action="Login" class="scale-95 active:scale-100 transition-transform text-slate-700 dark:text-slate-200 hover:text-orange-500 p-2" title="Sign in">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_circle</span>
-</a>
-<a asp-controller="Account" asp-action="Register" class="hidden sm:inline font-body-md text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-orange-500 transition-colors">Register</a>
-}
-<a asp-controller="Pages" asp-action="Contact" class="bg-primary text-on-primary font-button text-button px-5 py-2.5 rounded-xl scale-95 active:scale-100 transition-all hover:-translate-y-0.5 hover:shadow-[0_10px_22px_rgba(122,75,49,0.24)] bg-gradient-to-r from-primary to-[#A56B4A] inline-flex items-center">
-                Book Now
-            </a>
-</div>
-</div>
+<!-- Navbar: strict 3-zone grid on lg+ — left auto | center minmax(0,1fr) | right auto — utilities never compress primary nav -->
+<nav class="fixed left-0 right-0 top-0 z-50 border-b border-white/40 bg-white/85 shadow-[0_10px_40px_-12px_rgba(15,23,42,0.09)] backdrop-blur-xl dark:border-slate-800/70 dark:bg-slate-950/85">
+    <div class="mx-auto w-full max-w-[1420px] px-4 sm:px-6 lg:px-10 xl:px-12">
+        <div class="flex min-h-[72px] items-center justify-between gap-3 lg:grid lg:min-h-[76px] lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:items-center lg:gap-x-4 lg:py-3 xl:gap-x-6">
+
+            <!-- ZONE LEFT: logo + mobile menu (shrink-0) -->
+            <div class="flex shrink-0 items-center gap-2 justify-self-start">
+                <a asp-controller="Home" asp-action="Index"
+                   class="group max-w-[min(40vw,10.5rem)] shrink-0 truncate rounded-sm font-h3 text-xl font-bold leading-none tracking-tight text-slate-950 transition-opacity duration-300 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A6442]/35 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-white dark:focus-visible:ring-offset-slate-950 sm:max-w-none sm:text-[1.65rem] lg:text-[1.7rem]">
+                    LuxeVoyage
+                </a>
+
+                <details class="relative z-[60] lg:hidden">
+                    <summary class="flex h-10 w-10 shrink-0 cursor-pointer list-none items-center justify-center rounded-full border border-slate-200/90 bg-white/95 text-slate-700 shadow-sm transition-colors hover:border-slate-300 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900/95 dark:text-slate-200 dark:hover:bg-slate-800 [&::-webkit-details-marker]:hidden"
+                             aria-label="Open menu">
+                        <span class="material-symbols-outlined text-[22px] leading-none" aria-hidden="true">menu</span>
+                    </summary>
+                    <div class="absolute right-0 top-[calc(100%+0.5rem)] z-[70] w-[min(calc(100vw-2rem),22rem)] rounded-2xl border border-slate-200/90 bg-white p-4 shadow-[0_24px_60px_-12px_rgba(15,23,42,0.22)] dark:border-slate-700 dark:bg-slate-900">
+                        <div class="flex flex-col gap-1 border-b border-slate-100 pb-4 dark:border-slate-800">
+                            @await Html.PartialAsync("_NavbarPrimaryLinks", true)
+                        </div>
+                        @if (User.Identity?.IsAuthenticated ?? false)
+                        {
+                            <div class="flex flex-col gap-1 pt-4">
+                                <a asp-controller="Cart" asp-action="Index" class="flex shrink-0 items-center gap-3 whitespace-nowrap rounded-xl px-3 py-3 text-[0.9375rem] font-medium text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-800/80">
+                                    <span class="material-symbols-outlined shrink-0 text-[20px]" aria-hidden="true">shopping_basket</span>
+                                    <span class="flex shrink-0 items-center gap-2">
+                                        <span>Basket</span>
+                                        @await Component.InvokeAsync("CartCount")
+                                    </span>
+                                </a>
+                                <a asp-controller="Account" asp-action="Reservations" class="shrink-0 whitespace-nowrap rounded-xl px-3 py-3 text-[0.9375rem] font-medium text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-800/80">My trips</a>
+                                <a asp-controller="Notifications" asp-action="Index" class="flex shrink-0 items-center gap-3 whitespace-nowrap rounded-xl px-3 py-3 text-[0.9375rem] font-medium text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-800/80">
+                                    <span class="material-symbols-outlined shrink-0 text-[20px]" aria-hidden="true">notifications</span>
+                                    <span class="flex shrink-0 items-center gap-2">
+                                        <span>Notifications</span>
+                                        @await Component.InvokeAsync("NotificationCount", new { variant = "drawer" })
+                                    </span>
+                                </a>
+                                <form asp-controller="Account" asp-action="Logout" method="post" class="mt-2 flex flex-col gap-3 border-t border-slate-100 pt-4 dark:border-slate-800">
+                                    @Html.AntiForgeryToken()
+                                    <div class="flex min-w-0 items-center gap-3 px-1">
+                                        <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-slate-100 text-[11px] font-semibold uppercase text-slate-500 dark:bg-slate-800 dark:text-slate-400" aria-hidden="true">@((User.Identity?.Name ?? "U").Substring(0, 1).ToUpperInvariant())</span>
+                                        <span class="min-w-0 flex-1 truncate text-sm text-slate-600 dark:text-slate-300" title="@User.Identity?.Name">@User.Identity?.Name</span>
+                                    </div>
+                                    <button type="submit" class="w-full shrink-0 rounded-xl border border-slate-200 bg-white px-4 py-3 text-center text-[0.9375rem] font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800">Logout</button>
+                                </form>
+                                <a asp-controller="Pages" asp-action="Contact" class="mt-2 inline-flex w-full shrink-0 items-center justify-center whitespace-nowrap rounded-xl bg-gradient-to-r from-primary to-[#A56B4A] px-4 py-3.5 text-[0.9375rem] font-semibold tracking-wide text-white shadow-md transition hover:brightness-105">Book Now</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="flex flex-col gap-2 pt-4">
+                                <a asp-controller="Account" asp-action="Login" class="shrink-0 whitespace-nowrap rounded-xl px-3 py-3 text-[0.9375rem] font-medium text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-800/80">Sign in</a>
+                                <a asp-controller="Account" asp-action="Register" class="shrink-0 whitespace-nowrap rounded-xl px-3 py-3 text-[0.9375rem] font-medium text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-800/80">Register</a>
+                                <a asp-controller="Pages" asp-action="Contact" class="mt-2 inline-flex w-full shrink-0 items-center justify-center whitespace-nowrap rounded-xl bg-gradient-to-r from-primary to-[#A56B4A] px-4 py-3.5 text-[0.9375rem] font-semibold tracking-wide text-white shadow-md transition hover:brightness-105">Book Now</a>
+                            </div>
+                        }
+                    </div>
+                </details>
+            </div>
+
+            <!-- ZONE CENTER: primary nav only — isolated from utilities; cannot be squeezed by right rail -->
+            <div class="hidden min-w-0 justify-self-stretch overflow-hidden lg:flex lg:items-center lg:justify-center lg:px-8 xl:px-10 2xl:px-12">
+                <nav class="flex min-w-0 max-w-full justify-center" aria-label="Primary">
+                    <div class="flex max-w-full flex-nowrap items-center justify-center gap-x-6 whitespace-nowrap lg:gap-x-7 xl:gap-x-9 min-[1366px]:gap-x-10">
+                        @await Html.PartialAsync("_NavbarPrimaryLinks", false)
+                    </div>
+                </nav>
+            </div>
+
+            <!-- ZONE RIGHT: utility rail — shrink-0 min-w-fit; badges inline-only -->
+            <div class="flex min-w-fit shrink-0 flex-nowrap items-center justify-end justify-self-end gap-x-2 whitespace-nowrap sm:gap-x-2.5 xl:gap-x-3">
+                @if (User.Identity?.IsAuthenticated ?? false)
+                {
+                    <!-- lg+: full desktop rail -->
+                    <div class="hidden min-w-fit shrink-0 flex-nowrap items-center justify-end gap-x-1.5 whitespace-nowrap lg:flex xl:gap-x-2">
+                        <!-- Basket: icon-only on desktop + sr-only + inline count pill -->
+                        <a asp-controller="Cart" asp-action="Index"
+                           class="flex h-10 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-2 text-slate-600 transition-colors duration-300 hover:bg-orange-50/80 hover:text-[#9A6442] dark:text-slate-400 dark:hover:bg-orange-950/35 dark:hover:text-orange-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A6442]/35 focus-visible:ring-offset-2">
+                            <span class="material-symbols-outlined shrink-0 text-[20px] leading-none text-current [font-variation-settings:'FILL'_0]" aria-hidden="true">shopping_basket</span>
+                            <span class="sr-only">Basket</span>
+                            @await Component.InvokeAsync("CartCount")
+                        </a>
+
+                        <!-- Notifications: icon-only + sr-only + inline count pill -->
+                        <a asp-controller="Notifications" asp-action="Index"
+                           class="flex h-10 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-2 text-slate-600 transition-colors duration-300 hover:bg-orange-50/80 hover:text-[#9A6442] dark:text-slate-400 dark:hover:bg-orange-950/35 dark:hover:text-orange-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A6442]/35 focus-visible:ring-offset-2">
+                            <span class="material-symbols-outlined shrink-0 text-[20px] leading-none text-current [font-variation-settings:'FILL'_0]" aria-hidden="true">notifications</span>
+                            <span class="sr-only">Notifications</span>
+                            @await Component.InvokeAsync("NotificationCount")
+                        </a>
+
+                        <!-- My trips: only at 2xl+ on desktop rail (always in mobile drawer) -->
+                        <a asp-controller="Account" asp-action="Reservations"
+                           class="hidden h-10 shrink-0 items-center whitespace-nowrap rounded-full px-3 py-2 text-[0.8125rem] font-medium leading-none tracking-wide text-slate-600 transition-colors hover:bg-orange-50/80 hover:text-[#9A6442] 2xl:inline-flex dark:text-slate-400 dark:hover:bg-orange-950/35 dark:hover:text-orange-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A6442]/35 focus-visible:ring-offset-2">
+                            My trips
+                        </a>
+
+                        <!-- Account: avatar + optional email (2xl+) + logout -->
+                        <form asp-controller="Account" asp-action="Logout" method="post"
+                              class="flex shrink-0 items-center gap-x-2 border-l border-slate-200/90 pl-2 dark:border-slate-700/90 xl:gap-x-2.5 xl:pl-2.5">
+                            @Html.AntiForgeryToken()
+                            <span class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-slate-100 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:bg-slate-800 dark:text-slate-400" aria-hidden="true">@((User.Identity?.Name ?? "U").Substring(0, 1).ToUpperInvariant())</span>
+                            <span class="hidden max-w-[120px] truncate text-left text-[0.8125rem] font-normal leading-snug text-slate-500 2xl:inline dark:text-slate-400" title="@User.Identity?.Name">@User.Identity?.Name</span>
+                            <button type="submit"
+                                    class="shrink-0 cursor-pointer whitespace-nowrap rounded-lg border-0 bg-transparent px-2 py-2 text-[0.8125rem] font-medium text-slate-600 transition-colors hover:text-[#9A6442] dark:text-slate-400 dark:hover:text-orange-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A6442]/35 focus-visible:ring-offset-2">
+                                Logout
+                            </button>
+                        </form>
+
+                        <a asp-controller="Pages" asp-action="Contact"
+                           class="inline-flex shrink-0 items-center whitespace-nowrap rounded-[14px] border-l border-slate-200/90 bg-gradient-to-r from-primary to-[#A56B4A] px-4 py-3 pl-4 text-[0.8125rem] font-semibold leading-none tracking-wide text-white shadow-[0_8px_24px_-6px_rgba(122,75,49,0.35)] transition-all duration-300 hover:shadow-[0_14px_32px_-8px_rgba(122,75,49,0.42)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A6442]/50 focus-visible:ring-offset-2 dark:border-slate-700/90 dark:focus-visible:ring-offset-slate-950 xl:px-5 xl:pl-5">
+                            Book Now
+                        </a>
+                    </div>
+
+                    <!-- &lt; lg: icon row + Book Now — labels only in drawer -->
+                    <div class="flex min-w-fit shrink-0 flex-nowrap items-center justify-end gap-2 lg:hidden">
+                        <a asp-controller="Cart" asp-action="Index"
+                           class="flex h-10 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-2 text-slate-600 hover:bg-orange-50/80 hover:text-[#9A6442] dark:text-slate-400 dark:hover:bg-orange-950/35"
+                           title="Basket">
+                            <span class="material-symbols-outlined shrink-0 text-[20px] leading-none" aria-hidden="true">shopping_basket</span>
+                            <span class="sr-only">Basket</span>
+                            @await Component.InvokeAsync("CartCount")
+                        </a>
+                        <a asp-controller="Notifications" asp-action="Index"
+                           class="flex h-10 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-2 text-slate-600 hover:bg-orange-50/80 hover:text-[#9A6442] dark:text-slate-400 dark:hover:bg-orange-950/35"
+                           title="Notifications">
+                            <span class="material-symbols-outlined shrink-0 text-[20px] leading-none" aria-hidden="true">notifications</span>
+                            <span class="sr-only">Notifications</span>
+                            @await Component.InvokeAsync("NotificationCount")
+                        </a>
+                        <a asp-controller="Pages" asp-action="Contact"
+                           class="inline-flex shrink-0 items-center whitespace-nowrap rounded-[14px] bg-gradient-to-r from-primary to-[#A56B4A] px-4 py-2.5 text-[0.75rem] font-semibold uppercase tracking-wide text-white shadow-md sm:px-5 sm:py-3 sm:text-[0.8125rem] sm:normal-case sm:tracking-wide">
+                            Book Now
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <div class="flex min-w-fit shrink-0 flex-nowrap items-center justify-end gap-2 whitespace-nowrap sm:gap-3">
+                        <a asp-controller="Account" asp-action="Login"
+                           class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-slate-600 transition-colors hover:bg-orange-50/80 hover:text-[#9A6442] dark:text-slate-400 dark:hover:bg-orange-950/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A6442]/35 focus-visible:ring-offset-2"
+                           title="Sign in">
+                            <span class="material-symbols-outlined text-[22px] leading-none" style="font-variation-settings: 'FILL' 0;" aria-hidden="true">account_circle</span>
+                        </a>
+                        <a asp-controller="Account" asp-action="Register"
+                           class="hidden shrink-0 whitespace-nowrap rounded-md px-2 py-2 text-[0.8125rem] font-medium text-slate-600 transition-colors hover:text-[#9A6442] md:inline dark:text-slate-400 dark:hover:text-orange-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9A6442]/35 focus-visible:ring-offset-2">
+                            Register
+                        </a>
+                        <a asp-controller="Pages" asp-action="Contact"
+                           class="inline-flex shrink-0 items-center whitespace-nowrap rounded-[14px] border-l border-slate-200/90 bg-gradient-to-r from-primary to-[#A56B4A] px-4 py-2.5 pl-4 text-[0.75rem] font-semibold tracking-wide text-white shadow-[0_8px_24px_-6px_rgba(122,75,49,0.35)] transition-all hover:shadow-lg sm:px-5 sm:py-3 sm:text-[0.8125rem] dark:border-slate-700/90 lg:pl-5 xl:pl-6">
+                            Book Now
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
 </nav>

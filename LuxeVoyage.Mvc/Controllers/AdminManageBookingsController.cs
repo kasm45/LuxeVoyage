@@ -1,5 +1,7 @@
 using LuxeVoyage.Mvc.Data;
+using LuxeVoyage.Mvc.Helpers;
 using LuxeVoyage.Mvc.Models;
+using LuxeVoyage.Mvc.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -29,7 +31,37 @@ public class AdminManageBookingsController : Controller
             .Where(b => b.Status == BookingStatus.Pending)
             .OrderByDescending(b => b.CreatedAtUtc)
             .ToListAsync();
-        return View(list);
+
+        var ids = list.Select(b => b.Id).ToList();
+        var paidList = await _db.Payments.AsNoTracking()
+            .Where(p => ids.Contains(p.BookingId) && p.Status == PaymentStatus.Paid)
+            .ToListAsync();
+        var paidById = paidList
+            .GroupBy(p => p.BookingId)
+            .ToDictionary(g => g.Key, g => g.OrderByDescending(x => x.PaidAtUtc).First());
+
+        var failedBookingIds = await _db.Payments.AsNoTracking()
+            .Where(p => ids.Contains(p.BookingId) && p.Status == PaymentStatus.Failed)
+            .Select(p => p.BookingId)
+            .Distinct()
+            .ToListAsync();
+        var failedSet = failedBookingIds.ToHashSet();
+
+        var rows = list.Select(b =>
+        {
+            paidById.TryGetValue(b.Id, out var paid);
+            var est = BookingPaymentCalculator.TryGetEstimatedQuote(b);
+            return new AdminPendingReservationRowVm
+            {
+                Booking = b,
+                PaidPayment = paid,
+                HasFailedPaymentAttempt = paid == null && failedSet.Contains(b.Id),
+                QuoteAvailable = false,
+                QuoteAmount = est.HasEstimate ? est.Amount : null
+            };
+        }).ToList();
+
+        return View(rows);
     }
 
     [HttpGet("history")]
@@ -47,16 +79,22 @@ public class AdminManageBookingsController : Controller
             .Include(b => b.Stay)
             .Include(b => b.Experience)
             .Include(b => b.Destination)
-            .Where(b => b.Status == BookingStatus.Accepted || b.Status == BookingStatus.Rejected);
+            .Where(b => b.Status != BookingStatus.Pending);
 
         if (status.Equals("accepted", StringComparison.OrdinalIgnoreCase))
             query = query.Where(b => b.Status == BookingStatus.Accepted);
         else if (status.Equals("rejected", StringComparison.OrdinalIgnoreCase))
             query = query.Where(b => b.Status == BookingStatus.Rejected);
+        else if (status.Equals("cancelled", StringComparison.OrdinalIgnoreCase))
+            query = query.Where(b => b.Status == BookingStatus.Cancelled);
+        else if (status.Equals("completed", StringComparison.OrdinalIgnoreCase))
+            query = query.Where(b => b.Status == BookingStatus.Completed);
 
         if (!string.IsNullOrWhiteSpace(q))
         {
             query = query.Where(b =>
+                (b.CustomerNameSnapshot != null && b.CustomerNameSnapshot.Contains(q)) ||
+                (b.CustomerEmailSnapshot != null && b.CustomerEmailSnapshot.Contains(q)) ||
                 (b.User != null && b.User.Email != null && b.User.Email.Contains(q)) ||
                 (b.Tour != null && b.Tour.Title.Contains(q)) ||
                 (b.Stay != null && b.Stay.Name.Contains(q)) ||
@@ -64,7 +102,9 @@ public class AdminManageBookingsController : Controller
                 (b.Destination != null && b.Destination.Title.Contains(q)));
         }
 
-        var list = await query.OrderByDescending(b => b.DecisionedAtUtc ?? b.CreatedAtUtc).ToListAsync();
+        var list = await query
+            .OrderByDescending(b => b.CancelledAtUtc ?? b.DecisionedAtUtc ?? b.CreatedAtUtc)
+            .ToListAsync();
 
         var decidedByIds = list
             .Select(b => b.DecisionedByUserId)
@@ -108,9 +148,9 @@ public class AdminManageBookingsController : Controller
 
         await CreateReservationNotificationAsync(
             row,
-            "Reservation accepted",
+            "Your trip has been approved",
             "ReservationAccepted",
-            "Your reservation request for {0} has been accepted. Our concierge team will contact you shortly with the next steps.");
+            "Your trip has been approved. Payment is now available for {0}.");
 
         TempData["Message"] = "Reservation accepted.";
         return RedirectToAction(nameof(Index));

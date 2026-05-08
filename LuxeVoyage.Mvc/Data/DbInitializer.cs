@@ -9,8 +9,10 @@ namespace LuxeVoyage.Mvc.Data;
 public static class DbInitializer
 {
     private const string AdminRole = "Admin";
-    private const string StaffRole = "Staff";
     private const string PersonnelRole = "Personnel";
+
+    // Identity roles used by [Authorize] are "Admin" and "Personnel" only.
+    // The login UI tab labeled "Staff" is the concierge portal; there is no separate Identity role named "Staff".
 
     public static async Task SeedAsync(IServiceProvider services)
     {
@@ -26,9 +28,6 @@ public static class DbInitializer
 
         if (!await roleManager.RoleExistsAsync(AdminRole))
             await roleManager.CreateAsync(new IdentityRole(AdminRole));
-
-        if (!await roleManager.RoleExistsAsync(StaffRole))
-            await roleManager.CreateAsync(new IdentityRole(StaffRole));
 
         if (!await roleManager.RoleExistsAsync(PersonnelRole))
             await roleManager.CreateAsync(new IdentityRole(PersonnelRole));

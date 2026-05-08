@@ -14,6 +14,12 @@ public sealed class AdminUserRowViewModel
     public bool IsAdmin { get; init; }
     public bool IsPersonnel { get; init; }
     public bool HasRelatedRecords { get; init; }
+    /// <summary>True when Identity lockout prevents sign-in (legacy disable-only, not anonymized).</summary>
+    public bool IsDisabled { get; init; }
+    /// <summary>Login anonymized (archived email); history retained under same UserId.</summary>
+    public bool IsRemoved { get; init; }
+    /// <summary>Locked out but not yet archived — can use legacy Reactivate.</summary>
+    public bool CanReactivate { get; init; }
 }
 
 public sealed class AdminAnalyticsViewModel
@@ -54,4 +60,41 @@ public sealed class AdminSettingsViewModel
     public int CurrentYear { get; init; }
     public string DemoNote { get; init; } =
         "This deployment uses seeded demo data and local SQLite storage. Do not use for production without configuration review.";
+}
+
+public sealed class PaymentSuccessViewModel
+{
+    public Booking Booking { get; set; } = null!;
+    public Payment? Payment { get; set; }
+}
+
+public sealed class AdminPendingReservationRowVm
+{
+    public Booking Booking { get; set; } = null!;
+    public Payment? PaidPayment { get; set; }
+    public bool HasFailedPaymentAttempt { get; set; }
+    public bool QuoteAvailable { get; set; }
+    public decimal? QuoteAmount { get; set; }
+}
+
+public sealed class AdminDashboardMainViewModel
+{
+    public decimal TotalPaidRevenueUsd { get; init; }
+    public int PaidBookingsCount { get; init; }
+    public int PendingUnpaidRequestsCount { get; init; }
+    public IReadOnlyList<AdminRecentPaymentRowVm> RecentPaidPayments { get; init; } =
+        Array.Empty<AdminRecentPaymentRowVm>();
+
+    public string DemoRevenueNote { get; init; } =
+        "Demo revenue — amounts simulate funds credited to the LuxeVoyage portfolio account (no bank transfer).";
+}
+
+public sealed class AdminRecentPaymentRowVm
+{
+    public decimal Amount { get; init; }
+    public string Currency { get; init; } = "USD";
+    public DateTime? PaidAtUtc { get; init; }
+    public string? TransactionReference { get; init; }
+    public string GuestEmail { get; init; } = "";
+    public string ItemLabel { get; init; } = "";
 }

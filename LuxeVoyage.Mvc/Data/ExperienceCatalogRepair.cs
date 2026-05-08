@@ -3,7 +3,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LuxeVoyage.Mvc.Data;
 
-/// <summary>Ensures experience slugs match public URLs and inserts homepage/catalog gaps without duplicating rows.</summary>
+/// <summary>
+/// Ensures experience slugs match public URLs and inserts homepage/catalog gaps without duplicating rows.
+/// Does not overwrite CMS copy on existing rows; slug normalization only. Booleans (IsActive / IsVisibleOnListing) are never forced from templates on every startup.
+/// </summary>
 public static class ExperienceCatalogRepair
 {
     /// <summary>Experiences keyed by slug — inserted only if no row with that slug exists.</summary>
@@ -101,15 +104,8 @@ public static class ExperienceCatalogRepair
             e.Slug = slug;
         }
 
-        foreach (var slug in new[] { "holistic-wellness" })
-        {
-            var row = await ctx.Experiences.FirstOrDefaultAsync(e => e.Slug == slug);
-            if (row != null)
-            {
-                row.IsActive = true;
-                row.IsVisibleOnListing = true;
-            }
-        }
+        // CMS-safe: do not force IsActive / IsVisibleOnListing on every startup for specific slugs —
+        // admins may intentionally hide an experience; visibility is controlled in catalog admin or initial seed.
 
         await ctx.SaveChangesAsync();
     }

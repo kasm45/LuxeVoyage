@@ -1,4 +1,7 @@
-@model IEnumerable<LuxeVoyage.Mvc.Models.Booking>
+@using LuxeVoyage.Mvc.Helpers
+@using LuxeVoyage.Mvc.Models
+@using LuxeVoyage.Mvc.Models.ViewModels
+@model IEnumerable<AdminPendingReservationRowVm>
 <div class="px-8 py-10 font-body-md">
 <h1 class="font-h2 text-h2 mb-8 text-slate-900 dark:text-white">Reservations</h1>
 @if (!string.IsNullOrWhiteSpace((string?)TempData["Message"]))
@@ -7,33 +10,98 @@
     @TempData["Message"]
 </div>
 }
-<div class="admin-table-wrap">
-<table class="w-full text-sm border-collapse">
-<thead class="border-b text-slate-500"><tr><th class="py-3 text-left">Id</th><th class="py-3">Guest</th><th class="py-3">Item</th><th class="py-3">Dates</th><th class="py-3">Status</th><th class="py-3"></th></tr></thead>
+<div class="admin-table-wrap overflow-x-auto">
+<table class="w-full text-sm border-collapse min-w-[920px]">
+<thead class="border-b text-slate-500"><tr>
+<th class="py-3 text-left">Id</th>
+<th class="py-3">Guest</th>
+<th class="py-3">Item</th>
+<th class="py-3">Dates</th>
+<th class="py-3">Booking</th>
+<th class="py-3">Payment</th>
+<th class="py-3 text-right">Est. / Paid</th>
+<th class="py-3">Txn ref</th>
+<th class="py-3">Paid at</th>
+<th class="py-3">Billing</th>
+<th class="py-3"></th>
+</tr></thead>
 <tbody>
 @if (!Model.Any())
 {
-<tr><td colspan="6" class="py-6"><div class="admin-empty-state"><h3>No reservations yet</h3><p>Reservations will appear here once guests submit requests.</p></div></td></tr>
+<tr><td colspan="11" class="py-6"><div class="admin-empty-state"><h3>No reservations yet</h3><p>Reservations will appear here once guests submit requests.</p></div></td></tr>
 }
-@foreach (var b in Model)
+@foreach (var row in Model)
 {
+var b = row.Booking;
 var item = b.Tour?.Title ?? b.Stay?.Name ?? b.Experience?.Title ?? b.Destination?.Title ?? "—";
 var statusClass = b.Status switch
 {
-    LuxeVoyage.Mvc.Models.BookingStatus.Pending => "admin-status-pending",
-    LuxeVoyage.Mvc.Models.BookingStatus.Accepted => "admin-status-confirmed",
-    LuxeVoyage.Mvc.Models.BookingStatus.Rejected => "admin-status-cancelled",
+    BookingStatus.Pending => "admin-status-pending",
+    BookingStatus.Accepted => "admin-status-confirmed",
+    BookingStatus.Rejected => "admin-status-cancelled",
+    BookingStatus.Completed => "admin-status-completed",
+    BookingStatus.Cancelled => "admin-status-traveler-cancelled",
     _ => "admin-status-pending"
 };
+string payLabel;
+string payClass;
+if (row.PaidPayment != null)
+{
+    payLabel = "Paid";
+    payClass = "border-emerald-200 bg-emerald-50 text-emerald-800";
+}
+else if (row.HasFailedPaymentAttempt)
+{
+    payLabel = "Failed";
+    payClass = "border-rose-200 bg-rose-50 text-rose-800";
+}
+else if (b.Status == BookingStatus.Pending)
+{
+    payLabel = "Not available yet";
+    payClass = "border-slate-200 bg-slate-100 text-slate-700";
+}
+else
+{
+    payLabel = "Ready for payment";
+    payClass = "border-indigo-200 bg-indigo-50 text-indigo-900";
+}
 <tr class="border-b border-slate-100 dark:border-slate-800">
-<td class="py-3">#@b.Id</td>
-<td class="py-3">@(b.User?.Email ?? b.UserId)</td>
-<td class="py-3 max-w-[200px] truncate" title="@item">@item</td>
-<td class="py-3 whitespace-nowrap">@b.StartDate.ToString("MMM d") – @b.EndDate.ToString("MMM d")</td>
-<td class="py-3"><span class="admin-status-badge @statusClass">@b.Status</span></td>
-<td class="py-3 whitespace-nowrap">
+<td class="py-3 align-top">#@b.Id</td>
+<td class="py-3 align-top max-w-[160px] break-words">@AdminUserDisplayHelper.GuestDisplayName(b, b.User)</td>
+<td class="py-3 align-top max-w-[180px] truncate" title="@item">@item</td>
+<td class="py-3 align-top whitespace-nowrap">@b.StartDate.ToString("MMM d") – @b.EndDate.ToString("MMM d")</td>
+<td class="py-3 align-top"><span class="admin-status-badge @statusClass">@BookingStatusDisplay.StaffHistoryLabel(b.Status)</span></td>
+<td class="py-3 align-top"><span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold @payClass">@payLabel</span></td>
+<td class="py-3 align-top text-right whitespace-nowrap">
+@if (row.PaidPayment != null)
+{
+    <span class="font-semibold">@row.PaidPayment.Currency $@row.PaidPayment.Amount.ToString("0.00")</span>
+}
+else if (row.QuoteAmount.HasValue)
+{
+    <span class="text-on-surface-variant">Est. $@row.QuoteAmount.Value.ToString("0.00")</span>
+}
+else
+{
+    <span class="text-slate-400">—</span>
+}
+</td>
+<td class="py-3 align-top font-mono text-[11px] max-w-[140px] break-all text-on-surface-variant">@(row.PaidPayment?.TransactionReference ?? "—")</td>
+<td class="py-3 align-top whitespace-nowrap text-xs text-on-surface-variant">@(row.PaidPayment?.PaidAtUtc.HasValue == true ? row.PaidPayment!.PaidAtUtc!.Value.ToString("MMM d HH:mm") + " UTC" : "—")</td>
+<td class="py-3 align-top text-xs max-w-[160px]">
+@if (row.PaidPayment != null)
+{
+    <div class="font-medium text-on-surface">@row.PaidPayment.BillingName</div>
+    <div class="text-on-surface-variant break-all">@row.PaidPayment.BillingEmail</div>
+}
+else
+{
+    <span class="text-slate-400">—</span>
+}
+</td>
+<td class="py-3 align-top whitespace-nowrap">
 <div class="admin-row-actions">
-@if (b.Status == LuxeVoyage.Mvc.Models.BookingStatus.Pending)
+@if (b.Status == BookingStatus.Pending)
 {
     <form asp-action="Accept" asp-route-id="@b.Id" method="post" class="inline" onsubmit="return confirm('Accept this reservation request?');">
         @Html.AntiForgeryToken()
@@ -44,13 +112,21 @@ var statusClass = b.Status switch
         <button type="submit" class="inline-flex items-center rounded-full border border-rose-200 bg-rose-50 px-3 py-1.5 text-xs font-semibold text-rose-700 transition-colors hover:bg-rose-100">Reject</button>
     </form>
 }
-else if (b.Status == LuxeVoyage.Mvc.Models.BookingStatus.Accepted)
+else if (b.Status == BookingStatus.Accepted)
 {
-    <span class="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700">Accepted</span>
+    <span class="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700">Confirmed</span>
 }
-else if (b.Status == LuxeVoyage.Mvc.Models.BookingStatus.Rejected)
+else if (b.Status == BookingStatus.Rejected)
 {
-    <span class="inline-flex items-center rounded-full border border-rose-200 bg-rose-50 px-3 py-1.5 text-xs font-semibold text-rose-700">Rejected</span>
+    <span class="inline-flex items-center rounded-full border border-rose-200 bg-rose-50 px-3 py-1.5 text-xs font-semibold text-rose-700">Unavailable</span>
+}
+else if (b.Status == BookingStatus.Cancelled)
+{
+    <span class="inline-flex items-center rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1.5 text-xs font-semibold text-indigo-800">Cancelled</span>
+}
+else if (b.Status == BookingStatus.Completed)
+{
+    <span class="inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-3 py-1.5 text-xs font-semibold text-blue-800">Completed</span>
 }
 </div>
 </td>

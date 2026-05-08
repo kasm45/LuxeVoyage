@@ -37,5 +37,18 @@ public class Booking
     public DateTime? DecisionedAtUtc { get; set; }
     public string? DecisionedByUserId { get; set; }
 
+    /// <summary>Set when the traveler cancels a pending or confirmed reservation.</summary>
+    public DateTime? CancelledAtUtc { get; set; }
+
     public DateTime CreatedAtUtc { get; set; } = DateTime.UtcNow;
+
+    /// <summary>Immutable traveler display name captured at booking creation or before account removal.</summary>
+    [MaxLength(200)]
+    public string? CustomerNameSnapshot { get; set; }
+
+    /// <summary>Immutable contact email captured at booking creation or before account removal (never the archived synthetic address).</summary>
+    [MaxLength(256)]
+    public string? CustomerEmailSnapshot { get; set; }
+
+    public ICollection<Payment> Payments { get; set; } = new List<Payment>();
 }

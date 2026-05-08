@@ -35,6 +35,13 @@
 
 <div asp-validation-summary="ModelOnly" class="text-error text-sm mb-3"></div>
 
+@if (!string.IsNullOrWhiteSpace((string?)TempData["Message"]))
+{
+<div class="mb-4 rounded-xl border border-primary/25 bg-primary-fixed/10 px-4 py-3 text-sm text-on-surface">
+    @TempData["Message"]
+</div>
+}
+
 <form asp-controller="Account" asp-action="Login" method="post" class="space-y-4" id="lv-login-form">
 @Html.AntiForgeryToken()
 <input type="hidden" asp-for="ReturnUrl" />

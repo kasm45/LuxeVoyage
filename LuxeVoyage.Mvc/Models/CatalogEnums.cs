@@ -34,7 +34,7 @@ public enum RegionKind
     PacificIslands = 7
 }
 
-/// <summary>Stored as int in SQLite. Do not renumber without a data migration — values 0–3 are used in existing rows.</summary>
+/// <summary>Stored as int in SQLite. Do not renumber without a data migration — values 0–3 are used in existing rows; <see cref="BookingStatus.Cancelled"/> is 4.</summary>
 public enum BookingStatus
 {
     Pending = 0,
@@ -42,7 +42,9 @@ public enum BookingStatus
     Accepted = 1,
     /// <summary>Admin rejected the request (displayed as &quot;Unavailable&quot; / cancelled styling in UIs).</summary>
     Rejected = 2,
-    Completed = 3
+    Completed = 3,
+    /// <summary>Canceled by the traveler or superseded; use <see cref="Booking.CancelledAtUtc"/> when set by guest.</summary>
+    Cancelled = 4
 }
 
 public enum FavoriteTargetKind
@@ -51,4 +53,13 @@ public enum FavoriteTargetKind
     Destination = 1,
     Stay = 2,
     Tour = 3
+}
+
+/// <summary>Demo portfolio payments only — not a real PSP.</summary>
+public enum PaymentStatus
+{
+    Pending = 0,
+    Paid = 1,
+    Failed = 2,
+    Refunded = 3
 }

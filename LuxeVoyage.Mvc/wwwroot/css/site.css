@@ -577,6 +577,11 @@ html {
   color: #1d4ed8;
 }
 
+.admin-status-traveler-cancelled {
+  background: rgba(99, 102, 241, 0.14);
+  color: #4338ca;
+}
+
 .lv-empty-state,
 .admin-empty-state {
   background: #fff;

@@ -1,25 +1,37 @@
 ﻿@model ErrorViewModel
 @{
-    ViewData["Title"] = "Error";
+    ViewData["Title"] = "Something went wrong";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+<main class="min-h-[calc(100vh-4rem)] bg-gradient-to-b from-[#f6f3ef] to-[#faf8f5] pt-24 pb-16 dark:from-slate-950 dark:to-slate-900">
+    <div class="mx-auto max-w-lg px-4 sm:px-6">
+        <div class="rounded-3xl border border-slate-200/90 bg-white/95 p-8 shadow-[0_24px_60px_-16px_rgba(15,23,42,0.12)] backdrop-blur-sm dark:border-slate-700/80 dark:bg-slate-900/95 dark:shadow-black/30">
+            <p class="font-h3 text-xs font-semibold uppercase tracking-[0.18em] text-[#9A6442]">LuxeVoyage</p>
+            <h1 class="mt-4 font-h3 text-2xl font-bold tracking-tight text-[#1e3a5f] dark:text-slate-50 sm:text-[1.75rem]">
+                Something went wrong
+            </h1>
+            <p class="mt-4 font-body-md text-body-md leading-relaxed text-slate-600 dark:text-slate-300">
+                We couldn’t complete this request, but your trip details are safe. Please try again or return home.
+            </p>
 
-@if (Model.ShowRequestId)
-{
-    <p>
-        <strong>Request ID:</strong> <code>@Model.RequestId</code>
-    </p>
-}
+            @if (Model.ShowRequestId)
+            {
+                <p class="mt-6 text-xs text-slate-400 dark:text-slate-500">
+                    Reference ID: <span class="font-mono tabular-nums text-slate-500 dark:text-slate-400">@Model.RequestId</span>
+                </p>
+            }
 
-<h3>Development Mode</h3>
-<p>
-    Swapping to <strong>Development</strong> environment will display more detailed information about the error that occurred.
-</p>
-<p>
-    <strong>The Development environment shouldn't be enabled for deployed applications.</strong>
-    It can result in displaying sensitive information from exceptions to end users.
-    For local debugging, enable the <strong>Development</strong> environment by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>
-    and restarting the app.
-</p>
+            <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <a asp-controller="Home" asp-action="Index"
+                   class="inline-flex items-center justify-center rounded-[14px] border border-slate-200 bg-white px-5 py-3 text-center text-sm font-semibold text-[#1e3a5f] shadow-sm transition hover:bg-slate-50 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700">
+                    Back to Home
+                </a>
+                <a asp-controller="Destinations" asp-action="Index"
+                   class="inline-flex items-center justify-center rounded-[14px] bg-gradient-to-r from-primary to-[#A56B4A] px-5 py-3 text-center text-sm font-semibold text-white shadow-[0_8px_24px_-6px_rgba(122,75,49,0.35)] transition hover:brightness-105">
+                    Explore Destinations
+                </a>
+            </div>
+        </div>
+    </div>
+</main>

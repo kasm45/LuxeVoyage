@@ -1,38 +1,340 @@
+@using LuxeVoyage.Mvc.Models
+
 @model LuxeVoyage.Mvc.Models.Booking
+
 @{
+
     Layout = "~/Views/Shared/_Layout.cshtml";
+
     var itemName = Model.Tour?.Title ?? Model.Stay?.Name ?? Model.Experience?.Title ?? Model.Destination?.Title ?? "Your selected listing";
+
+    string exploreLabel;
+
+    string exploreUrl;
+
+    if (Model.DestinationId != null && Model.Destination != null)
+
+    {
+
+        exploreUrl = Url.Action("Index", "Destinations") ?? "/destinations";
+
+        exploreLabel = "View destinations";
+
+    }
+
+    else if (Model.ExperienceId != null)
+
+    {
+
+        exploreUrl = Url.Action("Index", "Experiences") ?? "/experiences";
+
+        exploreLabel = "View experiences";
+
+    }
+
+    else if (Model.TourId != null)
+
+    {
+
+        exploreUrl = Url.Action("Index", "Tours") ?? "/tours";
+
+        exploreLabel = "View tours";
+
+    }
+
+    else if (Model.StayId != null)
+
+    {
+
+        exploreUrl = Url.Action("Index", "Hotels") ?? "/hotels";
+
+        exploreLabel = "View stays";
+
+    }
+
+    else
+
+    {
+
+        exploreUrl = Url.Action("Index", "Destinations") ?? "/destinations";
+
+        exploreLabel = "View destinations";
+
+    }
+
+
+
+    var basketUrl = Url.Action("Index", "Cart") ?? "/cart";
+
+    var tripsUrl = Url.Action("Reservations", "Account") ?? "/account/reservations";
+
+    var paid = ViewBag.PaidPayment as LuxeVoyage.Mvc.Models.Payment;
+
+    var quoteCanPay = ViewBag.QuoteCanPay as bool? ?? false;
+
+    var quoteAmount = ViewBag.QuoteAmount as decimal? ?? 0m;
+
+    var checkoutUrl = ViewBag.CheckoutUrl as string ?? "#";
+
+    var successUrl = ViewBag.PaymentSuccessUrl as string ?? "#";
+
+
+
+    string pageTitle = Model.Status switch
+
+    {
+
+        BookingStatus.Pending => "Your trip request is in review",
+
+        BookingStatus.Accepted => paid != null ? "Your trip is secured" : "Your trip is approved",
+
+        BookingStatus.Rejected => "This request is unavailable",
+
+        BookingStatus.Cancelled => "Reservation cancelled",
+
+        _ => "Reservation"
+
+    };
+
 }
+
 <main class="pt-28 pb-16 px-gutter md:px-xl max-w-container-max mx-auto min-h-screen">
+
     <section class="max-w-2xl mx-auto bg-surface-container-lowest border border-outline-variant rounded-2xl shadow-[0_18px_45px_rgba(15,23,42,0.08)] p-8 md:p-10">
-        <h1 class="font-h2 text-h2 text-on-surface mb-3">Reservation request received</h1>
-        <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-6">
-            Thank you for your reservation request. Our concierge team has received your details and will review them shortly. We will contact you soon to confirm availability, finalize your itinerary, and answer any questions you may have.
-        </p>
+
+        @if (!string.IsNullOrWhiteSpace((string?)TempData["Error"]))
+        {
+            <div class="mb-6 rounded-2xl border border-red-200 bg-red-50 px-5 py-4 text-sm text-red-900">
+                @TempData["Error"]
+            </div>
+        }
+
+        <h1 class="font-h2 text-h2 text-on-surface mb-3">@pageTitle</h1>
+
+        @if (Model.Status == BookingStatus.Pending)
+
+        {
+
+            <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-6">
+
+                Thanks — our concierge team received your request. <strong class="text-on-surface">Waiting for concierge review.</strong> Payment opens after approval.
+
+            </p>
+
+        }
+
+        else if (Model.Status == BookingStatus.Accepted && paid == null)
+
+        {
+
+            <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-6">
+
+                Great news — <strong class="text-on-surface">Approved — payment available.</strong> Complete payment to secure your trip.
+
+            </p>
+
+        }
+
+        else if (Model.Status == BookingStatus.Accepted && paid != null)
+
+        {
+
+            <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-6">
+
+                <strong class="text-on-surface">Payment received.</strong> Your trip is secured — details are in My trips.
+
+            </p>
+
+        }
+
+        else if (Model.Status == BookingStatus.Rejected)
+
+        {
+
+            <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-6">
+
+                <strong class="text-on-surface">Unavailable.</strong> This request was not available for the selected dates.
+
+            </p>
+
+        }
+
+        else
+
+        {
+
+            <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-6">
+
+                You can follow this reservation from your travel basket or My trips.
+
+            </p>
+
+        }
+
+
 
         <dl class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+
             <div>
+
                 <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Item</dt>
+
                 <dd class="font-body-md text-on-surface">@itemName</dd>
+
             </div>
+
             <div>
+
                 <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Status</dt>
-                <dd><span class="admin-status-badge admin-status-pending">Pending</span></dd>
+
+                <dd>
+
+                    @if (Model.Status == BookingStatus.Pending)
+
+                    {
+
+                        <span class="admin-status-badge admin-status-pending">Waiting for concierge review</span>
+
+                    }
+
+                    else if (Model.Status == BookingStatus.Accepted)
+
+                    {
+
+                        <span class="admin-status-badge admin-status-confirmed">Confirmed</span>
+
+                    }
+
+                    else if (Model.Status == BookingStatus.Rejected)
+
+                    {
+
+                        <span class="admin-status-badge admin-status-cancelled">Unavailable</span>
+
+                    }
+
+                    else if (Model.Status == BookingStatus.Cancelled)
+
+                    {
+
+                        <span class="admin-status-badge admin-status-traveler-cancelled">Cancelled</span>
+
+                    }
+
+                    else
+
+                    {
+
+                        <span class="admin-status-badge admin-status-pending">@Model.Status</span>
+
+                    }
+
+                </dd>
+
             </div>
+
             <div>
+
                 <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Dates</dt>
-                <dd class="font-body-md text-on-surface">@Model.StartDate.ToString("MMM d, yyyy") - @Model.EndDate.ToString("MMM d, yyyy")</dd>
+
+                <dd class="font-body-md text-on-surface">@Model.StartDate.ToString("MMM d, yyyy") – @Model.EndDate.ToString("MMM d, yyyy")</dd>
+
             </div>
+
             <div>
+
                 <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Guests</dt>
+
                 <dd class="font-body-md text-on-surface">@Model.Guests</dd>
+
             </div>
+
         </dl>
 
-        <div class="flex flex-wrap gap-3">
-            <a asp-controller="Destinations" asp-action="Index" class="rounded-xl bg-primary text-on-primary px-5 py-3 font-label-sm text-label-sm">Back to Explore</a>
-            <a asp-controller="Hotels" asp-action="Index" class="rounded-xl border border-outline-variant text-on-surface px-5 py-3 font-label-sm text-label-sm">View Stays</a>
-            <a asp-controller="Home" asp-action="Index" class="rounded-xl border border-outline-variant text-on-surface-variant px-5 py-3 font-label-sm text-label-sm">Back to Home</a>
+
+
+        <div class="rounded-xl border border-outline-variant bg-surface-container-low p-5 mb-8">
+
+            <p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-3">Payment</p>
+
+            @if (paid != null)
+
+            {
+
+                <p class="font-body-md text-on-surface mb-2">
+
+                    <span class="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-900 mr-2">Payment received</span>
+
+                    @paid.Currency $@paid.Amount.ToString("0.00") · Ref <span class="font-mono text-xs">@paid.TransactionReference</span>
+
+                </p>
+
+                <p class="text-sm text-on-surface-variant mb-3">Your trip is secured.</p>
+
+                <a href="@successUrl" class="text-sm font-semibold text-[#9A6442] hover:underline underline-offset-4">View payment receipt</a>
+
+            }
+
+            else if (Model.Status == BookingStatus.Pending)
+
+            {
+
+                <p class="font-body-md text-on-surface-variant">Payment opens after approval. You will be notified when checkout is available.</p>
+
+            }
+
+            else if (Model.Status == BookingStatus.Rejected || Model.Status == BookingStatus.Cancelled)
+
+            {
+
+                <p class="font-body-md text-on-surface-variant">Payment is not available for this reservation.</p>
+
+            }
+
+            else if (Model.Status == BookingStatus.Accepted && quoteCanPay && quoteAmount > 0)
+
+            {
+
+                <p class="font-body-md text-on-surface-variant mb-4">Approved — payment available. Estimated total: <strong class="text-on-surface">$@quoteAmount.ToString("0.00") USD</strong>.</p>
+
+                <a href="@checkoutUrl" class="inline-flex items-center justify-center rounded-xl bg-primary text-on-primary px-5 py-3 font-label-sm text-label-sm shadow-sm hover:brightness-105 transition-all">Pay now</a>
+
+            }
+
+            else if (Model.Status == BookingStatus.Accepted)
+
+            {
+
+                <p class="font-body-md text-on-surface-variant">Awaiting concierge quote — your concierge will confirm the final amount before payment.</p>
+
+            }
+
+            else
+
+            {
+
+                <p class="font-body-md text-on-surface-variant">Payment status will appear here when applicable.</p>
+
+            }
+
         </div>
+
+
+
+        <div class="flex flex-wrap gap-3">
+
+            <a href="@basketUrl" class="rounded-xl bg-primary text-on-primary px-5 py-3 font-label-sm text-label-sm shadow-sm hover:brightness-105 transition-all">View basket</a>
+
+            <a href="@tripsUrl" class="rounded-xl border border-outline-variant text-on-surface px-5 py-3 font-label-sm text-label-sm hover:bg-surface-container-low transition-colors">View My trips</a>
+
+            <a href="@exploreUrl" class="rounded-xl border border-outline-variant text-on-surface px-5 py-3 font-label-sm text-label-sm hover:bg-surface-container-low transition-colors">@exploreLabel</a>
+
+            <a asp-controller="Home" asp-action="Index" class="rounded-xl border border-outline-variant text-on-surface-variant px-5 py-3 font-label-sm text-label-sm hover:bg-surface-container-low transition-colors">Back to Home</a>
+
+        </div>
+
     </section>
+
 </main>
+
+

@@ -10,6 +10,9 @@
         : (string.IsNullOrWhiteSpace(Model.HighlightTagline)
             ? Enumerable.Empty<string>()
             : Model.HighlightTagline.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries));
+    var tripStart = DateTime.Today.AddDays(14).ToString("yyyy-MM-dd");
+    var tripEnd = DateTime.Today.AddDays(21).ToString("yyyy-MM-dd");
+    var priceLead = string.IsNullOrWhiteSpace(Model.PriceDisplay) ? "Custom quote" : Model.PriceDisplay;
 }
 <style>
   .lv-booking-card { background: #fff; border: 1px solid rgba(148, 106, 74, 0.18); border-radius: 18px; box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08); padding: 1.1rem; display: flex; flex-direction: column; gap: 0.85rem; }
@@ -288,12 +291,33 @@ else
 <div class="lg:col-span-4 relative">
 <div id="lv-booking-panel" class="sticky top-[120px]">
 <div class="lv-booking-card">
-<div class="lv-booking-eyebrow">Planning from</div>
-<div class="lv-booking-price">@Model.PriceDisplay</div>
+<div class="lv-booking-eyebrow">Trip from</div>
+<div class="lv-booking-price">@priceLead</div>
 <div class="lv-booking-subcopy">Tell us your dates and party size — we’ll tailor stays, transfers, and signature experiences.</div>
 @if (Model.NumericId is int nid)
 {
-<a asp-controller="Bookings" asp-action="Create" asp-route-destinationId="@nid" class="lv-booking-cta">Start planning</a>
+<form method="get" asp-controller="Bookings" asp-action="Create" class="flex flex-col gap-3 mt-1">
+<input type="hidden" name="destinationId" value="@nid" />
+<div>
+<label class="text-[11px] font-bold uppercase tracking-[0.08em] text-[#64748b]">Trip start</label>
+<input type="date" name="startDate" value="@tripStart" required class="mt-1 w-full rounded-xl border border-[rgba(148,106,74,0.35)] bg-white px-3 py-2.5 text-sm text-[#0f172a]" autocomplete="off" />
+</div>
+<div>
+<label class="text-[11px] font-bold uppercase tracking-[0.08em] text-[#64748b]">Trip end</label>
+<input type="date" name="endDate" value="@tripEnd" required class="mt-1 w-full rounded-xl border border-[rgba(148,106,74,0.35)] bg-white px-3 py-2.5 text-sm text-[#0f172a]" autocomplete="off" />
+</div>
+<div>
+<label class="text-[11px] font-bold uppercase tracking-[0.08em] text-[#64748b]">Guests</label>
+<input type="number" name="guests" value="2" min="1" max="20" required class="mt-1 w-full rounded-xl border border-[rgba(148,106,74,0.35)] bg-white px-3 py-2.5 text-sm text-[#0f172a]" autocomplete="off" />
+</div>
+<button type="submit" class="lv-booking-cta border-0 cursor-pointer">Request This Trip</button>
+</form>
+<div class="mt-3 flex justify-center w-full">
+@{
+    var basketReturn = $"{Context.Request.Path}{Context.Request.QueryString}";
+}
+<partial name="_AddToCartButton" model="new LuxeVoyage.Mvc.Models.ViewModels.AddToCartButtonModel { ItemType = LuxeVoyage.Mvc.Helpers.CartItemTypes.Destination, ItemId = nid, ReturnUrl = basketReturn }" />
+</div>
 }
 <div class="lv-booking-meta">
 <span class="lv-booking-note">No charge today</span>
@@ -301,9 +325,9 @@ else
 <span class="lv-booking-note">Concierge support included</span>
 </div>
 <div class="lv-booking-rows">
-<div class="lv-booking-row"><span>Planning from</span><span>@Model.PriceDisplay</span></div>
-<div class="lv-booking-row"><span>Guide price</span><span>@Model.PriceDisplay</span></div>
-<div class="lv-booking-row"><span>Tailored quote</span><span>Available</span></div>
+<div class="lv-booking-row"><span>Planning from</span><span>@priceLead</span></div>
+<div class="lv-booking-row"><span>Guide price</span><span>@priceLead</span></div>
+<div class="lv-booking-row"><span>Tailored quote</span><span>@(string.IsNullOrWhiteSpace(Model.PriceDisplay) ? "Yes — concierge" : "Available")</span></div>
 </div>
 </div>
 </div>

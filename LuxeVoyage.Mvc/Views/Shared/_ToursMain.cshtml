@@ -55,6 +55,7 @@ else
 <div class="p-margin-mobile flex flex-col flex-grow">
 <div class="flex justify-between items-start gap-sm mb-xs">
 <h3 class="font-h3 text-h3 text-primary line-clamp-1 flex-1 min-w-0 group-hover:text-primary">@t.Title</h3>
+<div class="flex items-center gap-1 shrink-0">
 <form asp-controller="Favorites" asp-action="Toggle" method="post" class="shrink-0 relative z-10 lv-favorite-form pointer-events-auto">
 @Html.AntiForgeryToken()
 <input type="hidden" name="itemType" value="Tour" />
@@ -64,6 +65,8 @@ else
 <span class="material-symbols-outlined lv-favorite-icon" style="font-variation-settings: 'FILL' @(t.IsFavorite ? "1" : "0");">@(t.IsFavorite ? "favorite" : "favorite_border")</span>
 </button>
 </form>
+<partial name="_AddToCartButton" model="new LuxeVoyage.Mvc.Models.ViewModels.AddToCartButtonModel { ItemType = LuxeVoyage.Mvc.Helpers.CartItemTypes.Tour, ItemId = t.Id, ReturnUrl = returnUrl }" />
+</div>
 </div>
 <p class="font-body-md text-body-md text-on-surface-variant mb-md line-clamp-2 flex-grow">@(string.IsNullOrWhiteSpace(t.Summary) ? "Curated itinerary with premium pacing and concierge support." : t.Summary)</p>
 <div class="flex items-center justify-between mb-md border-t border-surface-container pt-md">
